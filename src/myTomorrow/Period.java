@@ -2,6 +2,12 @@ package myTomorrow;
 
 import sun.util.calendar.BaseCalendar.Date;
 
+/**
+ * Period when a person can take appointment or lessons.
+ * 
+ * @author myTomorrowProject
+ * @version 1.0.0
+ */
 public class Period
 {
 	/** Start date of the period. */
