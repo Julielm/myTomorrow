@@ -1,5 +1,8 @@
 package myTomorrow;
 
+import sun.util.calendar.BaseCalendar.Date;
+
+
 /**
  * Time slot of an appointment or a lesson.
  * 
@@ -8,24 +11,39 @@ package myTomorrow;
  */
 public class TimeSlot
 {
-	//TODO watch how to link the Time type and Date type with Java
 	/** Start time of the task.*/
-	private final Time startTime;
+	private final Date startTime;
 	/** End time of the task. */
-	private final Time endTime;
-	/** Day of the task.*/
-	private final Date date;
+	private final Date endTime;
+	
 	
 	/**
 	 * Constructor of a time slot.
 	 * @param startTime
 	 * @param endTime
-	 * @param date
 	 */
-	public TimeSlot(Time startTime, Time endTime, Date date)
+	public TimeSlot(Date startTime, Date endTime)
 	{
 		this.startTime=startTime;
 		this.endTime=endTime;
-		this.date=date;
+		
+	}
+
+	/**
+	 * Getter for the start time.
+	 * @return the startTime
+	 */
+	public Date getStartTime()
+	{
+		return this.startTime;
+	}
+
+	/**
+	 * Getter for the endTime.
+	 * @return the endTime
+	 */
+	public Date getEndTime()
+	{
+		return this.endTime;
 	}
 }
