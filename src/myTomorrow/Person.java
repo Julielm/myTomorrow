@@ -15,6 +15,7 @@ public class Person
 	private final String name;
 	/** Person's first name.*/
 	private final String firstName;
+	private final Period period;
 	/** Number of lessons of the person.*/
 	private final int lessonsNumber;
 	
@@ -23,11 +24,13 @@ public class Person
 	 * @param name
 	 * @param firstName
 	 */
-	public Person(String name, String firstName)
+	public Person(String name, String firstName, Period period)
 	{
 		this.name=name;
 		this.firstName=firstName;
+		this.period=period;
 		this.lessonsNumber=DEFAULT_LESSONS_NUMBER;
+		
 	}
 	
 	/**
@@ -36,12 +39,14 @@ public class Person
 	 * @param firstName
 	 * @param lessonNumber
 	 */
-	public Person(String name, String firstName, int lessonsNumber)
+	public Person(String name, String firstName, Period period, int lessonsNumber)
 	{
 		//TODO exception for lessonsNumber<0
 		this.name=name;
 		this.firstName=firstName;
+		this.period=period;
 		this.lessonsNumber=lessonsNumber;
+		
 	}
 	
 	/**
@@ -69,6 +74,15 @@ public class Person
 	public int getLessonNumber()
 	{
 		return this.lessonsNumber;
+	}
+
+	/**
+	 * Getter for the period.
+	 * @return the period
+	 */
+	public Period getPeriod()
+	{
+		return this.period;
 	}
 	
 }

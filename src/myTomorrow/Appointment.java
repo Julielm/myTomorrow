@@ -27,4 +27,31 @@ public class Appointment
 		this.person=person;
 		this.timeSlot=timeSlot;
 	}
+
+	/**
+	 * Getter for the duration.
+	 * @return the duration
+	 */
+	public int getDuration()
+	{
+		return this.duration;
+	}
+
+	/**
+	 * Getter for the person.
+	 * @return the person
+	 */
+	public Person getPerson()
+	{
+		return this.person;
+	}
+
+	/**
+	 * Getter for the timeSlot.
+	 * @return the timeSlot
+	 */
+	public TimeSlot getTimeSlot()
+	{
+		return this.timeSlot;
+	}
 }
