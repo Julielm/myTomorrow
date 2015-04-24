@@ -1,16 +1,17 @@
 package myTomorrow;
 
+import java.util.ArrayList;
+
 /**
  * Person of a lesson or a appointment.
  * 
  * @author myTomorrowProject
  * @version 1.0.0
  */
-
 public class Person
 {
 	/** Number of lessons by default.*/
-	public final static int DEFAULT_LESSONS_NUMBER=0;
+	public static final int DEFAULT_LESSONS_NUMBER=0;
 	/** Person's name.*/
 	private final String name;
 	/** Person's first name.*/
@@ -18,6 +19,8 @@ public class Person
 	private final Period period;
 	/** Number of lessons of the person.*/
 	private final int lessonsNumber;
+	/** List of the lessons of the person. */
+	private final ArrayList<Lesson> lessonList;
 	
 	/** 
 	 * Constructor of a person for an appointment.
@@ -30,6 +33,7 @@ public class Person
 		this.firstName=firstName;
 		this.period=period;
 		this.lessonsNumber=DEFAULT_LESSONS_NUMBER;
+		this.lessonList=new ArrayList<Lesson>();
 		
 	}
 	
@@ -46,7 +50,7 @@ public class Person
 		this.firstName=firstName;
 		this.period=period;
 		this.lessonsNumber=lessonsNumber;
-		
+		this.lessonList=new ArrayList<Lesson>();		
 	}
 	
 	/**
@@ -83,6 +87,15 @@ public class Person
 	public Period getPeriod()
 	{
 		return this.period;
+	}
+	
+	/**
+	 * Getter for the lessonList.
+	 * @return the lessonList
+	 */
+	public ArrayList<Lesson> getLessonList()
+	{
+		return this.lessonList;
 	}
 	
 }

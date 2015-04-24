@@ -8,7 +8,7 @@ package myTomorrow;
  */
 public class Appointment
 {
-	/** Duration of the appointment.*/
+	/** Duration of the appointment in minutes.*/
 	private final int duration;
 	/** Person who takes the appointment.*/
 	private final Person person;
