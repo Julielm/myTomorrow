@@ -11,9 +11,9 @@ import java.util.Calendar;
 public class Period
 {
 	/** Start date of the period. */
-	private final Calendar startDate;
+	private Calendar startDate;
 	/** End date of the period. */
-	private final Calendar endDate;
+	private Calendar endDate;
 	
 	/**
 	 * Constructor of a Period.

@@ -1,6 +1,7 @@
 package myTomorrow;
 
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -26,17 +27,52 @@ public class Application
 	 * Constructor of an application.
 	 */
 	public Application(){
-		this.calendar = new ArrayList<TimeSlot>();
+		this.calendar = new LinkedList<TimeSlot>();
 		this.myIHM = new UserIHM();
+	}
+	
+	//TODO JavaDoc and continue the method.
+	public void addAppointment(){
+		Appointment appointment = this.myIHM.inputAppointment();
+		
+	}
+	
+	//TODO JavaDoc.
+	private TimeSlot searchTimeSlot(Period period, int duration) {
+		TimeSlot timeSlot = new TimeSlot(null, null);
+		Calendar calendar = Calendar.getInstance();
+		while (period.getStartDate().before(period.getEndDate()) && timeSlot.getStartTime() == null) {
+			int index = 0;
+			while (this.calendar.get(index).getStartTime().before(period.getStartDate()) && index < this.calendar.size()) {
+				index++;
+			}
+			if (index == this.calendar.size()) {
+				try {
+					timeSlot.setCalendar(timeSlot.getStartTime(), period.getStartDate().YEAR, period.getStartDate().MONTH, period.getStartDate().DAY_OF_MONTH, period.getStartDate().DAY_OF_WEEK, 9, 0);
+				}
+				catch (SaturdayException e){
+					period.getStartDate().add(Calendar.DAY_OF_MONTH, 2);
+					timeSlot.getStartTime().set(period.getStartDate().YEAR, period.getStartDate().MONTH,period.getStartDate().DAY_OF_MONTH , 9, 0);
+				}
+				catch (SundayException f) {
+					period.getStartDate().add(Calendar.DAY_OF_MONTH, 1);
+					timeSlot.getStartTime().set(period.getStartDate().YEAR, period.getStartDate().MONTH,period.getStartDate().DAY_OF_MONTH , 9, 0);
+				}
+			//TODO Continue the method and optimize it and review the algorithm.
+
+				
+			}
+		}
+		return timeSlot;
 	}
 	
 	/**
 	 * Getter for the calendar.
 	 * @return the calendar
 	 */
-	public ArrayList<TimeSlot> getCalendar()
+	public LinkedList<TimeSlot> getCalendar()
 	{
-		return (ArrayList<TimeSlot>)this.calendar;
+		return (LinkedList<TimeSlot>)this.calendar;
 	}
 
 	/**
@@ -47,4 +83,5 @@ public class Application
 	{
 		return this.myIHM;
 	}
+	
 }
