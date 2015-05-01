@@ -1,6 +1,7 @@
 package myTomorrow;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Person of a lesson or a appointment.
@@ -20,7 +21,7 @@ public class Person
 	/** Number of lessons of the person.*/
 	private final int lessonsNumber;
 	/** List of the lessons of the person. */
-	private final ArrayList<Lesson> lessonList;
+	private final List<Lesson> lessonList;
 	
 	/** 
 	 * Constructor of a person for an appointment.
@@ -95,7 +96,7 @@ public class Person
 	 */
 	public ArrayList<Lesson> getLessonList()
 	{
-		return this.lessonList;
+		return (ArrayList<Lesson>)this.lessonList;
 	}
 	
 }

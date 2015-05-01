@@ -1,6 +1,6 @@
 package myTomorrow;
 
-import sun.util.calendar.BaseCalendar.Date;
+import java.util.Calendar;
 
 /**
  * Period when a person can take appointment or lessons.
@@ -11,16 +11,16 @@ import sun.util.calendar.BaseCalendar.Date;
 public class Period
 {
 	/** Start date of the period. */
-	private final Date startDate;
+	private final Calendar startDate;
 	/** End date of the period. */
-	private final Date endDate;
+	private final Calendar endDate;
 	
 	/**
 	 * Constructor of a Period.
 	 * @param startDate
 	 * @param endDate
 	 */
-	public Period(Date startDate, Date endDate)
+	public Period(Calendar startDate, Calendar endDate)
 	{
 		this.startDate=startDate;
 		this.endDate=endDate;
@@ -30,7 +30,7 @@ public class Period
 	 * Getter for the start date.
 	 * @return the startDate
 	 */
-	public Date getStartDate()
+	public Calendar getStartDate()
 	{
 		return this.startDate;
 	}
@@ -39,7 +39,7 @@ public class Period
 	 * Getter for the end Date.
 	 * @return the endDate
 	 */
-	public Date getEndDate()
+	public Calendar getEndDate()
 	{
 		return this.endDate;
 	}

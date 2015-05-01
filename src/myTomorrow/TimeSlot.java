@@ -1,6 +1,6 @@
 package myTomorrow;
 
-import sun.util.calendar.BaseCalendar.Date;
+import java.util.Calendar;
 
 
 /**
@@ -12,9 +12,9 @@ import sun.util.calendar.BaseCalendar.Date;
 public class TimeSlot
 {
 	/** Start time of the task.*/
-	private final Date startTime;
+	private final Calendar startTime;
 	/** End time of the task. */
-	private final Date endTime;
+	private final Calendar endTime;
 	
 	
 	/**
@@ -22,7 +22,7 @@ public class TimeSlot
 	 * @param startTime
 	 * @param endTime
 	 */
-	public TimeSlot(Date startTime, Date endTime)
+	public TimeSlot(Calendar startTime, Calendar endTime)
 	{
 		this.startTime=startTime;
 		this.endTime=endTime;
@@ -33,7 +33,7 @@ public class TimeSlot
 	 * Getter for the start time.
 	 * @return the startTime
 	 */
-	public Date getStartTime()
+	public Calendar getStartTime()
 	{
 		return this.startTime;
 	}
@@ -42,7 +42,7 @@ public class TimeSlot
 	 * Getter for the endTime.
 	 * @return the endTime
 	 */
-	public Date getEndTime()
+	public Calendar getEndTime()
 	{
 		return this.endTime;
 	}

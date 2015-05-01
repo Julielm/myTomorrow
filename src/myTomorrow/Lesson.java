@@ -1,6 +1,8 @@
 package myTomorrow;
 
+import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Lesson for a predefined number of persons.
@@ -8,7 +10,7 @@ import java.util.LinkedList;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Lesson
+public class Lesson extends TimeSlot
 {
 	/** Maximum number of persons in the lesson by default. */
 	public static final int DEFAULT_MAX_PERS_NB=3;
@@ -23,18 +25,24 @@ public class Lesson
 	/** Number of persons. */
 	private int persNb;
 	/** List of the persons in the lesson. */
-	private final LinkedList<Person> personList;
-	/** Time slot of the lesson.*/
-	private final TimeSlot timeSlot;
+	private final List<Person> personsList;
 	
-	public Lesson(String title, int duration, TimeSlot timeslot)
+	/**
+	 * Constructor of a Lesson.
+	 * @param title
+	 * @param duration
+	 * @param startTime
+	 * @param endTime
+	 */
+	public Lesson(String title, int duration, Calendar startTime, Calendar endTime)
 	{
+		super(startTime, endTime);
 		this.title=title;
 		this.duration=duration;
 		this.maxPersNb=DEFAULT_MAX_PERS_NB;
 		this.persNb=DEFAULT_PERS_NB;
-		this.personList=new LinkedList<Person>();
-		this.timeSlot=timeslot;
+		this.personsList=new LinkedList<Person>();
+
 	}
 
 	/**
@@ -80,16 +88,6 @@ public class Lesson
 	 */
 	public LinkedList<Person> getPersonList()
 	{
-		return this.personList;
+		return (LinkedList<Person>)this.personsList;
 	}
-
-	/**
-	 * Getter for the timeSlot.
-	 * @return the timeSlot
-	 */
-	public TimeSlot getTimeSlot()
-	{
-		return this.timeSlot;
-	}
-
 }
