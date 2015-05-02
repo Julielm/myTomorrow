@@ -1,8 +1,9 @@
 package myTomorrow;
 
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 
 /**
@@ -33,34 +34,37 @@ public class Application
 	
 	//TODO JavaDoc and continue the method.
 	public void addAppointment(){
-		Appointment appointment = this.myIHM.inputAppointment();
-		
+		Appointment appointment = this.myIHM.inputAppointment();	
 	}
 	
 	//TODO JavaDoc.
 	private TimeSlot searchTimeSlot(Period period, int duration) {
 		TimeSlot timeSlot = new TimeSlot(null, null);
-		Calendar calendar = Calendar.getInstance();
-		while (period.getStartDate().before(period.getEndDate()) && timeSlot.getStartTime() == null) {
+		DateTime dateTime = new DateTime();
+		while (period.getStartDate().isBefore(period.getEndDate()) && timeSlot.getStartTime() == null) {
 			int index = 0;
-			while (this.calendar.get(index).getStartTime().before(period.getStartDate()) && index < this.calendar.size()) {
+			while (this.calendar.get(index).getStartTime().isBefore(period.getStartDate()) && index < this.calendar.size()) {
 				index++;
 			}
 			if (index == this.calendar.size()) {
 				try {
-					timeSlot.setCalendar(timeSlot.getStartTime(), period.getStartDate().YEAR, period.getStartDate().MONTH, period.getStartDate().DAY_OF_MONTH, period.getStartDate().DAY_OF_WEEK, 9, 0);
+					timeSlot.setTime(timeSlot.getStartTime(), period.getStartDate());
+					DateTime time = this.myIHM.askTime();
+					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
 				}
 				catch (SaturdayException e){
-					period.getStartDate().add(Calendar.DAY_OF_MONTH, 2);
-					timeSlot.getStartTime().set(period.getStartDate().YEAR, period.getStartDate().MONTH,period.getStartDate().DAY_OF_MONTH , 9, 0);
+					period.getStartDate().plusDays(2);
+					timeSlot.getStartTime().withDate(period.getStartDate().getDayOfYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
+					DateTime time = this.myIHM.askTime();
+					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
 				}
 				catch (SundayException f) {
-					period.getStartDate().add(Calendar.DAY_OF_MONTH, 1);
-					timeSlot.getStartTime().set(period.getStartDate().YEAR, period.getStartDate().MONTH,period.getStartDate().DAY_OF_MONTH , 9, 0);
+					period.getStartDate().plusDays(1);
+					timeSlot.getStartTime().withDate(period.getStartDate().getDayOfYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
+					DateTime time = this.myIHM.askTime();
+					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
 				}
-			//TODO Continue the method and optimize it and review the algorithm.
-
-				
+			//TODO Continue the method and optimize it and review the algorithm.			
 			}
 		}
 		return timeSlot;

@@ -1,6 +1,7 @@
 package myTomorrow;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
+
 
 /**
  * Period when a person can take appointment or lessons.
@@ -11,16 +12,16 @@ import java.util.Calendar;
 public class Period
 {
 	/** Start date of the period. */
-	private Calendar startDate;
+	private DateTime startDate;
 	/** End date of the period. */
-	private Calendar endDate;
+	private DateTime endDate;
 	
 	/**
 	 * Constructor of a Period.
 	 * @param startDate
 	 * @param endDate
 	 */
-	public Period(Calendar startDate, Calendar endDate)
+	public Period(DateTime startDate, DateTime endDate)
 	{
 		this.startDate=startDate;
 		this.endDate=endDate;
@@ -30,7 +31,7 @@ public class Period
 	 * Getter for the start date.
 	 * @return the startDate
 	 */
-	public Calendar getStartDate()
+	public DateTime getStartDate()
 	{
 		return this.startDate;
 	}
@@ -39,7 +40,7 @@ public class Period
 	 * Getter for the end Date.
 	 * @return the endDate
 	 */
-	public Calendar getEndDate()
+	public DateTime getEndDate()
 	{
 		return this.endDate;
 	}

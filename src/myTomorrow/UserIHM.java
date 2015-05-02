@@ -2,6 +2,8 @@ package myTomorrow;
 
 import java.util.Scanner;
 
+import org.joda.time.DateTime;
+
 /**
  * User's IHM.
  * 
@@ -37,15 +39,24 @@ public class UserIHM
 		int month = scanner.nextInt();
 		System.out.println("année -->");
 		int year = scanner.nextInt();
-		period.getStartDate().set(year, month, date);
+		period.getStartDate().withDate(year, month, date);
 		System.out.println("Entrez la date de fin de la période: jour -->");
 		date = scanner.nextInt();
 		System.out.println("mois -->");
 		month = scanner.nextInt();
 		System.out.println("année -->");
 		year = scanner.nextInt();
-		period.getEndDate().set(year, month, date);
+		period.getEndDate().withDate(year, month, date);
 		System.out.println("Entrez la duree du rendez-vous en minutes");
 		duration = scanner.nextInt();
+	}
+	
+	public DateTime askTime() {
+		DateTime timeToReturn= new DateTime();
+		System.out.println("Entrez l'heure  --> ");
+		int hours = scanner.nextInt();
+		System.out.println("Entrez les minutes -->");
+		int minutes = scanner.nextInt();
+		return timeToReturn.withTime(hours, minutes, 0, 0);
 	}
 }

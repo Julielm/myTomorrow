@@ -1,6 +1,6 @@
 package myTomorrow;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
 
 /**
  * Appointment at person's home.
@@ -23,7 +23,7 @@ public class Appointment extends TimeSlot
 	 * @param startTime
 	 * @param endTime
 	 */
-	public Appointment(int duration, Person person, Calendar startTime, Calendar endTime)
+	public Appointment(int duration, Person person, DateTime startTime, DateTime endTime)
 	{
 		super(startTime, endTime);
 		this.duration=duration;

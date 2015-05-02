@@ -1,7 +1,6 @@
 package myTomorrow;
 
-import java.util.Calendar;
-
+import org.joda.time.DateTime;
 
 /**
  * Time slot of an appointment or a lesson.
@@ -12,9 +11,9 @@ import java.util.Calendar;
 public class TimeSlot
 {
 	/** Start time of the task.*/
-	private Calendar startTime;
+	private DateTime startTime;
 	/** End time of the task. */
-	private Calendar endTime;
+	private DateTime endTime;
 	
 	
 	/**
@@ -22,7 +21,7 @@ public class TimeSlot
 	 * @param startTime
 	 * @param endTime
 	 */
-	public TimeSlot(Calendar startTime, Calendar endTime)
+	public TimeSlot(DateTime startTime, DateTime endTime)
 	{
 		this.startTime=startTime;
 		this.endTime=endTime;
@@ -41,14 +40,14 @@ public class TimeSlot
 	 * @throws SaturdayException
 	 * @throws SundayException
 	 */
-	public void setCalendar(Calendar time, int year, int month, int dayOfMonth, int dayOfWeek, int hour, int minute) throws SaturdayException, SundayException {
-		if (dayOfWeek == 7) {
+	public void setTime(DateTime timeToSet, DateTime time) throws SaturdayException, SundayException {
+		if (time.dayOfWeek().get() == 7) {
 			throw new SaturdayException();
 		}
-		if (dayOfWeek == 1) {
+		if (time.dayOfWeek().get() == 1) {
 			throw new SundayException();
 		}
-		time.set(year, month, dayOfMonth, hour, minute);		
+		timeToSet=time;		
 	}
 	
 	
@@ -56,7 +55,7 @@ public class TimeSlot
 	 * Getter for the start time.
 	 * @return the startTime
 	 */
-	public Calendar getStartTime()
+	public DateTime getStartTime()
 	{
 		return this.startTime;
 	}
@@ -65,7 +64,7 @@ public class TimeSlot
 	 * Getter for the endTime.
 	 * @return the endTime
 	 */
-	public Calendar getEndTime()
+	public DateTime getEndTime()
 	{
 		return this.endTime;
 	}
