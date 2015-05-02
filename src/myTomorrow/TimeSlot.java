@@ -8,6 +8,10 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
+/**
+ * @author julie_000
+ *
+ */
 public class TimeSlot
 {
 	/** Start time of the task.*/
@@ -28,15 +32,12 @@ public class TimeSlot
 		
 	}
 
+
 	/**
-	 * Set in a calendar a new date, check if this date is not a saturday of a sunday.
+	 * Set in the time put in parameters a predefined time. 
+	 * 
+	 * @param timeToSet
 	 * @param time
-	 * @param year
-	 * @param month
-	 * @param dayOfMonth
-	 * @param dayOfWeek
-	 * @param hour
-	 * @param minute
 	 * @throws SaturdayException
 	 * @throws SundayException
 	 */

@@ -49,20 +49,20 @@ public class Application
 			if (index == this.calendar.size()) {
 				try {
 					timeSlot.setTime(timeSlot.getStartTime(), period.getStartDate());
-					DateTime time = this.myIHM.askTime();
-					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
 				}
 				catch (SaturdayException e){
 					period.getStartDate().plusDays(2);
 					timeSlot.getStartTime().withDate(period.getStartDate().getDayOfYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
-					DateTime time = this.myIHM.askTime();
-					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
 				}
 				catch (SundayException f) {
 					period.getStartDate().plusDays(1);
 					timeSlot.getStartTime().withDate(period.getStartDate().getDayOfYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
+				}
+				finally {
 					DateTime time = this.myIHM.askTime();
 					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
+					time = timeSlot.getStartTime().plusMinutes(duration);
+					timeSlot.getEndTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
 				}
 			//TODO Continue the method and optimize it and review the algorithm.			
 			}
