@@ -1,8 +1,9 @@
 package myTomorrow;
 
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 /**
  * Lesson for a predefined number of persons.
@@ -34,7 +35,7 @@ public class Lesson extends TimeSlot
 	 * @param startTime
 	 * @param endTime
 	 */
-	public Lesson(String title, int duration, Calendar startTime, Calendar endTime)
+	public Lesson(String title, int duration, DateTime startTime, DateTime endTime)
 	{
 		super(startTime, endTime);
 		this.title=title;
