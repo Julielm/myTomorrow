@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
 
 /**
@@ -47,25 +48,69 @@ public class Application
 				index++;
 			}
 			if (index == this.calendar.size()) {
-				try {
-					timeSlot.setTime(timeSlot.getStartTime(), period.getStartDate());
+				if (this.calendar.get(index-1).getEndTime().isBefore(period.getStartDate()) || this.calendar.get(index-1).getEndTime().isEqual(period.getStartDate())){
+					try {
+						timeSlot.setTime(timeSlot.getStartTime(), period.getStartDate());
+					}
+					catch (SaturdayException e){
+						period.getStartDate().plusDays(2);
+						timeSlot.getStartTime().withDate(period.getStartDate().getYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
+					}
+					catch (SundayException f) {
+						period.getStartDate().plusDays(1);
+						timeSlot.getStartTime().withDate(period.getStartDate().getYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
+					}
+					finally {
+						DateTime time = this.myIHM.askTime();
+						timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
+						time = timeSlot.getStartTime().plusMinutes(duration);
+						timeSlot.getEndTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
+					}
 				}
-				catch (SaturdayException e){
-					period.getStartDate().plusDays(2);
-					timeSlot.getStartTime().withDate(period.getStartDate().getDayOfYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
+				
+				else{
+					try {
+						timeSlot.setTime(timeSlot.getStartTime(), this.calendar.get(index-1).getEndTime());
+					}
+					catch (SaturdayException e){
+						this.calendar.get(index-1).getEndTime().plusDays(2);
+						timeSlot.getStartTime().withDate(this.calendar.get(index-1).getEndTime().getYear(), this.calendar.get(index-1).getEndTime().getMonthOfYear(), this.calendar.get(index-1).getEndTime().getDayOfMonth());
+					}
+					catch (SundayException f) {
+						this.calendar.get(index-1).getEndTime().plusDays(1);
+						timeSlot.getStartTime().withDate(this.calendar.get(index-1).getEndTime().getYear(), this.calendar.get(index-1).getEndTime().getMonthOfYear(), this.calendar.get(index-1).getEndTime().getDayOfMonth());
+					}
+					finally {
+						DateTime time = this.myIHM.askTime();
+						timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
+						time = timeSlot.getStartTime().plusMinutes(duration);
+						timeSlot.getEndTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
+					}
 				}
-				catch (SundayException f) {
-					period.getStartDate().plusDays(1);
-					timeSlot.getStartTime().withDate(period.getStartDate().getDayOfYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
-				}
-				finally {
-					DateTime time = this.myIHM.askTime();
-					timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
-					time = timeSlot.getStartTime().plusMinutes(duration);
-					timeSlot.getEndTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
-				}
+				
 			//TODO Continue the method and optimize it and review the algorithm.			
 			}
+			else{
+				dateTime = this.calendar.get(index-1).getEndTime();
+				if (dateTime.isBefore(period.getStartDate())){
+					dateTime = this.calendar.get(index).getStartTime();
+					DateTime datePlusDuration = period.getStartDate().plusMinutes(duration);
+					if (datePlusDuration.isBefore(dateTime) || datePlusDuration.isEqual(dateTime)){
+						timeSlot.getStartTime().withDate(period.getStartDate().getYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfYear());
+						//TODO implementation of hours and timeSlot.getEndTime() and manage hours when they are between 18:00 and 8:00
+					}
+					
+					else{
+						
+					}
+				}
+				else{
+					
+				}
+			}
+			
+			
+			
 		}
 		return timeSlot;
 	}
