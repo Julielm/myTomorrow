@@ -40,6 +40,20 @@ public class Application
 	
 	//TODO JavaDoc.
 	private TimeSlot searchTimeSlot(Period period, int duration) {
+		
+		// N.B. replace period by a single day timeslot
+		
+		// search in calendar for the list of all timeslots that are on the same day than the specified timeslot
+		// List<TimeSlots> timeSlotsOnSameDay = this.getAllTimeSlotsThatAreOnSameDay(timeSlot);
+		
+		// if result list is empty -> easy
+		// if not
+			// compute the list of durations between timeslots in result
+			// search for a duration at least equal to the specified duration in list
+			// if it exists -> easy
+			// if not -> easy
+		
+		
 		TimeSlot timeSlot = new TimeSlot(null, null);
 		DateTime dateTime = new DateTime();
 		while (period.getStartDate().isBefore(period.getEndDate()) && timeSlot.getStartTime() == null) {
