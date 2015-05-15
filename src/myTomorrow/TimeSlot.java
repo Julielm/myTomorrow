@@ -59,4 +59,22 @@ public class TimeSlot
 	{
 		return this.endTime;
 	}
+
+
+	/**
+	 * @param startTime the startTime to set
+	 */
+	public void setStartTime(DateTime startTime)
+	{
+		this.startTime = startTime;
+	}
+
+
+	/**
+	 * @param endTime the endTime to set
+	 */
+	public void setEndTime(DateTime endTime)
+	{
+		this.endTime = endTime;
+	}
 }

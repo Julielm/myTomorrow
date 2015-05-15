@@ -31,4 +31,5 @@ public class Appointment extends ScheduledEvent
 	{
 		return this.person;
 	}
+
 }
