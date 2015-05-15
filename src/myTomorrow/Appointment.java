@@ -1,42 +1,26 @@
 package myTomorrow;
 
-import org.joda.time.DateTime;
-
 /**
  * Appointment at person's home.
  * 
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Appointment extends TimeSlot
+public class Appointment extends ScheduledEvent
 {
-	/** Duration of the appointment in minutes.*/
-	private final int duration;
 	/** Person who takes the appointment.*/
 	private final Person person;
 	
 
 	/**
 	 * Constructor of an appointment.
-	 * @param duration
 	 * @param person
-	 * @param startTime
-	 * @param endTime
+	 * @param timeSlot
 	 */
-	public Appointment(int duration, Person person, DateTime startTime, DateTime endTime)
+	public Appointment(Person person, TimeSlot timeSlot)
 	{
-		super(startTime, endTime);
-		this.duration=duration;
+		super(timeSlot);
 		this.person=person;
-	}
-
-	/**
-	 * Getter for the duration.
-	 * @return the duration
-	 */
-	public int getDuration()
-	{
-		return this.duration;
 	}
 
 	/**
