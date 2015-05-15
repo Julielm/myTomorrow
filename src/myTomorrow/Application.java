@@ -37,105 +37,78 @@ public class Application
 	 * Add an appointment.
 	 */
 	public void addAppointment(){
-		Appointment appointment = this.myIHM.inputAppointment();	
+		//Appointment appointment = this.myIHM.inputAppointment();	
+		//test of a research of a time slot.
+		ScheduledEvent event = new ScheduledEvent(this.searchTimeSlot(new Day(15,05,2015), 30));
+		this.events.add(event);
+		
 	}
 	
 	//TODO JavaDoc.
 	private TimeSlot searchTimeSlot(Day day, int duration) {
-		
-		// search in calendar for the list of all timeslots that are on the same day than the specified timeslot
-		// List<TimeSlots> timeSlotsOnSameDay = this.getAllTimeSlotsThatAreOnSameDay(timeSlot);
-		
-		// if result list is empty -> easy
-		// if not
-			// compute the list of durations between timeslots in result
-			// search for a duration at least equal to the specified duration in list
-			// if it exists -> easy
-			// if not -> easy
-		
-		
-		TimeSlot timeSlot = new TimeSlot(null, null);
-		DateTime dateTime = new DateTime();
-		while (period.getStartDate().isBefore(period.getEndDate()) && timeSlot.getStartTime() == null) {
-			int index = 0;
-			while (this.calendar.get(index).getStartTime().isBefore(period.getStartDate()) && index < this.calendar.size()) {
-				index++;
-			}
-			if (index == this.calendar.size()) {
-				if (this.calendar.get(index-1).getEndTime().isBefore(period.getStartDate()) || this.calendar.get(index-1).getEndTime().isEqual(period.getStartDate())){
-					try {
-						timeSlot.setTime(timeSlot.getStartTime(), period.getStartDate());
-					}
-					catch (SaturdayException e){
-						period.getStartDate().plusDays(2);
-						timeSlot.getStartTime().withDate(period.getStartDate().getYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
-					}
-					catch (SundayException f) {
-						period.getStartDate().plusDays(1);
-						timeSlot.getStartTime().withDate(period.getStartDate().getYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfMonth());
-					}
-					finally {
-						DateTime time = this.myIHM.askTime();
-						timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
-						time = timeSlot.getStartTime().plusMinutes(duration);
-						timeSlot.getEndTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
-					}
-				}
-				
-				else{
-					try {
-						timeSlot.setTime(timeSlot.getStartTime(), this.calendar.get(index-1).getEndTime());
-					}
-					catch (SaturdayException e){
-						this.calendar.get(index-1).getEndTime().plusDays(2);
-						timeSlot.getStartTime().withDate(this.calendar.get(index-1).getEndTime().getYear(), this.calendar.get(index-1).getEndTime().getMonthOfYear(), this.calendar.get(index-1).getEndTime().getDayOfMonth());
-					}
-					catch (SundayException f) {
-						this.calendar.get(index-1).getEndTime().plusDays(1);
-						timeSlot.getStartTime().withDate(this.calendar.get(index-1).getEndTime().getYear(), this.calendar.get(index-1).getEndTime().getMonthOfYear(), this.calendar.get(index-1).getEndTime().getDayOfMonth());
-					}
-					finally {
-						DateTime time = this.myIHM.askTime();
-						timeSlot.getStartTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
-						time = timeSlot.getStartTime().plusMinutes(duration);
-						timeSlot.getEndTime().withTime(time.getHourOfDay(), time.getMinuteOfHour(), 0, 0);
-					}
-				}
-				
-			//TODO Continue the method and optimize it and review the algorithm.			
-			}
-			else{
-				dateTime = this.calendar.get(index-1).getEndTime();
-				if (dateTime.isBefore(period.getStartDate())){
-					dateTime = this.calendar.get(index).getStartTime();
-					DateTime datePlusDuration = period.getStartDate().plusMinutes(duration);
-					if (datePlusDuration.isBefore(dateTime) || datePlusDuration.isEqual(dateTime)){
-						timeSlot.getStartTime().withDate(period.getStartDate().getYear(), period.getStartDate().getMonthOfYear(), period.getStartDate().getDayOfYear());
-						//TODO implementation of hours and timeSlot.getEndTime() and manage hours when they are between 18:00 and 8:00
-					}
-					
-					else{
-						
-					}
-				}
-				else{
-					
-				}
-			}
-			
-			
-			
+		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameDay(day);
+		if (eventsOnSameDay.isEmpty()) {
+			return new TimeSlot(day.getStartTime(), day.getStartTime().plusMinutes(duration));
 		}
-		return timeSlot;
+		List<TimeSlot> freeTimeSlots = this.getAllFreeTimeSlots(eventsOnSameDay, duration, day);
+		if (freeTimeSlots.isEmpty()) {
+			return null;
+		}
+		return freeTimeSlots.get(0);	
+		
 	}
 	
-	/**
-	 * Getter for the calendar.
-	 * @return the calendar
-	 */
-	public LinkedList<TimeSlot> getCalendar()
+	private List<TimeSlot> getAllFreeTimeSlots(List<ScheduledEvent> eventsOnSameDay, int duration, Day day)
 	{
-		return (LinkedList<TimeSlot>)this.calendar;
+		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
+		
+		DateTime dateOfTheEvent = eventsOnSameDay.get(0).getTimeSlot().getStartTime();
+		DateTime dateOfTheEventMinusDuration = dateOfTheEvent.minusMinutes(duration);
+		
+		if (dateOfTheEventMinusDuration.isAfter(day.getStartTime()) || dateOfTheEventMinusDuration.isEqual(day.getStartTime())) {
+			freeTimeSlots.add(new TimeSlot(dateOfTheEventMinusDuration, dateOfTheEvent));
+		}
+		
+		DateTime dateOfThePreviousEvent = new DateTime();
+		for (int index=1; index < eventsOnSameDay.size(); index++) {
+			dateOfThePreviousEvent = eventsOnSameDay.get(index-1).getTimeSlot().getEndTime();
+			dateOfTheEvent = eventsOnSameDay.get(index).getTimeSlot().getStartTime();
+			dateOfTheEventMinusDuration = dateOfTheEvent.minusMinutes(duration);
+			
+			if (dateOfTheEventMinusDuration.isAfter(dateOfThePreviousEvent) ||dateOfTheEventMinusDuration.isEqual(dateOfThePreviousEvent)) {
+				freeTimeSlots.add(new TimeSlot(dateOfTheEventMinusDuration, dateOfTheEvent));
+			}
+		}
+		dateOfThePreviousEvent = eventsOnSameDay.get(eventsOnSameDay.size()-1).getTimeSlot().getEndTime();
+		DateTime dateOfTheEventPlusDuration = dateOfThePreviousEvent.plusMinutes(duration);
+		if (dateOfTheEventPlusDuration.isBefore(day.getEndTime()) || dateOfTheEventPlusDuration.isEqual(day.getEndTime())) {
+			freeTimeSlots.add(new TimeSlot(dateOfThePreviousEvent, dateOfTheEventPlusDuration));
+		}		
+		return freeTimeSlots;
+	}
+
+	private List<ScheduledEvent> getAllEventsThatAreOnSameDay(Day day)
+	{
+		List<ScheduledEvent> eventsOnSameDay = new LinkedList<ScheduledEvent>();
+		DateTime dateOfTheEvent = new DateTime();
+		DateTime dateOfTheDay = new DateTime();
+		for (ScheduledEvent event : this.events) {
+			dateOfTheEvent = event.getTimeSlot().getStartTime();
+			dateOfTheDay = day.getStartTime();
+			if ((dateOfTheEvent.dayOfMonth().get() == dateOfTheDay.dayOfMonth().get()) && (dateOfTheEvent.monthOfYear().get()== dateOfTheDay.monthOfYear().get()) && (dateOfTheEvent.year().get()==dateOfTheDay.year().get())) {
+				eventsOnSameDay.add(event);
+			}
+		}
+		return eventsOnSameDay;
+	}
+
+	/**
+	 * Getter for the events.
+	 * @return the events
+	 */
+	public LinkedList<ScheduledEvent> getEvents()
+	{
+		return (LinkedList<ScheduledEvent>)this.events;
 	}
 
 	/**
