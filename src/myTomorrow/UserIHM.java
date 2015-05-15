@@ -18,14 +18,14 @@ public class UserIHM
 	public Appointment inputAppointment() {
 		String name = "";
 		String firstName = "";
-		Period period = new Period(null, null);
+		Day period = new Day(null, null);
 		int duration=DEFAULT_APPOINTMENT_DURATION;
 		askAppointmentInformations(name, firstName, period, duration);
 		Person person = new Person(name, firstName, period);
 		return new Appointment(duration, person, period.getStartDate(), period.getEndDate());
 	}
 	
-	public void askAppointmentInformations(String name, String firstName, Period period, int duration) {
+	public void askAppointmentInformations(String name, String firstName, Day period, int duration) {
 		System.out.println("Entrez le nom de la personne");
 		String str = scanner.nextLine();
 		name = str;

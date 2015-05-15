@@ -18,7 +18,7 @@ public class Application
 	/**
 	 * List of the used time slots.
 	 */
-	private final List<TimeSlot> calendar;
+	private final List<ScheduledEvent> events;
 	
 	/** 
 	 * User's IHM.
@@ -29,19 +29,19 @@ public class Application
 	 * Constructor of an application.
 	 */
 	public Application(){
-		this.calendar = new LinkedList<TimeSlot>();
+		this.events = new LinkedList<ScheduledEvent>();
 		this.myIHM = new UserIHM();
 	}
 	
-	//TODO JavaDoc and continue the method.
+	/**
+	 * Add an appointment.
+	 */
 	public void addAppointment(){
 		Appointment appointment = this.myIHM.inputAppointment();	
 	}
 	
 	//TODO JavaDoc.
-	private TimeSlot searchTimeSlot(Period period, int duration) {
-		
-		// N.B. replace period by a single day timeslot
+	private TimeSlot searchTimeSlot(Day day, int duration) {
 		
 		// search in calendar for the list of all timeslots that are on the same day than the specified timeslot
 		// List<TimeSlots> timeSlotsOnSameDay = this.getAllTimeSlotsThatAreOnSameDay(timeSlot);

@@ -8,10 +8,6 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-/**
- * @author julie_000
- *
- */
 public class TimeSlot
 {
 	/** Start time of the task.*/
@@ -41,13 +37,7 @@ public class TimeSlot
 	 * @throws SaturdayException
 	 * @throws SundayException
 	 */
-	public void setTime(DateTime timeToSet, DateTime time) throws SaturdayException, SundayException {
-		if (time.dayOfWeek().get() == 7) {
-			throw new SaturdayException();
-		}
-		if (time.dayOfWeek().get() == 1) {
-			throw new SundayException();
-		}
+	public void setTime(DateTime timeToSet, DateTime time){
 		timeToSet=time;		
 	}
 	
