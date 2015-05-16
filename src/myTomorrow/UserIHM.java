@@ -2,8 +2,6 @@ package myTomorrow;
 
 import java.util.Scanner;
 
-import org.joda.time.DateTime;
-
 /**
  * User's IHM.
  * 
@@ -13,23 +11,35 @@ import org.joda.time.DateTime;
 public class UserIHM
 {
 	Scanner scanner = new Scanner(System.in);
-	
-	public Appointment inputAppointment(Day day, int duration) {
-		String name = "";
-		String firstName = "";
-		TimeSlot timeSlot=new TimeSlot(null, null);
-		day = askAppointmentInformations(name, firstName, duration);
-		Person person = new Person(name, firstName);
+	/**
+	 * Create a new appointment with no defined time slot.
+	 * @return an appointment
+	 */
+	public Appointment inputAppointment() {
+		TimeSlot timeSlot = new TimeSlot(null, null);
+		Person person = this.askPersonInformations();
 		return new Appointment(person, timeSlot);
 	}
 	
-	public Day askAppointmentInformations(String name, String firstName, int duration) {
+	/**
+	 * Person's informations for the event.
+	 * @return a Person
+	 */
+	public Person askPersonInformations() {
+		
 		System.out.println("Entrez le nom de la personne");
-		String str = scanner.nextLine();
-		name = str;
+		String name = scanner.nextLine();
 		System.out.println("Entrez le prénom de la personne");
-		str = scanner.nextLine();
-		firstName = str;
+		String firstName = scanner.nextLine();
+		return new Person(name, firstName);
+	}
+		
+	/**
+	 * Ask available day for the event.
+	 * @return a day
+	 */
+	public Day askAvailableDay() {
+		
 		System.out.println("Entrez le jour disponible de la personne");
 		System.out.println("Entrez la date : jour -->");
 		int date = scanner.nextInt();
@@ -37,17 +47,16 @@ public class UserIHM
 		int month = scanner.nextInt();
 		System.out.println("année -->");
 		int year = scanner.nextInt();
-		System.out.println("Entrez la duree du rendez-vous en minutes");
-		duration = scanner.nextInt();
 		return new Day(date, month, year);
 	}
 	
-	public DateTime askTime() {
-		DateTime timeToReturn= new DateTime();
-		System.out.println("Entrez l'heure  --> ");
-		int hours = scanner.nextInt();
-		System.out.println("Entrez les minutes -->");
-		int minutes = scanner.nextInt();
-		return timeToReturn.withTime(hours, minutes, 0, 0);
+	/**
+	 * Ask duration of the event.
+	 * @return a duration
+	 */
+	public int askDurationOfEvent() {
+		System.out.println("Entrez la duree du rendez-vous en minutes");
+		int duration = scanner.nextInt();
+		return duration;
 	}
 }

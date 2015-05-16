@@ -35,14 +35,10 @@ public class Application
 	 * Add an appointment.
 	 */
 	public void addAppointment(){
-		//TODO review the method InputAppointment and setTimeSlot ... 
-		Day day = new Day(1, 1, 2015);
-		int duration=0;
-		Appointment appointment = this.myIHM.inputAppointment(day, duration);	
-		System.out.println(appointment.getDurationOfEvent());
-		appointment.setTimeSlot(this.searchTimeSlot(day,duration));
+		Appointment appointment = this.myIHM.inputAppointment();	
+		appointment.setTimeSlot(this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent()));
+		//TODO Following methods of the case addAppointment.
 		this.events.add(appointment);
-		
 	}
 	
 	/**
