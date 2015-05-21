@@ -1,5 +1,7 @@
 package myTomorrow.model;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 /**
@@ -74,5 +76,23 @@ public class TimeSlot
 	public void setEndTime(DateTime endTime)
 	{
 		this.endTime = endTime;
+	}
+	
+	/**
+	 * Display a TimeSlot
+	 * @return a string
+	 */
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		String newLine = System.getProperty("line.separator");
+		str.append("Créneau : ");
+		str.append(newLine);
+		str.append("Date début : ");
+		str.append(this.getStartTime());
+		str.append(newLine);
+		str.append("Date fin : ");
+		str.append(this.getEndTime());
+		str.append(newLine);
+		return str.toString();
 	}
 }

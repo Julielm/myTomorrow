@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
 
 /**
@@ -53,5 +54,19 @@ public class UserIHMConsole implements UserIHM
 		System.out.println("Entrez la duree du rendez-vous en minutes");
 		int duration = scanner.nextInt();
 		return duration;
+	}
+
+	@Override
+	public boolean suggestTimeSlot(TimeSlot timeSlot)
+	{
+		System.out.println(timeSlot.toString());
+		System.out.println("Ce créneau vous convient-il ?");
+		System.out.println("1: Oui");
+		System.out.println("2: Non");
+		int answer = scanner.nextInt();
+		if (answer==1){
+			return true;
+		}
+		return  false;
 	}
 }

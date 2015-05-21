@@ -2,6 +2,7 @@ package myTomorrow.view;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.TimeSlot;
 
 /**
  * Interface for the user.
@@ -26,5 +27,10 @@ public interface UserIHM
 	 * @return the duration 
 	 */
 	public int askDurationOfEvent();
+	/**
+	 * @param timeSlot
+	 * @return the answer of the user
+	 */
+	public boolean suggestTimeSlot(TimeSlot timeSlot);
 
 }

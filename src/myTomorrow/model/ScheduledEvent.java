@@ -1,5 +1,6 @@
 package myTomorrow.model;
 
+
 /**
  * Scheduled event.
  * 
@@ -39,4 +40,5 @@ public class ScheduledEvent
 		this.getTimeSlot().setStartTime(time.getStartTime());
 		this.getTimeSlot().setEndTime((time.getEndTime()));
 	}
+	
 }

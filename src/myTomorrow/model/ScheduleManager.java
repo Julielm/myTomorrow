@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import myTomorrow.view.UserIHM;
+
 import org.joda.time.DateTime;
 
 /**
@@ -39,9 +40,17 @@ public class ScheduleManager
 	 */
 	public void addAppointment(){
 		Appointment appointment = this.inputAppointment();	
-		appointment.setTimeSlot(this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent()));
-		//TODO Following methods of the case addAppointment.
-		this.events.add(appointment);
+		List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
+		boolean answer = false;
+		int index = -1;
+		while (answer==false && index < freeTimeSlot.size()-1) {
+			index++;
+			answer=this.myIHM.suggestTimeSlot(freeTimeSlot.get(index));
+		}
+		if (answer){
+			appointment.setTimeSlot(freeTimeSlot.get(index));
+			this.events.add(appointment);
+		}
 	}
 	
 	/**
@@ -60,35 +69,69 @@ public class ScheduleManager
 	 * @param duration
 	 * @return a TimeSlot
 	 */
-	private TimeSlot searchTimeSlot(Day day, int duration) {
-		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameMorning(day);
+	private List<TimeSlot> searchTimeSlot(Day day, int duration) {
 		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
-		
-		if (eventsOnSameDay.isEmpty()) {
-			//Case where all the morning is free.
-			return new TimeSlot(day.getStartTime(), day.getStartTime().plusMinutes(duration));
-		}
-		freeTimeSlots = this.getAllFreeTimeSlotsInTheMorning(eventsOnSameDay, duration, day);
-		
-		if (freeTimeSlots.isEmpty()) {
-			eventsOnSameDay = this.getAllEventsThatAreOnSameAfternoon(day);
-			
-			if (!eventsOnSameDay.isEmpty()) {
-				freeTimeSlots = this.getAllFreeTimeSlotsInTheAfternoon(eventsOnSameDay, duration, day);
-				if (!freeTimeSlots.isEmpty()) {
-					//Case where there are place only in the afternoon.
-					return freeTimeSlots.get(0);
-				}
-				//Case where the isn't free place in all day.
-			}
-			//Case where all the afternoon is free.
-			DateTime date = new DateTime(day.getStartTime().getYear(), day.getStartTime().getMonthOfYear(), day.getStartTime().getDayOfMonth(), 14, 0);
-			return new TimeSlot(date, date.plusMinutes(duration));
-		}
-		//Case where there are place in the morning.
-		return freeTimeSlots.get(0);	
+		freeTimeSlots.addAll(this.possibleEventsInTheMorning(day, duration));
+		freeTimeSlots.addAll(this.possibleEventsInTheAfternoon(day, duration));
+		return freeTimeSlots;
 	}
 	
+	private List<TimeSlot> possibleEventsInTheAfternoon(Day day, int duration)
+	{
+		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameAfternoon(day);
+		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
+		if (eventsOnSameDay.isEmpty()) {
+			//Case where all the afternoon is free.
+			return this.GetAllTimeSlotsInTheAfternoon(day, duration);
+		}
+		freeTimeSlots = this.getAllFreeTimeSlotsInTheAfternoon(eventsOnSameDay, duration, day);
+		if (freeTimeSlots.isEmpty()) {
+			return null;
+		}
+		return freeTimeSlots;
+	}
+
+	private List<TimeSlot> possibleEventsInTheMorning(Day day, int duration)
+	{
+		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameMorning(day);
+		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
+		if (eventsOnSameDay.isEmpty()) {
+			//Case where all the morning is free.
+			return this.GetAllTimeSlotsInTheMorning(day, duration);
+		}
+		freeTimeSlots = this.getAllFreeTimeSlotsInTheMorning(eventsOnSameDay, duration, day);
+		if (freeTimeSlots.isEmpty()) {
+			return null;
+		}
+		return freeTimeSlots;
+	}
+
+	private List<TimeSlot> GetAllTimeSlotsInTheAfternoon(Day day, int duration)
+	{
+		List<TimeSlot> list =new LinkedList<TimeSlot>();
+		DateTime startTime = new DateTime(day.getStartTime().getYear(), day.getStartTime().getMonthOfYear(), day.getStartTime().getDayOfMonth(), 14, 0);
+		DateTime endTime = startTime.plusMinutes(duration);
+		while (endTime.isBefore(day.getEndTime())|| endTime.isEqual(day.getEndTime())) {
+			list.add(new TimeSlot(startTime, endTime));
+			startTime=endTime;
+			endTime = startTime.plusMinutes(duration);
+		}
+		return list;
+	}
+
+	private List<TimeSlot> GetAllTimeSlotsInTheMorning(Day day, int duration)
+	{
+		List<TimeSlot> list =new LinkedList<TimeSlot>();
+		DateTime startTime = new DateTime(day.getStartTime());
+		DateTime endTime = startTime.plusMinutes(duration);
+		while (endTime.getMinuteOfHour()<=12) {
+			list.add(new TimeSlot(startTime, endTime));
+			startTime=endTime;
+			endTime = startTime.plusMinutes(duration);
+		}
+		return list;
+	}
+
 	/**
 	 * Research of free time slots in the morning.
 	 * @param eventsOnSameDay
