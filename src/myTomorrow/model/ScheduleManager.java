@@ -1,8 +1,8 @@
-package myTomorrow;
+package myTomorrow.model;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import myTomorrow.view.console.UserIHM;
 import org.joda.time.DateTime;
 
 /**
@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Application
+public class ScheduleManager
 {
 	/**
 	 * List of the used time slots.
@@ -26,7 +26,7 @@ public class Application
 	/**
 	 * Constructor of an application.
 	 */
-	public Application(){
+	public ScheduleManager(){
 		this.events = new LinkedList<ScheduledEvent>();
 		this.myIHM = new UserIHM();
 	}

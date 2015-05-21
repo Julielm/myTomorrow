@@ -1,5 +1,9 @@
 package myTomorrow;
 
+import myTomorrow.model.ScheduleManager;
+import myTomorrow.model.ScheduledEvent;
+import myTomorrow.model.TimeSlot;
+
 import org.joda.time.DateTime;
 
 
@@ -18,8 +22,9 @@ public class ApplicationLauncher
 	 */
 	public static void main(String[] args)
 	{
+
 		// test addition of events and a research of a time slot
-		Application application = new Application();
+		ScheduleManager application = new ScheduleManager();
 		
 		application.getEvents().add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,8,15), new DateTime(2015,05,15,9,15))));
 		application.getEvents().add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,11,0), new DateTime(2015,05,15,11,15))));
