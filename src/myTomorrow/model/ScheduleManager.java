@@ -2,7 +2,8 @@ package myTomorrow.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import myTomorrow.view.console.UserIHM;
+
+import myTomorrow.view.UserIHM;
 import org.joda.time.DateTime;
 
 /**
@@ -25,20 +26,32 @@ public class ScheduleManager
 	
 	/**
 	 * Constructor of an application.
+	 * @param ihm 
+	 * 		chosen ihm, console or GUI
 	 */
-	public ScheduleManager(){
+	public ScheduleManager(UserIHM ihm){
 		this.events = new LinkedList<ScheduledEvent>();
-		this.myIHM = new UserIHM();
+		this.myIHM = ihm;
 	}
 	
 	/**
 	 * Add an appointment.
 	 */
 	public void addAppointment(){
-		Appointment appointment = this.myIHM.inputAppointment();	
+		Appointment appointment = this.inputAppointment();	
 		appointment.setTimeSlot(this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent()));
 		//TODO Following methods of the case addAppointment.
 		this.events.add(appointment);
+	}
+	
+	/**
+	 * Create a new appointment with no defined time slot.
+	 * @return an appointment
+	 */
+	public Appointment inputAppointment() {
+		TimeSlot timeSlot = new TimeSlot(null, null);
+		Person person = this.myIHM.askPersonInformations();
+		return new Appointment(person, timeSlot);
 	}
 	
 	/**

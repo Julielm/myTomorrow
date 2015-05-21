@@ -27,7 +27,8 @@ public class Lesson extends ScheduledEvent
 	/**
 	 * Constructor of a Lesson.
 	 * @param title
-	 * @param startTime
+	 * @param duration 
+	 * @param timeSlot 
 	 */
 	public Lesson(String title, int duration, TimeSlot timeSlot)
 	{

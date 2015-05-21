@@ -2,10 +2,9 @@ package myTomorrow.view.console;
 
 import java.util.Scanner;
 
-import myTomorrow.model.Appointment;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
-import myTomorrow.model.TimeSlot;
+import myTomorrow.view.UserIHM;
 
 /**
  * User's IHM.
@@ -13,18 +12,9 @@ import myTomorrow.model.TimeSlot;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class UserIHM
+public class UserIHMConsole implements UserIHM
 {
 	Scanner scanner = new Scanner(System.in);
-	/**
-	 * Create a new appointment with no defined time slot.
-	 * @return an appointment
-	 */
-	public Appointment inputAppointment() {
-		TimeSlot timeSlot = new TimeSlot(null, null);
-		Person person = this.askPersonInformations();
-		return new Appointment(person, timeSlot);
-	}
 	
 	/**
 	 * Person's informations for the event.

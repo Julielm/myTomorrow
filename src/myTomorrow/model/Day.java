@@ -22,6 +22,9 @@ public class Day extends TimeSlot
 	
 	/**
 	 * Constructor of a day.
+	 * @param day 
+	 * @param month 
+	 * @param year 
 	 */
 	public Day(int day, int month, int year)
 	{

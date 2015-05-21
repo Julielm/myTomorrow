@@ -1,7 +1,5 @@
 package myTomorrow.model;
 
-import org.joda.time.Duration;
-
 /**
  * Scheduled event.
  * 
@@ -32,10 +30,10 @@ public class ScheduledEvent
 		return this.timeSlot;
 	}
 	
-	public int getDurationOfEvent() {
-		return new Duration(timeSlot.getStartTime(), timeSlot.getEndTime()).toStandardMinutes().getMinutes();
-	}
-	
+	/**
+	 * Setter for the time slot.
+	 * @param time
+	 */
 	public void setTimeSlot(TimeSlot time)
 	{
 		this.getTimeSlot().setStartTime(time.getStartTime());
