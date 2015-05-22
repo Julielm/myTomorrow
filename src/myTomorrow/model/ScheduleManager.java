@@ -66,7 +66,7 @@ public class ScheduleManager
 	 */
 	private void addEventInASortList(ScheduledEvent event) {
 		int index = 0;
-		while (this.events.get(index).getTimeSlot().getStartTime().isBefore(event.getTimeSlot().getStartTime()) && index < this.events.size()) {
+		while (this.events.get(index).isBefore(event) && index < this.events.size()) {
 			index++;
 		}
 		this.events.add(index, event);

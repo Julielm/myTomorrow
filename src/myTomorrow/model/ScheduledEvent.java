@@ -41,4 +41,11 @@ public class ScheduledEvent
 		this.getTimeSlot().setEndTime((time.getEndTime()));
 	}
 	
+	public boolean isBefore(ScheduledEvent event) {
+		if (this.timeSlot.getStartTime().isBefore(event.timeSlot.getStartTime())) {
+			return true;
+		}
+		return false;
+	}
+	
 }
