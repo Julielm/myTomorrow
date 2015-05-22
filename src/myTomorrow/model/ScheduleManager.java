@@ -41,26 +41,43 @@ public class ScheduleManager
 	public void addAppointment(){
 		Appointment appointment = this.inputAppointment();	
 		List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
-		boolean answer = false;
-		int index = -1;
-		while (answer==false && index < freeTimeSlot.size()-1) {
-			index++;
-			answer=this.myIHM.suggestTimeSlot(freeTimeSlot.get(index));
+		if (freeTimeSlot.isEmpty()) {
+			this.myIHM.freeTimeSlotIsEmpty();
 		}
-		if (answer){
-			appointment.setTimeSlot(freeTimeSlot.get(index));
-			this.events.add(appointment);
+		else {
+			boolean answer = false;
+			int index = 0;
+			while (answer==false && index < freeTimeSlot.size()) {
+				answer=this.myIHM.suggestTimeSlot(freeTimeSlot.get(index));
+				index++;
+			}
+			if (answer){
+				appointment.setTimeSlot(freeTimeSlot.get(index-1));
+				addEventInASortList(appointment);
+			}
+			this.myIHM.userDontWantTheseFreeTimeSlots();
 		}
+		
 	}
 	
+	/**
+	 * Add an event in the sort list of events.
+	 * @param event
+	 */
+	private void addEventInASortList(ScheduledEvent event) {
+		int index = 0;
+		while (this.events.get(index).getTimeSlot().getStartTime().isBefore(event.getTimeSlot().getStartTime()) && index < this.events.size()) {
+			index++;
+		}
+		this.events.add(index, event);
+	}
 	/**
 	 * Create a new appointment with no defined time slot.
 	 * @return an appointment
 	 */
-	public Appointment inputAppointment() {
+	private Appointment inputAppointment() {
 		TimeSlot timeSlot = new TimeSlot(null, null);
-		Person person = this.myIHM.askPersonInformations();
-		return new Appointment(person, timeSlot);
+		return new Appointment(this.myIHM.askPersonInformations(), timeSlot);
 	}
 	
 	/**
@@ -76,21 +93,7 @@ public class ScheduleManager
 		return freeTimeSlots;
 	}
 	
-	private List<TimeSlot> possibleEventsInTheAfternoon(Day day, int duration)
-	{
-		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameAfternoon(day);
-		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
-		if (eventsOnSameDay.isEmpty()) {
-			//Case where all the afternoon is free.
-			return this.GetAllTimeSlotsInTheAfternoon(day, duration);
-		}
-		freeTimeSlots = this.getAllFreeTimeSlotsInTheAfternoon(eventsOnSameDay, duration, day);
-		if (freeTimeSlots.isEmpty()) {
-			return null;
-		}
-		return freeTimeSlots;
-	}
-
+	
 	private List<TimeSlot> possibleEventsInTheMorning(Day day, int duration)
 	{
 		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameMorning(day);
@@ -100,12 +103,21 @@ public class ScheduleManager
 			return this.GetAllTimeSlotsInTheMorning(day, duration);
 		}
 		freeTimeSlots = this.getAllFreeTimeSlotsInTheMorning(eventsOnSameDay, duration, day);
-		if (freeTimeSlots.isEmpty()) {
-			return null;
-		}
 		return freeTimeSlots;
 	}
 
+	private List<TimeSlot> possibleEventsInTheAfternoon(Day day, int duration)
+	{
+		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameAfternoon(day);
+		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
+		if (eventsOnSameDay.isEmpty()) {
+			//Case where all the afternoon is free.
+			return this.GetAllTimeSlotsInTheAfternoon(day, duration);
+		}
+		freeTimeSlots = this.getAllFreeTimeSlotsInTheAfternoon(eventsOnSameDay, duration, day);
+		return freeTimeSlots;
+	}
+	
 	private List<TimeSlot> GetAllTimeSlotsInTheAfternoon(Day day, int duration)
 	{
 		List<TimeSlot> list =new LinkedList<TimeSlot>();
@@ -124,7 +136,7 @@ public class ScheduleManager
 		List<TimeSlot> list =new LinkedList<TimeSlot>();
 		DateTime startTime = new DateTime(day.getStartTime());
 		DateTime endTime = startTime.plusMinutes(duration);
-		while (endTime.getMinuteOfHour()<=12) {
+		while (endTime.getHourOfDay()<=12) {
 			list.add(new TimeSlot(startTime, endTime));
 			startTime=endTime;
 			endTime = startTime.plusMinutes(duration);
@@ -233,6 +245,33 @@ public class ScheduleManager
 		}
 		return eventsOnSameDay;
 	}
+	
+	public void addLesson() {
+		Lesson lesson = this.inputLesson();	
+		List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
+		if (freeTimeSlot.isEmpty()) {
+			this.myIHM.freeTimeSlotIsEmpty();
+		}
+		else {
+			boolean answer = false;
+			int index = 0;
+			while (answer==false && index < freeTimeSlot.size()) {
+				answer=this.myIHM.suggestTimeSlot(freeTimeSlot.get(index));
+				index++;
+			}
+			if (answer){
+				lesson.setTimeSlot(freeTimeSlot.get(index-1));
+				addEventInASortList(lesson);
+			}
+			this.myIHM.userDontWantTheseFreeTimeSlots();
+		}
+	}
+	private Lesson inputLesson()
+	{
+		TimeSlot timeSlot = new TimeSlot(null, null);
+		return new Lesson(this.myIHM.askTitleOfTheLesson(),timeSlot);
+	}
+
 	/**
 	 * Getter for the events.
 	 * @return the events

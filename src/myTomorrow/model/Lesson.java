@@ -30,7 +30,7 @@ public class Lesson extends ScheduledEvent
 	 * @param duration 
 	 * @param timeSlot 
 	 */
-	public Lesson(String title, int duration, TimeSlot timeSlot)
+	public Lesson(String title, TimeSlot timeSlot)
 	{
 		super(timeSlot);
 		this.title=title;

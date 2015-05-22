@@ -32,5 +32,10 @@ public interface UserIHM
 	 * @return the answer of the user
 	 */
 	public boolean suggestTimeSlot(TimeSlot timeSlot);
+	
+	public void freeTimeSlotIsEmpty();
+	
+	public void userDontWantTheseFreeTimeSlots();
+	public String askTitleOfTheLesson();
 
 }

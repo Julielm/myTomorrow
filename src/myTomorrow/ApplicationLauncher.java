@@ -32,7 +32,7 @@ public class ApplicationLauncher
 		application.getEvents().add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,8,15), new DateTime(2015,05,15,9,15))));
 		application.getEvents().add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,11,0), new DateTime(2015,05,15,11,15))));
 		application.getEvents().add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,15,0), new DateTime(2015,05,15,15,30))));
-		application.addAppointment();
+		application.addLesson();
 		for (ScheduledEvent events : application.getEvents()) {
 			System.out.println("évenement : ");
 			System.out.println("Date début : ");

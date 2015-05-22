@@ -1,7 +1,5 @@
 package myTomorrow.model;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
 
 /**

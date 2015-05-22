@@ -69,4 +69,25 @@ public class UserIHMConsole implements UserIHM
 		}
 		return  false;
 	}
+
+	@Override
+	public void freeTimeSlotIsEmpty()
+	{
+		System.out.println("Il n'y a pas de créneaux libres ce jour.");
+		
+	}
+
+	@Override
+	public void userDontWantTheseFreeTimeSlots()
+	{
+		System.out.println("Il n'y a plus de créneaux.");
+		
+	}
+
+	@Override
+	public String askTitleOfTheLesson()
+	{
+		System.out.println("Entrez l'intitulé du cours -->");
+		return scanner.nextLine();
+	}
 }
