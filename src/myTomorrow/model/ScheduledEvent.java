@@ -42,10 +42,7 @@ public class ScheduledEvent
 	}
 	
 	public boolean isBefore(ScheduledEvent event) {
-		if (this.timeSlot.getStartTime().isBefore(event.timeSlot.getStartTime())) {
-			return true;
-		}
-		return false;
+		return this.timeSlot.isBefore(event.timeSlot);
 	}
 	
 }

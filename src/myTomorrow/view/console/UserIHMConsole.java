@@ -38,12 +38,31 @@ public class UserIHMConsole implements UserIHM
 		
 		System.out.println("Entrez le jour disponible de la personne");
 		System.out.println("Entrez la date : jour -->");
-		int date = scanner.nextInt();
+		String string ="";
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int date = Integer.parseInt(string);
+		
 		System.out.println("mois -->");
-		int month = scanner.nextInt();
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int month = Integer.parseInt(string);
+		
 		System.out.println("année -->");
-		int year = scanner.nextInt();
-		return new Day(date, month, year);
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int year = Integer.parseInt(string);
+		
+		try {
+			return new Day(date, month, year);
+		} catch (Exception e) {
+			System.err.println("Vous avez rentré une date invalide");
+			this.askAvailableDay();
+			return null;
+		}
 	}
 	
 	/**
@@ -52,7 +71,11 @@ public class UserIHMConsole implements UserIHM
 	 */
 	public int askDurationOfEvent() {
 		System.out.println("Entrez la duree du rendez-vous en minutes");
-		int duration = scanner.nextInt();
+		String string ="";
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int duration = Integer.parseInt(string);
 		return duration;
 	}
 
@@ -89,5 +112,15 @@ public class UserIHMConsole implements UserIHM
 	{
 		System.out.println("Entrez l'intitulé du cours -->");
 		return scanner.nextLine();
+	}
+	
+	public boolean isNumeric(String string){
+		try {
+			int value = Integer.parseInt(string);
+			
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 }

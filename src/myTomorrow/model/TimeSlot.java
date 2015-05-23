@@ -15,7 +15,13 @@ public class TimeSlot
 	/** End time of the task. */
 	private DateTime endTime;
 	
-	
+	/**
+	 * Constructor of a time slot to initialize a time slot to null.
+	 */
+	public TimeSlot() {
+		this.startTime=null;
+		this.endTime=null;
+	}
 	/**
 	 * Constructor of a time slot.
 	 * @param startTime
@@ -92,5 +98,9 @@ public class TimeSlot
 		str.append(this.getEndTime());
 		str.append(newLine);
 		return str.toString();
+	}
+	
+	public boolean isBefore(TimeSlot timeslot) {
+		return this.startTime.isBefore(timeslot.startTime);
 	}
 }
