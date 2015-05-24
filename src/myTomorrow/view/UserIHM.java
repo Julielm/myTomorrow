@@ -37,5 +37,7 @@ public interface UserIHM
 	
 	public void userDontWantTheseFreeTimeSlots();
 	public String askTitleOfTheLesson();
+	public TimeSlot askAvailablePeriod();
+	public void lessonsInThePeriodIsEmpty();
 
 }

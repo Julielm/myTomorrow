@@ -2,6 +2,8 @@ package myTomorrow.view.console;
 
 import java.util.Scanner;
 
+import org.joda.time.DateTime;
+
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.TimeSlot;
@@ -122,5 +124,58 @@ public class UserIHMConsole implements UserIHM
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public TimeSlot askAvailablePeriod()
+	{
+		System.out.println("Période disponible de la personne : ");
+		System.out.println("Entrez la date de début de période : jour -->");
+		String string ="";
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int date = Integer.parseInt(string);
+		
+		System.out.println("mois -->");
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int month = Integer.parseInt(string);
+		
+		System.out.println("année -->");
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int year = Integer.parseInt(string);
+		
+		System.out.println("Entrez la date de fin de période : jour -->");
+		string ="";
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int date2 = Integer.parseInt(string);
+		
+		System.out.println("mois -->");
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int month2 = Integer.parseInt(string);
+		
+		try {
+			return new TimeSlot(new DateTime(year, month, date, Day.START_HOUR_BY_DEFAULT, 0), new DateTime(year, month2, date2, Day.END_HOUR_BY_DEFAULT, 0));
+		} catch (Exception e) {
+			System.err.println("Vous avez rentré une période invalide");
+			this.askAvailablePeriod();
+			return null;
+		}
+	}
+
+	@Override
+	public void lessonsInThePeriodIsEmpty()
+	{
+		System.out.println("Il n'y a pas de cours avec cet intitlé ayant une place libre dans cette période");
+		System.out.println("Veuillez d'abord ajouter un cours");
+		
 	}
 }

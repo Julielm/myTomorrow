@@ -48,19 +48,15 @@ public class ScheduleManager
 			this.myIHM.freeTimeSlotIsEmpty();
 		}
 		else {
-			boolean answer = false;
-			int index = 0;
-			while (answer==false && index < freeTimeSlot.size()) {
-				answer=this.myIHM.suggestTimeSlot(freeTimeSlot.get(index));
-				index++;
-			}
-			if (answer){
-				appointment.setTimeSlot(freeTimeSlot.get(index-1));
+			TimeSlot answer = this.askAnswer(freeTimeSlot);
+			if (answer!=null){
+				appointment.setTimeSlot(answer);
 				addEventInASortList(appointment);
 			}
-			this.myIHM.userDontWantTheseFreeTimeSlots();
-		}
-		
+			else {
+				this.myIHM.userDontWantTheseFreeTimeSlots();
+			}
+		}		
 	}
 	
 	/**
@@ -212,23 +208,95 @@ public class ScheduleManager
 			this.myIHM.freeTimeSlotIsEmpty();
 		}
 		else {
-			boolean answer = false;
-			int index = 0;
-			while (answer==false && index < freeTimeSlot.size()) {
-				answer=this.myIHM.suggestTimeSlot(freeTimeSlot.get(index));
-				index++;
-			}
-			if (answer){
-				lesson.setTimeSlot(freeTimeSlot.get(index-1));
+			TimeSlot answer = this.askAnswer(freeTimeSlot);
+			if (answer!=null){
+				lesson.setTimeSlot(answer);
 				addEventInASortList(lesson);
 			}
-			this.myIHM.userDontWantTheseFreeTimeSlots();
+			else {
+				this.myIHM.userDontWantTheseFreeTimeSlots();
+			}
 		}
 	}
+	
+	private TimeSlot askAnswer(List<TimeSlot> timeSlots)
+	{
+		boolean answer = false;
+		int index = 0;
+		while (answer==false && index < timeSlots.size()) {
+			answer=this.myIHM.suggestTimeSlot(timeSlots.get(index));
+			index++;
+		}
+		if (answer){
+			return timeSlots.get(index-1);
+		}
+		return null;
+	}
+
 	private Lesson inputLesson()
 	{
 		TimeSlot timeSlot = new TimeSlot(null, null);
 		return new Lesson(this.myIHM.askTitleOfTheLesson(),timeSlot);
+	}
+	
+	public void addPersonToLesson() {
+		Person person = this.myIHM.askPersonInformations();
+		TimeSlot period = this.myIHM.askAvailablePeriod();
+		String title = this.myIHM.askTitleOfTheLesson();
+		List<TimeSlot> lessonsInThePeriod = this.LessonInAList(this.EventsInAPeriod(period), title);
+		if (lessonsInThePeriod.isEmpty()) {
+			this.myIHM.lessonsInThePeriodIsEmpty();
+		}
+		else {
+			TimeSlot answer = this.askAnswer(lessonsInThePeriod);
+			if (answer != null){
+				this.addPerson(answer, person);
+			}
+			else {
+				this.myIHM.userDontWantTheseFreeTimeSlots();
+			}
+		}	
+	}
+	
+	private void addPerson(TimeSlot answer, Person person)
+	{
+		int index =0;
+		while(this.events.get(index).getTimeSlot()!=answer) {
+			index++;
+		}
+		Lesson lesson = (Lesson) this.events.get(index);
+		lesson.setPersonList(person);
+		this.events.set(index, lesson);
+	}
+
+	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList, String title)
+	{
+		List<TimeSlot> lessons = new LinkedList<TimeSlot>();
+		for (ScheduledEvent event : this.events) {
+			if (event instanceof Lesson) {
+				Lesson lesson = (Lesson) event;
+				if (lesson.hasTheSameTitle(title)) {
+					if (lesson.hasFreePlace()) {
+						lessons.add(lesson.getTimeSlot());
+					}
+				}
+			}
+		}
+		return lessons;
+	}
+	
+
+	private List<ScheduledEvent> EventsInAPeriod(TimeSlot period)
+	{
+		List<ScheduledEvent> eventsInThePeriod = new LinkedList<ScheduledEvent>();
+		for (ScheduledEvent event : events) {
+			DateTime dateOfCurrentEvent = event.getTimeSlot().getStartTime();
+			if (dateOfCurrentEvent.isEqual(period.getStartTime()) || dateOfCurrentEvent.isAfter(period.getStartTime()) || dateOfCurrentEvent.isBefore(period.getEndTime())
+					|| dateOfCurrentEvent.isEqual(period.getEndTime())) {
+				eventsInThePeriod.add(event);
+			}
+		}
+		return eventsInThePeriod;
 	}
 
 	/**

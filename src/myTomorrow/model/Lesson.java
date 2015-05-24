@@ -76,4 +76,26 @@ public class Lesson extends ScheduledEvent
 	{
 		return (LinkedList<Person>)this.personsList;
 	}
+
+	public boolean hasTheSameTitle(String title2)
+	{
+		if (this.title.compareToIgnoreCase(title)==0)
+			return true;
+		return false;
+	}
+
+	public boolean hasFreePlace()
+	{
+		if (this.persNb<DEFAULT_MAX_PERS_NB) {
+			return true;
+		}
+		return false;
+	}
+
+	public void setPersonList(Person person)
+	{
+		this.personsList.add(person);
+		this.persNb++;
+		
+	}
 }
