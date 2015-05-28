@@ -1,5 +1,7 @@
 package myTomorrow.view;
 
+import org.joda.time.DateTime;
+
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.TimeSlot;
@@ -39,5 +41,6 @@ public interface UserIHM
 	public String askTitleOfTheLesson();
 	public TimeSlot askAvailablePeriod();
 	public void lessonsInThePeriodIsEmpty();
+	public DateTime inputDateOfEvent();
 
 }

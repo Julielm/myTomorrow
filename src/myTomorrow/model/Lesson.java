@@ -77,9 +77,9 @@ public class Lesson extends ScheduledEvent
 		return (LinkedList<Person>)this.personsList;
 	}
 
-	public boolean hasTheSameTitle(String title2)
+	public boolean hasTheSameTitle(String title)
 	{
-		if (this.title.compareToIgnoreCase(title)==0)
+		if (this.title.equals(title))
 			return true;
 		return false;
 	}
@@ -96,6 +96,20 @@ public class Lesson extends ScheduledEvent
 	{
 		this.personsList.add(person);
 		this.persNb++;
-		
+	}
+	
+	public boolean personExists(Person person) {
+		int index =0;
+		Person currentPerson = this.personsList.get(index);
+		while (!person.getName().equals(currentPerson.getName()) && 
+				!person.getFirstName().equals(currentPerson.getFirstName()) && index+1<this.personsList.size()) {
+			index++;
+			currentPerson = this.personsList.get(index);
+		}
+		if (person.getName().equals(currentPerson.getName()) && 
+		person.getFirstName().equals(currentPerson.getFirstName())){
+			return true;
+		}
+		return false;
 	}
 }

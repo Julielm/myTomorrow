@@ -201,6 +201,9 @@ public class ScheduleManager
 		return eventsOnSameDay;
 	}
 	
+	/**
+	 * Add a lesson in the list of events.
+	 */
 	public void addLesson() {
 		Lesson lesson = this.inputLesson();	
 		List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
@@ -239,6 +242,9 @@ public class ScheduleManager
 		return new Lesson(this.myIHM.askTitleOfTheLesson(),timeSlot);
 	}
 	
+	/**
+	 * Add a person to a lesson.
+	 */
 	public void addPersonToLesson() {
 		Person person = this.myIHM.askPersonInformations();
 		TimeSlot period = this.myIHM.askAvailablePeriod();
@@ -297,6 +303,51 @@ public class ScheduleManager
 			}
 		}
 		return eventsInThePeriod;
+	}
+	
+	/**
+	 * Remove an appointment or a person in a lesson.
+	 */
+	public void removeAppointmentOrPersonInLesson() {
+		int index = this.searchEvent(this.myIHM.inputDateOfEvent());
+		if (index>=0) {
+			if (this.events.get(index) instanceof Appointment) {
+				this.removeAppointment(index);
+			}
+			else 
+				this.removePersonInLesson(index);
+		}
+		
+		
+	}
+
+	private void removePersonInLesson(int index)
+	{
+		Person personToRemove = this.myIHM.askPersonInformations();
+		if (((Lesson) this.events.get(index)).personExists(personToRemove)) {
+			
+		}
+		
+	}
+
+	private void removeAppointment(int index)
+	{
+		this.events.remove(index);		
+	}
+
+	private int searchEvent(DateTime dateOfEvent)
+	{
+		
+		int index = 0;
+		DateTime currentEvent = events.get(index).getTimeSlot().getStartTime();
+		while(currentEvent!=dateOfEvent && index+1 < events.size()) {
+			index++;
+			currentEvent = events.get(index).getTimeSlot().getStartTime();
+		}
+		if (currentEvent==dateOfEvent) {
+			return index;
+		}
+		return -1;
 	}
 
 	/**

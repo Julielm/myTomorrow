@@ -57,6 +57,7 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int year = Integer.parseInt(string);
+		String dummy = scanner.nextLine();
 		
 		try {
 			return new Day(date, month, year);
@@ -78,6 +79,7 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int duration = Integer.parseInt(string);
+		String dummy = scanner.nextLine();
 		return duration;
 	}
 
@@ -89,6 +91,7 @@ public class UserIHMConsole implements UserIHM
 		System.out.println("1: Oui");
 		System.out.println("2: Non");
 		int answer = scanner.nextInt();
+		String dummy = scanner.nextLine();
 		if (answer==1){
 			return true;
 		}
@@ -161,6 +164,7 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int month2 = Integer.parseInt(string);
+		String dummy = scanner.nextLine();
 		
 		try {
 			return new TimeSlot(new DateTime(year, month, date, Day.START_HOUR_BY_DEFAULT, 0), new DateTime(year, month2, date2, Day.END_HOUR_BY_DEFAULT, 0));
@@ -176,6 +180,46 @@ public class UserIHMConsole implements UserIHM
 	{
 		System.out.println("Il n'y a pas de cours avec cet intitlé ayant une place libre dans cette période");
 		System.out.println("Veuillez d'abord ajouter un cours");
+		
+	}
+
+	@Override
+	public DateTime inputDateOfEvent()
+	{
+		System.out.println("Entrez la date de l'évènement : jour -->");
+		String string ="";
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int date = Integer.parseInt(string);
+		
+		System.out.println("mois -->");
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int month = Integer.parseInt(string);
+		
+		System.out.println("année -->");
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int year = Integer.parseInt(string);
+		
+		System.out.println("Entrez l'heure de l'évènement : heure -->");
+		string ="";
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int hours = Integer.parseInt(string);
+		
+		System.out.println("minutes -->");
+		do {
+			string = scanner.nextLine();
+		} while (!this.isNumeric(string));
+		int minutes = Integer.parseInt(string);
+		String dummy = scanner.nextLine();
+		
+		return new DateTime(year,month,date,hours,minutes);
 		
 	}
 }
