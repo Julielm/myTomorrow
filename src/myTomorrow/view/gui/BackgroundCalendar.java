@@ -24,9 +24,12 @@ public class BackgroundCalendar extends JPanel
 		{
 		      e.printStackTrace();
 		}  
-		for (int x=0; x<10; x++) {
-			JButton event = new GraphicalEvent(70,66+(x*58),58, "event");
-			this.add(event);
+		for (int y=0; y <7; y++) {
+			for (int x=0; x<10; x++) {
+				JButton event = new GraphicalEvent(57+(y*133),40+(x*60),61, "event");
+				this.add(event);
+			}
 		}
+		
 	}
 }
