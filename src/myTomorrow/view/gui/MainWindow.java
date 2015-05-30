@@ -26,8 +26,11 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		JPanel buttons = new JPanel();
 		split.setTopComponent(buttons);
 		JPanel calendar = new BackgroundCalendar();
-		split.setBottomComponent(calendar);
+		split.setDividerSize(0);
 		split.setEnabled(false);
+		split.setBottomComponent(calendar);
+		
+		
 		this.getContentPane().add(split);
 		this.setVisible(true);
 	}

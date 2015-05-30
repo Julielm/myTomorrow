@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class BackgroundCalendar extends JPanel
@@ -22,6 +23,10 @@ public class BackgroundCalendar extends JPanel
 		catch (IOException e) 
 		{
 		      e.printStackTrace();
-		}  	
+		}  
+		for (int x=0; x<10; x++) {
+			JButton event = new GraphicalEvent(70,66+(x*58),58, "event");
+			this.add(event);
+		}
 	}
 }
