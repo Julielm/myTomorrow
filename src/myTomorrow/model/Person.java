@@ -42,5 +42,16 @@ public class Person
 		return this.firstName;
 	}
 	
+	public boolean equals(Person person){
+		return this.name.equals(person.name) && this.firstName.equals(person.firstName);
+	}
 	
+	public int hashCode() {
+		int hashcode = 0;
+		for (int currentCharacter=0; currentCharacter<this.name.length(); currentCharacter++)
+			hashcode += (int)this.name.charAt(currentCharacter);
+		for (int currentCharacter=0; currentCharacter<this.firstName.length(); currentCharacter++)
+			hashcode += (int)this.firstName.charAt(currentCharacter);
+		return hashcode;
+	}
 }

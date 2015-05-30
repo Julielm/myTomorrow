@@ -35,7 +35,7 @@ public class ApplicationLauncher
 		application.addPersonToLesson();
 		application.addPersonToLesson();
 		application.addPersonToLesson();
-		application.addPersonToLesson();
+		application.removeAppointmentOrPersonInLesson();
 		for (ScheduledEvent events : application.getEvents()) {
 			System.out.println("évenement : ");
 			System.out.println("Date début : ");

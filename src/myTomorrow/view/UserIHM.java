@@ -42,5 +42,6 @@ public interface UserIHM
 	public TimeSlot askAvailablePeriod();
 	public void lessonsInThePeriodIsEmpty();
 	public DateTime inputDateOfEvent();
+	public void thePersonInputIsNTInLesson();
 
 }

@@ -57,7 +57,6 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int year = Integer.parseInt(string);
-		String dummy = scanner.nextLine();
 		
 		try {
 			return new Day(date, month, year);
@@ -79,7 +78,6 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int duration = Integer.parseInt(string);
-		String dummy = scanner.nextLine();
 		return duration;
 	}
 
@@ -90,9 +88,8 @@ public class UserIHMConsole implements UserIHM
 		System.out.println("Ce créneau vous convient-il ?");
 		System.out.println("1: Oui");
 		System.out.println("2: Non");
-		int answer = scanner.nextInt();
-		String dummy = scanner.nextLine();
-		if (answer==1){
+		String answer = scanner.nextLine();
+		if (answer.equals("1")){
 			return true;
 		}
 		return  false;
@@ -164,7 +161,6 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int month2 = Integer.parseInt(string);
-		String dummy = scanner.nextLine();
 		
 		try {
 			return new TimeSlot(new DateTime(year, month, date, Day.START_HOUR_BY_DEFAULT, 0), new DateTime(year, month2, date2, Day.END_HOUR_BY_DEFAULT, 0));
@@ -217,9 +213,15 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int minutes = Integer.parseInt(string);
-		String dummy = scanner.nextLine();
 		
 		return new DateTime(year,month,date,hours,minutes);
+		
+	}
+
+	@Override
+	public void thePersonInputIsNTInLesson()
+	{
+		System.out.println("La personne que vous avez saisie n'est pas dans la leçon");
 		
 	}
 }

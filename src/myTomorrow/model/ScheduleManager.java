@@ -278,7 +278,7 @@ public class ScheduleManager
 	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList, String title)
 	{
 		List<TimeSlot> lessons = new LinkedList<TimeSlot>();
-		for (ScheduledEvent event : this.events) {
+		for (ScheduledEvent event : eventsInAList) {
 			if (event instanceof Lesson) {
 				Lesson lesson = (Lesson) event;
 				if (lesson.hasTheSameTitle(title)) {
@@ -295,12 +295,15 @@ public class ScheduleManager
 	private List<ScheduledEvent> EventsInAPeriod(TimeSlot period)
 	{
 		List<ScheduledEvent> eventsInThePeriod = new LinkedList<ScheduledEvent>();
-		for (ScheduledEvent event : events) {
+		for (ScheduledEvent event : this.events) {
 			DateTime dateOfCurrentEvent = event.getTimeSlot().getStartTime();
-			if (dateOfCurrentEvent.isEqual(period.getStartTime()) || dateOfCurrentEvent.isAfter(period.getStartTime()) || dateOfCurrentEvent.isBefore(period.getEndTime())
-					|| dateOfCurrentEvent.isEqual(period.getEndTime())) {
-				eventsInThePeriod.add(event);
+			if (dateOfCurrentEvent.isBefore(period.getStartTime())) {
+				continue;
 			}
+			if (dateOfCurrentEvent.isAfter(period.getEndTime())) {
+				continue;
+			}
+			eventsInThePeriod.add(event);
 		}
 		return eventsInThePeriod;
 	}
@@ -316,17 +319,24 @@ public class ScheduleManager
 			}
 			else 
 				this.removePersonInLesson(index);
-		}
-		
-		
+		}	
 	}
 
 	private void removePersonInLesson(int index)
 	{
 		Person personToRemove = this.myIHM.askPersonInformations();
-		if (((Lesson) this.events.get(index)).personExists(personToRemove)) {
-			
+		Lesson lesson = (Lesson)this.events.get(index);
+		int personIndex = lesson.personIndex(personToRemove);
+		if (personIndex >=0) {
+			lesson.remove(personIndex);
+			if (lesson.getPersNb()==0) {
+				this.events.remove(index);
+			}
+			else 
+				this.events.set(index, lesson);
 		}
+		else 
+			this.myIHM.thePersonInputIsNTInLesson();
 		
 	}
 

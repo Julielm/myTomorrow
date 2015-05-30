@@ -98,18 +98,22 @@ public class Lesson extends ScheduledEvent
 		this.persNb++;
 	}
 	
-	public boolean personExists(Person person) {
-		int index =0;
+	public int personIndex(Person person) {
+		int index = 0;
 		Person currentPerson = this.personsList.get(index);
-		while (!person.getName().equals(currentPerson.getName()) && 
-				!person.getFirstName().equals(currentPerson.getFirstName()) && index+1<this.personsList.size()) {
+		while (!currentPerson.equals(person) && index+1<this.personsList.size()) {
 			index++;
 			currentPerson = this.personsList.get(index);
 		}
-		if (person.getName().equals(currentPerson.getName()) && 
-		person.getFirstName().equals(currentPerson.getFirstName())){
-			return true;
-		}
-		return false;
+		if (currentPerson.equals(person))
+			return index;
+		return -1;
+	}
+
+	public void remove(int personIndex)
+	{
+		this.personsList.remove(personIndex);
+		this.persNb--;
+		
 	}
 }
