@@ -1,11 +1,14 @@
 package myTomorrow;
 
+import javax.swing.SwingUtilities;
+
 import myTomorrow.model.Lesson;
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.model.ScheduledEvent;
 import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
 import myTomorrow.view.console.UserIHMConsole;
+import myTomorrow.view.gui.MainWindow;
 
 import org.joda.time.DateTime;
 
@@ -25,6 +28,7 @@ public class ApplicationLauncher
 	 */
 	public static void main(String[] args)
 	{
+		SwingUtilities.invokeLater(new MainWindow());
 		// test addition of events and a research of a time slot
 		UserIHM console = new UserIHMConsole();
 		ScheduleManager application = new ScheduleManager(console);
