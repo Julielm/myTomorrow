@@ -129,13 +129,33 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		
 	}
 	@Override
-	public void updateCalendar(List<ScheduledEvent> events)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days)
 	{
+		DateTime today = DateTime.now();
+		int dayOfWeek = today.getDayOfWeek();
+		for (int day=0; day<7; day++){
+			DayLabel label = new DayLabel(days.get(dayOfWeek-1)+"  "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
+			if ((dayOfWeek+1)>7) {
+				today=today.minusDays(6);
+				dayOfWeek=1;
+			}
+			else {
+				today=today.plusDays(1);
+				dayOfWeek+=1;
+			}
+			this.calendar.add(label);
+		}
+		
 		for (ScheduledEvent event : events) {
 			JButton buttonOfEvent = new GraphicalEvent(event);
 			this.calendar.add(buttonOfEvent);
 		}
 		
+	}
+	@Override
+	public JPanel getCalendar()
+	{
+		return this.calendar;
 	}
 
 }

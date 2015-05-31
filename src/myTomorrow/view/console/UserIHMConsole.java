@@ -3,6 +3,8 @@ package myTomorrow.view.console;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JPanel;
+
 import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
@@ -228,7 +230,13 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void updateCalendar(List<ScheduledEvent> events)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days)
 	{		
+	}
+
+	@Override
+	public JPanel getCalendar()
+	{
+		return null;
 	}
 }

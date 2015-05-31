@@ -7,6 +7,8 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -25,6 +27,7 @@ public class Calendar extends JPanel
 	private Image img;
 	
 	public Calendar(){
+		
 		this.setLayout(null);
 		JButton previousWeek = new JButton();
 		Icon previous = new ImageIcon("PreviousWeek.png");
@@ -60,4 +63,5 @@ public class Calendar extends JPanel
 		      e.printStackTrace();
 		}  
 	}
+	
 }

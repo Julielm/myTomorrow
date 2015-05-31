@@ -3,6 +3,8 @@ package myTomorrow.view;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
@@ -47,6 +49,7 @@ public interface UserIHM
 	public void lessonsInThePeriodIsEmpty();
 	public DateTime inputDateOfEvent();
 	public void thePersonInputIsNTInLesson();
-	public void updateCalendar(List<ScheduledEvent> events);
+	public void initCalendar(List<ScheduledEvent> events, List<String> days);
+	public JPanel getCalendar();
 
 }

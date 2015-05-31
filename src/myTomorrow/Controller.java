@@ -1,6 +1,11 @@
 package myTomorrow;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.SwingUtilities;
+
+import org.joda.time.DateTime;
 
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.view.UserIHM;
@@ -13,7 +18,16 @@ public class Controller
 		UserIHM gui = new MainWindow();
 		ScheduleManager application = new ScheduleManager(gui);
 		SwingUtilities.invokeLater((Runnable) gui);
-		gui.updateCalendar(application.getEvents());
+		List<String> days =new LinkedList<String>();
+		days.add("Lundi");
+		days.add("Mardi");
+		days.add("Mercredi");
+		days.add("Jeudi");
+		days.add("Vendredi");
+		days.add("Samedi");
+		days.add("Dimanche");
+		gui.initCalendar(application.getEvents(),days);
+		
 	}
 	
 }
