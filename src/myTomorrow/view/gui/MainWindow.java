@@ -1,8 +1,13 @@
 package myTomorrow.view.gui;
 
-import java.util.LinkedList;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,13 +22,16 @@ import myTomorrow.model.ScheduledEvent;
 import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
 
-public class MainWindow extends JFrame implements Runnable, UserIHM
+public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListener
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel calendar;
+	private JButton previousWeek; 
+	private JButton nextWeek;
+	private int weekNb;
 	
 	public MainWindow() {
 		
@@ -42,13 +50,35 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		this.calendar = new Calendar();
 		split.setBottomComponent(calendar);
 		
+		this.weekNb=0;
+		
+		this.calendar.setLayout(null);
+		this.previousWeek = new JButton();
+		Icon previous = new ImageIcon("PreviousWeek.png");
+		this.previousWeek.setIcon(previous);
+		this.previousWeek.setBounds(1,8,28,30);
+		this.previousWeek.setBorder(BorderFactory.createEmptyBorder());
+		this.previousWeek.setBackground(Color.WHITE);
+		this.calendar.add(this.previousWeek);
+		this.previousWeek.addActionListener(this);
+		
+		this.nextWeek = new JButton();
+		Icon next = new ImageIcon("NextWeek.png");
+		this.nextWeek.setIcon(next);
+		this.nextWeek.setBounds(28,8,28,30);
+		this.nextWeek.setBorder(BorderFactory.createEmptyBorder());
+		this.nextWeek.setBackground(Color.WHITE);
+		this.calendar.add(this.nextWeek);
+		this.nextWeek.addActionListener(this);
+		
 		this.getContentPane().add(split);
-		this.setVisible(true);
+		
 	}
+	
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
+		this.setVisible(true);
 		
 	}
 
@@ -129,26 +159,46 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		
 	}
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application)
+	public void updateCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application, int week)
 	{
-		DateTime today = DateTime.now();
+		DateTime today = DateTime.now().plusWeeks(week);
 		int dayOfWeek = today.getDayOfWeek();
+		DateTime startWeek = new DateTime();
+		DateTime endWeek = new DateTime();
 		for (int day=0; day<7; day++){
 			DayLabel label = new DayLabel(days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
-			//TODO Optimization : too slow 
-			for (ScheduledEvent event : (application.getEventsOnSameDay(new Day(today.getDayOfMonth(), today.getMonthOfYear(), today.getYear())))) {
-				JButton buttonOfEvent = new GraphicalEvent(event);
-				this.calendar.add(buttonOfEvent);
-			}
+			
 			if ((dayOfWeek+1)>7) {
+				endWeek=today;
 				today=today.minusDays(6);
 				dayOfWeek=1;
 			}
 			else {
+				if (dayOfWeek==1) {
+					startWeek=today;
+				}
 				today=today.plusDays(1);
 				dayOfWeek+=1;
 			}
 			this.calendar.add(label);
+		}
+	
+		for (ScheduledEvent event : events) {
+			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
+				JButton buttonOfEvent = new GraphicalEvent(event);
+				this.calendar.add(buttonOfEvent);
+			}
+		}
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource().equals(previousWeek)) {
+			this.weekNb--;
+		}
+		if(e.getSource().equals(nextWeek)) {
+			this.weekNb++;
 		}
 		
 	}
@@ -156,6 +206,11 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 	public JPanel getCalendar()
 	{
 		return this.calendar;
+	}
+	@Override
+	public int getWeekNB()
+	{
+		return this.weekNb;
 	}
 
 }

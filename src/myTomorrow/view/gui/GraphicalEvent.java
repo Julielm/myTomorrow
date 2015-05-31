@@ -24,9 +24,7 @@ public class GraphicalEvent extends JButton
 		
 		Duration durationOfEvent = new Duration(startTime, this.associatedEvent.getTimeSlot().getEndTime());
 
-		this.setBounds(58+((dayOfWeek-1)*133),38+((hours-8)*61)+minutes,EVENT_WIDTH, durationOfEvent.toStandardMinutes().getMinutes());
-		//this.setBorder(BorderFactory.createEmptyBorder());
-	
+		this.setBounds(58+((dayOfWeek-1)*133),38+((hours-8)*61)+minutes,EVENT_WIDTH, durationOfEvent.toStandardMinutes().getMinutes());	
 		
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import org.joda.time.DateTime;
 
+import myTomorrow.Controller;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;
@@ -237,10 +238,17 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days,
-			ScheduleManager application)
+	public void updateCalendar(List<ScheduledEvent> events, List<String> days,
+			ScheduleManager application, int week)
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getWeekNB()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

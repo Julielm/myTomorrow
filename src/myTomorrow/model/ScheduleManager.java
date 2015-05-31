@@ -203,12 +203,6 @@ public class ScheduleManager
 		return eventsOnSameDay;
 	}
 	
-	public List<ScheduledEvent> getEventsOnSameDay(Day day) {
-		List<ScheduledEvent> events = new LinkedList<ScheduledEvent>();
-		events.addAll(this.getAllEventsThatAreOnSameDay(day, MORNING));
-		events.addAll(this.getAllEventsThatAreOnSameDay(day, AFTERNOON));
-		return events;
-	}
 	/**
 	 * Add a lesson in the list of events.
 	 */
