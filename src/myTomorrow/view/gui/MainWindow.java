@@ -129,12 +129,20 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		
 	}
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application)
 	{
 		DateTime today = DateTime.now();
 		int dayOfWeek = today.getDayOfWeek();
 		for (int day=0; day<7; day++){
-			DayLabel label = new DayLabel(days.get(dayOfWeek-1)+"  "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
+			DayLabel label = new DayLabel(days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
+			for (ScheduledEvent event : (application.getAllEventsThatAreOnSameDay(new Day(today.getDayOfMonth(), today.getMonthOfYear(), today.getYear()), ScheduleManager.MORNING))) {
+				JButton buttonOfEvent = new GraphicalEvent(event);
+				this.calendar.add(buttonOfEvent);
+			}
+			for (ScheduledEvent event : (application.getAllEventsThatAreOnSameDay(new Day(today.getDayOfMonth(), today.getMonthOfYear(), today.getYear()), ScheduleManager.AFTERNOON))) {
+				JButton buttonOfEvent = new GraphicalEvent(event);
+				this.calendar.add(buttonOfEvent);
+			}
 			if ((dayOfWeek+1)>7) {
 				today=today.minusDays(6);
 				dayOfWeek=1;
@@ -144,11 +152,6 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 				dayOfWeek+=1;
 			}
 			this.calendar.add(label);
-		}
-		
-		for (ScheduledEvent event : events) {
-			JButton buttonOfEvent = new GraphicalEvent(event);
-			this.calendar.add(buttonOfEvent);
 		}
 		
 	}

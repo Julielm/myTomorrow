@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.ScheduleManager;
 import myTomorrow.model.ScheduledEvent;
 import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
@@ -230,13 +231,16 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days)
-	{		
-	}
-
-	@Override
 	public JPanel getCalendar()
 	{
 		return null;
+	}
+
+	@Override
+	public void initCalendar(List<ScheduledEvent> events, List<String> days,
+			ScheduleManager application)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

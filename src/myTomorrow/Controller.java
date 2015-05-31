@@ -26,7 +26,7 @@ public class Controller
 		days.add("Vendredi");
 		days.add("Samedi");
 		days.add("Dimanche");
-		gui.initCalendar(application.getEvents(),days);
+		gui.initCalendar(application.getEvents(),days, application);
 		
 	}
 	
