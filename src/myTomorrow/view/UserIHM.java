@@ -1,9 +1,13 @@
 package myTomorrow.view;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.ScheduledEvent;
 import myTomorrow.model.TimeSlot;
 
 /**
@@ -43,5 +47,6 @@ public interface UserIHM
 	public void lessonsInThePeriodIsEmpty();
 	public DateTime inputDateOfEvent();
 	public void thePersonInputIsNTInLesson();
+	public void updateCalendar(List<ScheduledEvent> events);
 
 }

@@ -1,5 +1,9 @@
 package myTomorrow.view.gui;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -9,11 +13,17 @@ import org.joda.time.DateTime;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;
+import myTomorrow.model.ScheduledEvent;
 import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
 
 public class MainWindow extends JFrame implements Runnable, UserIHM
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel calendar;
 	
 	public MainWindow() {
 		
@@ -29,7 +39,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		split.setTopComponent(buttons);
 		split.setDividerSize(0);
 		split.setEnabled(false);
-		JPanel calendar = new Calendar();
+		this.calendar = new Calendar();
 		split.setBottomComponent(calendar);
 		
 		this.getContentPane().add(split);
@@ -116,6 +126,15 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 	public void thePersonInputIsNTInLesson()
 	{
 		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void updateCalendar(List<ScheduledEvent> events)
+	{
+		for (ScheduledEvent event : events) {
+			JButton buttonOfEvent = new GraphicalEvent(event);
+			this.calendar.add(buttonOfEvent);
+		}
 		
 	}
 

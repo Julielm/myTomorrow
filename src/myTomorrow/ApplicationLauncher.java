@@ -28,10 +28,8 @@ public class ApplicationLauncher
 	 */
 	public static void main(String[] args)
 	{
-		
-		ScheduleManager application = new ScheduleManager(new UserIHMConsole());
-		UserIHM gui = new MainWindow();
-		SwingUtilities.invokeLater((Runnable) gui);
+		Controller controller = new Controller();
+	
 		// test addition of events and a research of a time slot
 	
 		

@@ -34,7 +34,9 @@ public class ScheduleManager
 	 */
 	public ScheduleManager(UserIHM ihm){
 		this.events = new LinkedList<ScheduledEvent>();
-		
+		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,05,16,9,15), new DateTime(2015,05,16,10,15))));
+		this.events.add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,11,0), new DateTime(2015,05,15,11,15))));
+		this.events.add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,15,0), new DateTime(2015,05,15,15,30))));
 		this.myIHM = ihm;
 	}
 	

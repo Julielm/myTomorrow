@@ -1,11 +1,13 @@
 package myTomorrow.view.console;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.ScheduledEvent;
 import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
 
@@ -223,5 +225,10 @@ public class UserIHMConsole implements UserIHM
 	{
 		System.out.println("La personne que vous avez saisie n'est pas dans la leçon");
 		
+	}
+
+	@Override
+	public void updateCalendar(List<ScheduledEvent> events)
+	{		
 	}
 }
