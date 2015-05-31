@@ -135,11 +135,8 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		int dayOfWeek = today.getDayOfWeek();
 		for (int day=0; day<7; day++){
 			DayLabel label = new DayLabel(days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
-			for (ScheduledEvent event : (application.getAllEventsThatAreOnSameDay(new Day(today.getDayOfMonth(), today.getMonthOfYear(), today.getYear()), ScheduleManager.MORNING))) {
-				JButton buttonOfEvent = new GraphicalEvent(event);
-				this.calendar.add(buttonOfEvent);
-			}
-			for (ScheduledEvent event : (application.getAllEventsThatAreOnSameDay(new Day(today.getDayOfMonth(), today.getMonthOfYear(), today.getYear()), ScheduleManager.AFTERNOON))) {
+			//TODO Optimization : too slow 
+			for (ScheduledEvent event : (application.getEventsOnSameDay(new Day(today.getDayOfMonth(), today.getMonthOfYear(), today.getYear())))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
 				this.calendar.add(buttonOfEvent);
 			}
