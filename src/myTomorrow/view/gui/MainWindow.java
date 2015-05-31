@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.ScheduleManager;
 import myTomorrow.model.TimeSlot;
 import myTomorrow.view.UserIHM;
 
@@ -15,6 +16,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 {
 	
 	public MainWindow() {
+		
 		this.setTitle("My Tomorrow");
 		this.setSize(1200, 700);
 		this.setResizable(false);
@@ -25,11 +27,10 @@ public class MainWindow extends JFrame implements Runnable, UserIHM
 		split.setDividerLocation(200);
 		JPanel buttons = new JPanel();
 		split.setTopComponent(buttons);
-		JPanel calendar = new BackgroundCalendar();
 		split.setDividerSize(0);
 		split.setEnabled(false);
+		JPanel calendar = new Calendar();
 		split.setBottomComponent(calendar);
-		
 		
 		this.getContentPane().add(split);
 		this.setVisible(true);
