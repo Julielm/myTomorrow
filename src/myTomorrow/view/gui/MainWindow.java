@@ -34,7 +34,6 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	private int weekNb;
 	private List<ScheduledEvent> events;
 	private List<String> days;
-	private ScheduleManager application;
 	
 	public MainWindow() {
 		
@@ -144,11 +143,10 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	}
 	
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application, int week)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days, int week)
 	{
 		this.events=events;
 		this.days = days;
-		this.application = application;
 		DateTime today = DateTime.now().plusWeeks(this.weekNb);
 		int dayOfWeek = today.getDayOfWeek();
 		DateTime startWeek = new DateTime();

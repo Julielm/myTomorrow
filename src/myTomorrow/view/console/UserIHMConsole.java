@@ -238,8 +238,7 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days,
-			ScheduleManager application, int week)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days, int week)
 	{
 		// TODO Auto-generated method stub
 		
