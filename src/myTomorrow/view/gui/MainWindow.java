@@ -15,7 +15,9 @@ import javax.swing.JSplitPane;
 
 import org.joda.time.DateTime;
 
+import myTomorrow.model.Appointment;
 import myTomorrow.model.Day;
+import myTomorrow.model.Lesson;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.model.ScheduledEvent;
@@ -28,6 +30,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JSplitPane navigation; 
 	private JPanel calendar;
 	private JButton previousWeek; 
 	private JButton nextWeek;
@@ -45,15 +48,15 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		
 		JSplitPane split = new JSplitPane();
 		split.setDividerLocation(200);
-		JPanel buttons = new JPanel();
-		split.setTopComponent(buttons);
+		this.navigation = new Navigation();
+		split.setTopComponent(this.navigation);
 		split.setDividerSize(0);
 		split.setEnabled(false);
 		this.calendar = new Calendar();
 		split.setBottomComponent(calendar);
 		
 		this.weekNb=0;
-		
+			
 		this.getContentPane().add(split);
 		
 	}
@@ -172,6 +175,14 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
+				if (event instanceof Appointment) {
+					buttonOfEvent.setBackground(new Color(0, 168, 255));
+					buttonOfEvent.setText(((Appointment) event).getPerson().toString());
+				}
+				if (event instanceof Lesson) {
+					buttonOfEvent.setBackground(new Color(39, 207, 0));
+					buttonOfEvent.setText(((Lesson) event).getTitle());
+				}
 				this.calendar.add(buttonOfEvent);
 			}
 		}
@@ -225,6 +236,14 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
+				if (event instanceof Appointment) {
+					buttonOfEvent.setText(((Appointment) event).getPerson().toString());
+					buttonOfEvent.setBackground(new Color(0, 168, 255));		
+				}
+				if (event instanceof Lesson) {
+					buttonOfEvent.setBackground(new Color(39, 207, 0));
+					buttonOfEvent.setText(((Lesson) event).getTitle());
+				}
 				this.calendar.add(buttonOfEvent);
 			}
 		}

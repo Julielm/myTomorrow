@@ -34,9 +34,15 @@ public class ScheduleManager
 	 */
 	public ScheduleManager(UserIHM ihm){
 		this.events = new LinkedList<ScheduledEvent>();
-		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,05,31,9,15), new DateTime(2015,05,31,10,15))));
-		this.events.add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,27,11,0), new DateTime(2015,05,27,11,15))));
-		this.events.add(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,15,15,0), new DateTime(2015,05,15,15,30))));
+		this.events.add(new Appointment(new Person("Bourdon", "Laetitia"), new TimeSlot(new DateTime(2015,6,4,8,00), new DateTime(2015,6,4,9,15))));
+		this.events.add(new Lesson("Cours de natation", new TimeSlot(new DateTime(2015,6,4,9,15), new DateTime(2015,6,4,11,15))));
+		this.events.add(new Appointment(new Person("Montcarmel", "Elodie"), new TimeSlot(new DateTime(2015,6,4,16,15), new DateTime(2015,6,4,18,00))));
+		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,6,6,9,15), new DateTime(2015,6,6,10,15))));
+		this.events.add(new Appointment(new Person("Leprunier", "Hugo"), new TimeSlot(new DateTime(2015,6,6,10,15), new DateTime(2015,6,6,11,15))));
+		
+		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,6,6,11,15), new DateTime(2015,6,6,12,00))));
+		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,6,6,14,15), new DateTime(2015,6,6,16,15))));
+		this.events.add(new Appointment(new Person("Lacondemine", "Virgil"), new TimeSlot(new DateTime(2015,05,27,11,0), new DateTime(2015,05,27,11,15))));
 		this.myIHM = ihm;
 	}
 	

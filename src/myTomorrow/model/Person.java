@@ -54,4 +54,12 @@ public class Person
 			hashcode += (int)this.firstName.charAt(currentCharacter);
 		return hashcode;
 	}
+	
+	public String toString() {
+		StringBuilder string = new StringBuilder();
+		string.append(this.firstName);
+		string.append(" ");
+		string.append(this.name);
+		return string.toString();
+	}
 }
