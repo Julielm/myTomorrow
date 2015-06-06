@@ -32,6 +32,9 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	private JButton previousWeek; 
 	private JButton nextWeek;
 	private int weekNb;
+	private List<ScheduledEvent> events;
+	private List<String> days;
+	private ScheduleManager application;
 	
 	public MainWindow() {
 		
@@ -51,25 +54,6 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		split.setBottomComponent(calendar);
 		
 		this.weekNb=0;
-		
-		this.calendar.setLayout(null);
-		this.previousWeek = new JButton();
-		Icon previous = new ImageIcon("PreviousWeek.png");
-		this.previousWeek.setIcon(previous);
-		this.previousWeek.setBounds(1,8,28,30);
-		this.previousWeek.setBorder(BorderFactory.createEmptyBorder());
-		this.previousWeek.setBackground(Color.WHITE);
-		this.calendar.add(this.previousWeek);
-		this.previousWeek.addActionListener(this);
-		
-		this.nextWeek = new JButton();
-		Icon next = new ImageIcon("NextWeek.png");
-		this.nextWeek.setIcon(next);
-		this.nextWeek.setBounds(28,8,28,30);
-		this.nextWeek.setBorder(BorderFactory.createEmptyBorder());
-		this.nextWeek.setBackground(Color.WHITE);
-		this.calendar.add(this.nextWeek);
-		this.nextWeek.addActionListener(this);
 		
 		this.getContentPane().add(split);
 		
@@ -158,15 +142,19 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
-	public void updateCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application, int week)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application, int week)
 	{
-		DateTime today = DateTime.now().plusWeeks(week);
+		this.events=events;
+		this.days = days;
+		this.application = application;
+		DateTime today = DateTime.now().plusWeeks(this.weekNb);
 		int dayOfWeek = today.getDayOfWeek();
 		DateTime startWeek = new DateTime();
 		DateTime endWeek = new DateTime();
 		for (int day=0; day<7; day++){
-			DayLabel label = new DayLabel(days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
+			DayLabel label = new DayLabel(this.days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
 			
 			if ((dayOfWeek+1)>7) {
 				endWeek=today;
@@ -183,12 +171,83 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 			this.calendar.add(label);
 		}
 	
-		for (ScheduledEvent event : events) {
+		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
 				this.calendar.add(buttonOfEvent);
 			}
 		}
+		this.calendar.setLayout(null);
+		this.previousWeek = new JButton();
+		Icon previous = new ImageIcon("PreviousWeek.png");
+		this.previousWeek.setIcon(previous);
+		this.previousWeek.setBounds(1,8,28,30);
+		this.previousWeek.setBorder(BorderFactory.createEmptyBorder());
+		this.previousWeek.setBackground(Color.WHITE);
+		this.calendar.add(this.previousWeek);
+		this.previousWeek.addActionListener(this);
+		
+		this.nextWeek = new JButton();
+		Icon next = new ImageIcon("NextWeek.png");
+		this.nextWeek.setIcon(next);
+		this.nextWeek.setBounds(28,8,28,30);
+		this.nextWeek.setBorder(BorderFactory.createEmptyBorder());
+		this.nextWeek.setBackground(Color.WHITE);
+		this.calendar.add(this.nextWeek);
+		this.nextWeek.addActionListener(this);
+	}
+	
+	@Override
+	public void updateCalendar()
+	{
+		this.calendar.removeAll();
+		this.calendar.repaint();
+		DateTime today = DateTime.now().plusWeeks(this.weekNb);
+		int dayOfWeek = today.getDayOfWeek();
+		DateTime startWeek = new DateTime();
+		DateTime endWeek = new DateTime();
+		for (int day=0; day<7; day++){
+			DayLabel label = new DayLabel(this.days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
+			
+			if ((dayOfWeek+1)>7) {
+				endWeek=today;
+				today=today.minusDays(6);
+				dayOfWeek=1;
+			}
+			else {
+				if (dayOfWeek==1) {
+					startWeek=today;
+				}
+				today=today.plusDays(1);
+				dayOfWeek+=1;
+			}
+			this.calendar.add(label);
+		}
+	
+		for (ScheduledEvent event : this.events) {
+			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
+				JButton buttonOfEvent = new GraphicalEvent(event);
+				this.calendar.add(buttonOfEvent);
+			}
+		}
+		this.calendar.setLayout(null);
+		this.previousWeek = new JButton();
+		Icon previous = new ImageIcon("PreviousWeek.png");
+		this.previousWeek.setIcon(previous);
+		this.previousWeek.setBounds(1,8,28,30);
+		this.previousWeek.setBorder(BorderFactory.createEmptyBorder());
+		this.previousWeek.setBackground(Color.WHITE);
+		this.calendar.add(this.previousWeek);
+		this.previousWeek.addActionListener(this);
+		
+		this.nextWeek = new JButton();
+		Icon next = new ImageIcon("NextWeek.png");
+		this.nextWeek.setIcon(next);
+		this.nextWeek.setBounds(28,8,28,30);
+		this.nextWeek.setBorder(BorderFactory.createEmptyBorder());
+		this.nextWeek.setBackground(Color.WHITE);
+		this.calendar.add(this.nextWeek);
+		this.nextWeek.addActionListener(this);
 	}
 	
 	@Override
@@ -200,6 +259,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		if(e.getSource().equals(nextWeek)) {
 			this.weekNb++;
 		}
+		this.updateCalendar();
 		
 	}
 	@Override

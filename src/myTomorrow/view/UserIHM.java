@@ -50,8 +50,9 @@ public interface UserIHM
 	public void lessonsInThePeriodIsEmpty();
 	public DateTime inputDateOfEvent();
 	public void thePersonInputIsNTInLesson();
-	public void updateCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application, int week);
+	public void initCalendar(List<ScheduledEvent> events, List<String> days, ScheduleManager application, int week);
 	public JPanel getCalendar();
 	public int getWeekNB();
+	public void updateCalendar();
 
 }

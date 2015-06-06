@@ -23,13 +23,6 @@ public class Calendar extends JPanel
 	private static final long serialVersionUID = 1L;
 	private Image img;
 		
-	public Calendar(){
-		
-		
-		JButton event = new GraphicalEvent(new ScheduledEvent(new TimeSlot(new DateTime(2015,05,31,9,15), new DateTime(2015,05,31,9,15))));
-		this.add(event);
-	}
-	
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);

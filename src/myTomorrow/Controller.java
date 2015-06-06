@@ -17,7 +17,7 @@ public class Controller
 	public Controller() {
 		UserIHM gui = new MainWindow();
 		ScheduleManager application = new ScheduleManager(gui);
-		SwingUtilities.invokeLater((Runnable) gui);
+		
 		List<String> days =new LinkedList<String>();
 		days.add("Lundi");
 		days.add("Mardi");
@@ -26,7 +26,8 @@ public class Controller
 		days.add("Vendredi");
 		days.add("Samedi");
 		days.add("Dimanche");
-		gui.updateCalendar(application.getEvents(),days, application, gui.getWeekNB());
+		gui.initCalendar(application.getEvents(),days, application, gui.getWeekNB());
+		SwingUtilities.invokeLater((Runnable) gui);
 		
 	}
 	
