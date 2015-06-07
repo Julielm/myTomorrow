@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/joda-time-2.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/julie_000/Desktop/jdatepicker-1.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/julie_000/Documents/workspace/myTomorrow/libs/jdatepicker-1.3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
