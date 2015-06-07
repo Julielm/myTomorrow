@@ -3,12 +3,15 @@ package myTomorrow.view.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -48,7 +51,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		
 		JSplitPane split = new JSplitPane();
 		split.setDividerLocation(200);
-		this.navigation = new Navigation();
+		this.navigation = new Navigation(this);
 		split.setTopComponent(this.navigation);
 		split.setDividerSize(0);
 		split.setEnabled(false);
@@ -56,7 +59,6 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		split.setBottomComponent(calendar);
 		
 		this.weekNb=0;
-			
 		this.getContentPane().add(split);
 		
 	}
@@ -71,8 +73,10 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public Person askPersonInformations()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		JDialog personInformation = new PersonInformationDialog();
+		personInformation.setVisible(true);
+		//TODO trouver un moyen pour attendre la fermeture de la fenetre pour continuer.
+		return ((PersonInformationDialog) personInformation).getPersonInput();
 	}
 
 	@Override

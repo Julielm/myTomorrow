@@ -16,8 +16,7 @@ public class Controller
 {
 	public Controller() {
 		UserIHM gui = new MainWindow();
-		ScheduleManager application = new ScheduleManager(gui);
-		
+		ScheduleManager application = new ScheduleManager(gui);	
 		List<String> days =new LinkedList<String>();
 		days.add("Lundi");
 		days.add("Mardi");

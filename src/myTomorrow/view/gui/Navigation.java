@@ -1,11 +1,8 @@
 package myTomorrow.view.gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-
-import javax.swing.Icon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,12 +10,25 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
-public class Navigation extends JSplitPane
+public class Navigation extends JSplitPane implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel buttons;
 	private JPanel legend;
 	
-	public Navigation(){
+	private JButton appointment;
+	private JButton lesson;
+	private JButton person;
+	private JButton delete;
+	
+	private MainWindow mainWindow;
+	
+	public Navigation(MainWindow mainWindow){
+		
+		this.mainWindow = mainWindow;
 		this.setOrientation(VERTICAL_SPLIT);
 		this.buttons = new JPanel();
 		this.legend = new JPanel();
@@ -28,14 +38,15 @@ public class Navigation extends JSplitPane
 		this.setDividerSize(0);
 		this.setEnabled(false);
 		this.buttons.setLayout(new GridLayout(4,1));
-		JButton appointment= new JButton("Ajouter RDV");
-		this.buttons.add(appointment);
-		JButton lesson= new JButton("Ajouter Cours");
-		this.buttons.add(lesson);
-		JButton person= new JButton("<html><head> <style> p{ text-align : center}</style></head><body><p>Ajouter une personne <br>à un cours</p></body></html>");
-		this.buttons.add(person);
-		JButton delete= new JButton("Supprimer");
-		this.buttons.add(delete);
+		this.appointment= new JButton("Ajouter RDV");
+		this.appointment.addActionListener(this);
+		this.buttons.add(this.appointment);
+		this.lesson= new JButton("Ajouter Cours");
+		this.buttons.add(this.lesson);
+		this.person= new JButton("<html><head> <style> p{ text-align : center}</style></head><body><p>Ajouter une personne <br>à un cours</p></body></html>");
+		this.buttons.add(this.person);
+		this.delete= new JButton("Supprimer");
+		this.buttons.add(this.delete);
 		
 		this.legend.setLayout(new GridLayout(2,1));
 		JLabel appointmentLegend = new JLabel(" RDV  ");
@@ -48,13 +59,15 @@ public class Navigation extends JSplitPane
 		lessonLegend.setHorizontalAlignment(SwingConstants.CENTER); 
 		this.legend.add(lessonLegend);
 	}
-	
-	public JPanel getButtons() {
-		return this.buttons;
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == this.appointment) {
+			this.mainWindow.askPersonInformations();
+		}
+		
 	}
 	
-	public JPanel getLegend() {
-		return this.legend;
-	}
 
 }
