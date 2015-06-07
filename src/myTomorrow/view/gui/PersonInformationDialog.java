@@ -19,7 +19,7 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 {
 	private JTextField nom, prenom;
 	private Person personInput;
-	private volatile boolean isInput;
+	//private volatile boolean isInput;
 
 	/**
 	 * 
@@ -27,6 +27,7 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	public PersonInformationDialog(){
+		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(350, 140);
 		this.setResizable(false);
@@ -58,21 +59,21 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 		split.setDividerSize(0);
 		split.setEnabled(false);
 		this.add(split);
-		this.isInput = false;
+		//this.isInput = false;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		this.personInput = new Person(this.nom.getText(), this.prenom.getText());
-		this.isInput = true;
+		//this.isInput = true;
 		this.dispose();
 	}
 	
-	public boolean getIsInput(){
-		return this.isInput;
-	}
-	
+//	public boolean getIsInput(){
+//		return this.isInput;
+//	}
+//	
 	public Person getPersonInput(){
 		return this.personInput;
 	}

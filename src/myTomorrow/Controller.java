@@ -25,7 +25,7 @@ public class Controller
 		days.add("Vendredi");
 		days.add("Samedi");
 		days.add("Dimanche");
-		gui.initCalendar(application.getEvents(),days, gui.getWeekNB());
+		gui.initCalendar(application.getEvents(), days, application, gui.getWeekNB());
 		SwingUtilities.invokeLater((Runnable) gui);
 		
 	}

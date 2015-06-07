@@ -40,6 +40,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	private int weekNb;
 	private List<ScheduledEvent> events;
 	private List<String> days;
+	private ScheduleManager application;
 	
 	public MainWindow() {
 		
@@ -75,7 +76,6 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	{
 		JDialog personInformation = new PersonInformationDialog();
 		personInformation.setVisible(true);
-		//TODO trouver un moyen pour attendre la fermeture de la fenetre pour continuer.
 		return ((PersonInformationDialog) personInformation).getPersonInput();
 	}
 
@@ -150,8 +150,9 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	}
 	
 	@Override
-	public void initCalendar(List<ScheduledEvent> events, List<String> days, int week)
+	public void initCalendar(List<ScheduledEvent> events, List<String> days,ScheduleManager application, int week)
 	{
+		this.application=application;
 		this.events=events;
 		this.days = days;
 		DateTime today = DateTime.now().plusWeeks(this.weekNb);
@@ -292,6 +293,10 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	public int getWeekNB()
 	{
 		return this.weekNb;
+	}
+	
+	public ScheduleManager getApplication() {
+		return this.application;
 	}
 
 }
