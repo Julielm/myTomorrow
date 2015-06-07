@@ -50,21 +50,23 @@ public class ScheduleManager
 	 * Add an appointment.
 	 */
 	public void addAppointment(){
-		Appointment appointment = this.inputAppointment();	
-		List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
-		if (freeTimeSlot.isEmpty()) {
-			this.myIHM.freeTimeSlotIsEmpty();
-		}
-		else {
-			TimeSlot answer = this.askAnswer(freeTimeSlot);
-			if (answer!=null){
-				appointment.setTimeSlot(answer);
-				addEventInASortList(appointment);
+		Appointment appointment = this.inputAppointment();
+		if (appointment!=null) {
+			List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
+			if (freeTimeSlot.isEmpty()) {
+				this.myIHM.freeTimeSlotIsEmpty();
 			}
 			else {
-				this.myIHM.userDontWantTheseFreeTimeSlots();
-			}
-		}		
+				TimeSlot answer = this.askAnswer(freeTimeSlot);
+				if (answer!=null){
+					appointment.setTimeSlot(answer);
+					addEventInASortList(appointment);
+				}
+				else {
+					this.myIHM.userDontWantTheseFreeTimeSlots();
+				}
+			}		
+		}
 	}
 	
 	/**
@@ -83,8 +85,12 @@ public class ScheduleManager
 	 * @return an appointment
 	 */
 	private Appointment inputAppointment() {
-		TimeSlot timeSlot = new TimeSlot();
-		return new Appointment(this.myIHM.askPersonInformations(), timeSlot);
+		Person person =this.myIHM.askPersonInformations();
+		if (person!=null){
+			return new Appointment(person, new TimeSlot());
+		}
+		return null;
+		
 	}
 	
 	/**

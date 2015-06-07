@@ -17,9 +17,9 @@ import myTomorrow.model.Person;
 
 public class PersonInformationDialog extends JDialog implements ActionListener
 {
-	private JTextField nom, prenom;
+	private JTextField name, firstName;
+	private JButton okButton, cancelButton;
 	private Person personInput;
-	//private volatile boolean isInput;
 
 	/**
 	 * 
@@ -37,20 +37,25 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 		JPanel pan = new JPanel();
 		pan.setBorder(BorderFactory.createTitledBorder("Informations de la personne"));
 		pan.setLayout(new GridLayout(2,2));
-		this.nom = new JTextField();
+		this.name = new JTextField();
 		JLabel nomLabel = new JLabel("Saisir un nom :");
 		pan.add(nomLabel);
-		pan.add(this.nom);
-		this.prenom = new JTextField();
+		pan.add(this.name);
+		this.firstName = new JTextField();
 		JLabel prenomLabel = new JLabel("Saisir un prenom :");
 		pan.add(prenomLabel);
-		pan.add(this.prenom);
+		pan.add(this.firstName);
 		
 		JPanel control = new JPanel();
-		JButton okBouton = new JButton("OK");
-		okBouton.setPreferredSize(new Dimension(70, 30));
-		control.add(okBouton);
-		okBouton.addActionListener(this);
+		this.okButton = new JButton("Valider");
+		this.okButton.setPreferredSize(new Dimension(90, 30));
+		control.add(this.okButton);
+		this.okButton.addActionListener(this);
+		
+		this.cancelButton = new JButton("Annuler");
+		this.cancelButton.setPreferredSize(new Dimension(90, 30));
+		control.add(this.cancelButton);
+		this.cancelButton.addActionListener(this);
 		
 		JSplitPane split = new JSplitPane();
 		split.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -59,21 +64,21 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 		split.setDividerSize(0);
 		split.setEnabled(false);
 		this.add(split);
-		//this.isInput = false;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		this.personInput = new Person(this.nom.getText(), this.prenom.getText());
-		//this.isInput = true;
-		this.dispose();
+		if (e.getSource()==this.okButton & this.name.getText().length()!=0 & this.firstName.getText().length()!=0) {
+			this.personInput = new Person(this.name.getText(), this.firstName.getText());
+			this.dispose();
+		}
+		if (e.getSource()==this.cancelButton) {
+			this.dispose();
+		}
+		
 	}
 	
-//	public boolean getIsInput(){
-//		return this.isInput;
-//	}
-//	
 	public Person getPersonInput(){
 		return this.personInput;
 	}

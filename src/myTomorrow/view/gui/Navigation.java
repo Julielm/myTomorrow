@@ -32,7 +32,6 @@ public class Navigation extends JSplitPane implements ActionListener
 	
 	public Navigation(MainWindow mainWindow){
 		this.mainWindow = mainWindow;
-		this.application=this.mainWindow.getApplication();
 		this.setOrientation(VERTICAL_SPLIT);
 		this.buttons = new JPanel();
 		this.legend = new JPanel();
@@ -70,6 +69,12 @@ public class Navigation extends JSplitPane implements ActionListener
 		if (e.getSource() == this.appointment) {
 			this.application.addAppointment();
 		}
+		
+	}
+
+	public void initNavigation(ScheduleManager application)
+	{
+		this.application=application;
 		
 	}
 	

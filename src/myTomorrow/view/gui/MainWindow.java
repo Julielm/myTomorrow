@@ -153,6 +153,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	public void initCalendar(List<ScheduledEvent> events, List<String> days,ScheduleManager application, int week)
 	{
 		this.application=application;
+		((Navigation) this.navigation).initNavigation(this.application);
 		this.events=events;
 		this.days = days;
 		DateTime today = DateTime.now().plusWeeks(this.weekNb);
