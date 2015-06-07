@@ -84,7 +84,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	{
 		JDialog availableDay = new AvailableDayDialog();
 		availableDay.setVisible(true);
-		return null;
+		return ((AvailableDayDialog) availableDay).getAvailableDay();
 	}
 
 	@Override

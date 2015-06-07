@@ -90,5 +90,8 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		
 	}
 	
+	public Day getAvailableDay(){
+		return this.availableDay;
+	}
 	
 }
