@@ -52,21 +52,28 @@ public class ScheduleManager
 	public void addAppointment(){
 		Appointment appointment = this.inputAppointment();
 		if (appointment!=null) {
-			List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
-			if (freeTimeSlot.isEmpty()) {
-				this.myIHM.freeTimeSlotIsEmpty();
+			Day availableDay = this.myIHM.askAvailableDay();
+			if (availableDay!=null) {
+				int duration = this.myIHM.askDurationOfEvent();
+				if (duration!=0){
+					List<TimeSlot> freeTimeSlot = this.searchTimeSlot(availableDay,duration);
+					if (freeTimeSlot.isEmpty()) {
+						this.myIHM.freeTimeSlotIsEmpty();
+					}
+					else {
+						TimeSlot answer = this.askAnswer(freeTimeSlot);
+						if (answer!=null){
+							appointment.setTimeSlot(answer);
+							addEventInASortList(appointment);
+							this.myIHM.displayFinishedAddition(appointment);
+						}
+						else {
+							this.myIHM.userDontWantTheseFreeTimeSlots();
+						}
+					}		
+				}
 			}
-			else {
-				TimeSlot answer = this.askAnswer(freeTimeSlot);
-				if (answer!=null){
-					appointment.setTimeSlot(answer);
-					addEventInASortList(appointment);
-					this.myIHM.displayFinishedAddition(appointment);
-				}
-				else {
-					this.myIHM.userDontWantTheseFreeTimeSlots();
-				}
-			}		
+			
 		}
 	}
 	
@@ -221,21 +228,31 @@ public class ScheduleManager
 	 */
 	public void addLesson() {
 		Lesson lesson = this.inputLesson();	
-		List<TimeSlot> freeTimeSlot = this.searchTimeSlot(this.myIHM.askAvailableDay(),this.myIHM.askDurationOfEvent());
-		if (freeTimeSlot.isEmpty()) {
-			this.myIHM.freeTimeSlotIsEmpty();
-		}
-		else {
-			TimeSlot answer = this.askAnswer(freeTimeSlot);
-			if (answer!=null){
-				lesson.setTimeSlot(answer);
-				addEventInASortList(lesson);
-				this.myIHM.displayFinishedAddition(lesson);
+		if (lesson!= null) {
+			Day availableDay = this.myIHM.askAvailableDay();
+			if (availableDay!=null) {
+				int duration = this.myIHM.askDurationOfEvent();
+				if (duration!=0){
+					List<TimeSlot> freeTimeSlot = this.searchTimeSlot(availableDay,duration);
+					if (freeTimeSlot.isEmpty()) {
+						this.myIHM.freeTimeSlotIsEmpty();
+					}
+					else {
+						TimeSlot answer = this.askAnswer(freeTimeSlot);
+						if (answer!=null){
+							lesson.setTimeSlot(answer);
+							addEventInASortList(lesson);
+							this.myIHM.displayFinishedAddition(lesson);
+						}
+						else {
+							this.myIHM.userDontWantTheseFreeTimeSlots();
+						}
+					}
+				}	
 			}
-			else {
-				this.myIHM.userDontWantTheseFreeTimeSlots();
-			}
+				
 		}
+		
 	}
 	
 	private TimeSlot askAnswer(List<TimeSlot> timeSlots)
@@ -254,8 +271,10 @@ public class ScheduleManager
 
 	private Lesson inputLesson()
 	{
-		TimeSlot timeSlot = new TimeSlot(null, null);
-		return new Lesson(this.myIHM.askTitleOfTheLesson(),timeSlot);
+		String title =this.myIHM.askTitleOfTheLesson();
+		if (title!=null)
+			return new Lesson(title,new TimeSlot());
+		return null;
 	}
 	
 	/**

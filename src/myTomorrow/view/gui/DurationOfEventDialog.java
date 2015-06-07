@@ -72,6 +72,7 @@ public class DurationOfEventDialog extends JDialog implements ActionListener {
 			
 		}
 		if (e.getSource() == this.cancelButton) {
+			this.durationInput=0;
 			this.dispose();
 		}
 
