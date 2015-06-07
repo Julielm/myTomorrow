@@ -79,7 +79,7 @@ public class Lesson extends ScheduledEvent
 
 	public boolean hasTheSameTitle(String title)
 	{
-		if (this.title.equals(title))
+		if (this.title.equalsIgnoreCase(title))
 			return true;
 		return false;
 	}
