@@ -61,6 +61,7 @@ public class ScheduleManager
 				if (answer!=null){
 					appointment.setTimeSlot(answer);
 					addEventInASortList(appointment);
+					this.myIHM.displayFinishedAddition(appointment);
 				}
 				else {
 					this.myIHM.userDontWantTheseFreeTimeSlots();
@@ -75,7 +76,7 @@ public class ScheduleManager
 	 */
 	private void addEventInASortList(ScheduledEvent event) {
 		int index = 0;
-		while (this.events.get(index).isBefore(event) && index < this.events.size()) {
+		while (index < this.events.size() && this.events.get(index).isBefore(event)) {
 			index++;
 		}
 		this.events.add(index, event);
@@ -229,6 +230,7 @@ public class ScheduleManager
 			if (answer!=null){
 				lesson.setTimeSlot(answer);
 				addEventInASortList(lesson);
+				this.myIHM.displayFinishedAddition(lesson);
 			}
 			else {
 				this.myIHM.userDontWantTheseFreeTimeSlots();
@@ -271,7 +273,6 @@ public class ScheduleManager
 			TimeSlot answer = this.askAnswer(lessonsInThePeriod);
 			if (answer != null){
 				this.addPerson(answer, person);
-				this.myIHM.updateCalendar();
 			}
 			else {
 				this.myIHM.userDontWantTheseFreeTimeSlots();

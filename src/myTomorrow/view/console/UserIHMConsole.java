@@ -257,4 +257,11 @@ public class UserIHMConsole implements UserIHM
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void displayFinishedAddition(ScheduledEvent event)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

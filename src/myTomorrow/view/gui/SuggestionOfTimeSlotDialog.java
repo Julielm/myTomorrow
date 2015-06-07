@@ -24,7 +24,7 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-public class SuggestionOfTimeSlot extends JDialog implements ActionListener
+public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListener
 {
 	private JButton yesButton;
 	private JButton noButton;
@@ -32,7 +32,7 @@ public class SuggestionOfTimeSlot extends JDialog implements ActionListener
 	private boolean answer;
 
 	
-	public SuggestionOfTimeSlot(TimeSlot timeSlot)
+	public SuggestionOfTimeSlotDialog(TimeSlot timeSlot)
 	{
 		this.setModal(true);
 		this.setSize(400,180);

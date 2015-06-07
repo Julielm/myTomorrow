@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
@@ -96,30 +97,31 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public boolean suggestTimeSlot(TimeSlot timeSlot)
 	{
-		JDialog suggestionOfTimeSlot = new SuggestionOfTimeSlot(timeSlot);
+		JDialog suggestionOfTimeSlot = new SuggestionOfTimeSlotDialog(timeSlot);
 		suggestionOfTimeSlot.setVisible(true);
-		return ((SuggestionOfTimeSlot) suggestionOfTimeSlot).getSuggestionInput();
+		return ((SuggestionOfTimeSlotDialog) suggestionOfTimeSlot).getSuggestionInput();
 	}
 
 	@Override
 	public void freeTimeSlotIsEmpty()
 	{
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Il n'y a pas de créneaux libres"," Attention ",JOptionPane.WARNING_MESSAGE);
 		
 	}
 
 	@Override
 	public void userDontWantTheseFreeTimeSlots()
 	{
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Il n'y a plus de créneaux libres"," Attention ",JOptionPane.WARNING_MESSAGE);
 		
 	}
 
 	@Override
 	public String askTitleOfTheLesson()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		JDialog lessonInformation = new LessonInformationDialog();
+		lessonInformation.setVisible(true);
+		return ((LessonInformationDialog) lessonInformation).getTitleInput();
 	}
 
 	@Override
@@ -226,13 +228,13 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 			DayLabel label = new DayLabel(this.days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
 			
 			if ((dayOfWeek+1)>7) {
-				endWeek=today;
+				endWeek=new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 18,0);
 				today=today.minusDays(6);
 				dayOfWeek=1;
 			}
 			else {
 				if (dayOfWeek==1) {
-					startWeek=today;
+					startWeek=new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 8,0);
 				}
 				today=today.plusDays(1);
 				dayOfWeek+=1;
@@ -297,8 +299,20 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		return this.weekNb;
 	}
 	
+	public void setWeekNb(int nb) {
+		this.weekNb=nb;
+	}
+	
 	public ScheduleManager getApplication() {
 		return this.application;
+	}
+
+	@Override
+	public void displayFinishedAddition(ScheduledEvent event)
+	{
+		this.weekNb=event.getTimeSlot().getStartTime().getWeekOfWeekyear()-DateTime.now().getWeekOfWeekyear();
+		this.updateCalendar();
+		
 	}
 
 }
