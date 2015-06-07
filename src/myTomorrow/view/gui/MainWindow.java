@@ -84,13 +84,14 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		availableDay.setVisible(true);
 		return ((AvailableDayDialog) availableDay).getAvailableDay();
 	}
-
 	@Override
 	public int askDurationOfEvent()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		JDialog durationOfEvent = new DurationOfEventDialog();
+		durationOfEvent.setVisible(true);
+		return ((DurationOfEventDialog) durationOfEvent).getDurationInput();
 	}
+
 
 	@Override
 	public boolean suggestTimeSlot(TimeSlot timeSlot)

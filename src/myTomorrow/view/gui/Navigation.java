@@ -67,7 +67,9 @@ public class Navigation extends JSplitPane implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if (e.getSource() == this.appointment) {
-			this.application.addAppointment();
+			//this.application.addAppointment();
+			this.mainWindow.askDurationOfEvent();
+			
 		}
 		
 	}
