@@ -19,50 +19,55 @@ import org.joda.time.DateTime;
 
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
+import myTomorrow.model.TimeSlot;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 public class SuggestionOfTimeSlot extends JDialog implements ActionListener
 {
-	private JButton okButton;
+	private JButton yesButton;
+	private JButton noButton;
 	private JButton cancelButton;
-	private TimeSlot selectedTimeSlot;
-	//private Day availableDay;
-	private JDatePickerImpl datePicker;
+	private boolean answer;
+
 	
-	public SuggestionOfTimeSlot(TimeSlot timeslot)
+	public SuggestionOfTimeSlot(TimeSlot timeSlot)
 	{
 		this.setModal(true);
-		this.setTitle("Saisie");
-		this.setSize(350,180);
+		this.setSize(400,180);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
 		JPanel pan = new JPanel();
 		pan.setBorder(BorderFactory.createTitledBorder("Validation"));
-
-		JLabel label = new JLabel("Choisir le rendez-vous:");
-		pan.add(label);
-		
-		UtilDateModel model = new UtilDateModel();
-		JDatePanelImpl datePanel = new JDatePanelImpl(model);
-		this.datePicker = new JDatePickerImpl(datePanel);
-		
-		pan.add(this.datePicker);
+		pan.setLayout(new GridLayout(3,2));
+		pan.add(new JLabel("Ce créneau vous convient-il ? "));
+		pan.add(new JLabel());
+		pan.add(new JLabel("Heure de début :"));
+		pan.add(new JLabel(timeSlot.toString(timeSlot.getStartTime())));
+		pan.add(new JLabel("Heure de fin : "));
+		pan.add(new JLabel(timeSlot.toString(timeSlot.getEndTime())));
 		
 		JPanel control = new JPanel();
-		this.okButton = new JButton("Valider");
-		this.okButton.setPreferredSize(new Dimension(90, 30));
-		control.add(this.okButton);
-		this.okButton.addActionListener(this);
+		this.yesButton = new JButton("Oui");
+		this.yesButton.setPreferredSize(new Dimension(90, 30));
+		control.add(this.yesButton);
+		this.yesButton.addActionListener(this);
+		
+		this.noButton = new JButton("Non");
+		this.noButton.setPreferredSize(new Dimension(90, 30));
+		control.add(this.noButton);
+		this.noButton.addActionListener(this);
+		this.add(control);
 		
 		this.cancelButton = new JButton("Annuler");
 		this.cancelButton.setPreferredSize(new Dimension(90, 30));
 		control.add(this.cancelButton);
 		this.cancelButton.addActionListener(this);
 		this.add(control);
+
 		
 		JSplitPane split = new JSplitPane();
 		split.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -77,11 +82,12 @@ public class SuggestionOfTimeSlot extends JDialog implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		Date selectedValue =  (Date) this.datePicker.getModel().getValue();
-		if (e.getSource()==this.okButton & selectedValue!=null) {
-			this.selectedDate=new DateTime(selectedValue.getTime());
-			this.availableDay = new Day(this.selectedDate.getDayOfMonth(), this.selectedDate.getMonthOfYear(), this.selectedDate.getYear());
-			System.out.println(availableDay);
+		if (e.getSource()==this.yesButton) {
+			this.answer=true;
+			this.dispose();
+		}
+		if (e.getSource()==this.noButton) {
+			this.answer=false;
 			this.dispose();
 		}
 		if (e.getSource()==this.cancelButton) {
@@ -90,8 +96,8 @@ public class SuggestionOfTimeSlot extends JDialog implements ActionListener
 		
 	}
 	
-	public Day getAvailableDay(){
-		return this.availableDay;
+	public boolean getSuggestionInput(){
+		return this.answer;
 	}
 	
 }

@@ -271,6 +271,7 @@ public class ScheduleManager
 			TimeSlot answer = this.askAnswer(lessonsInThePeriod);
 			if (answer != null){
 				this.addPerson(answer, person);
+				this.myIHM.updateCalendar();
 			}
 			else {
 				this.myIHM.userDontWantTheseFreeTimeSlots();

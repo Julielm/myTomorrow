@@ -33,10 +33,10 @@ public class DurationOfEventDialog extends JDialog implements ActionListener {
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 		JPanel pan = new JPanel();
-		pan.setBorder(BorderFactory.createTitledBorder("Durée de l'evenement"));
+		pan.setBorder(BorderFactory.createTitledBorder("DurÃ©e de l'evenement"));
 		pan.setLayout(new GridLayout(2, 2));
 		this.duration = new JTextField();
-		JLabel nomLabel = new JLabel("Saisir une durée :");
+		JLabel nomLabel = new JLabel("Saisir une durÃ©e :");
 		pan.add(nomLabel);
 		pan.add(this.duration);
 

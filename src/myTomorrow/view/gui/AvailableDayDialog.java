@@ -81,7 +81,6 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		if (e.getSource()==this.okButton & selectedValue!=null) {
 			this.selectedDate=new DateTime(selectedValue.getTime());
 			this.availableDay = new Day(this.selectedDate.getDayOfMonth(), this.selectedDate.getMonthOfYear(), this.selectedDate.getYear());
-			System.out.println(availableDay);
 			this.dispose();
 		}
 		if (e.getSource()==this.cancelButton) {

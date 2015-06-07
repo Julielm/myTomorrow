@@ -103,4 +103,12 @@ public class TimeSlot
 	public boolean isBefore(TimeSlot timeslot) {
 		return this.startTime.isBefore(timeslot.startTime);
 	}
+	
+	public String toString(DateTime time){
+		StringBuilder str = new StringBuilder();
+		str.append(time.getHourOfDay());
+		str.append("h");
+		str.append(time.getMinuteOfHour());
+		return str.toString();
+	}
 }

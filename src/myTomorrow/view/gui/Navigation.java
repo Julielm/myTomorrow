@@ -11,7 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
+import org.joda.time.DateTime;
+
 import myTomorrow.model.ScheduleManager;
+import myTomorrow.model.TimeSlot;
 
 public class Navigation extends JSplitPane implements ActionListener
 {
@@ -67,9 +70,8 @@ public class Navigation extends JSplitPane implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if (e.getSource() == this.appointment) {
-			//this.application.addAppointment();
-			this.mainWindow.askDurationOfEvent();
-			
+			this.application.addAppointment();
+			//this.mainWindow.suggestTimeSlot(new TimeSlot(new DateTime(DateTime.now()), new DateTime(DateTime.now().plusMinutes(30))));
 		}
 		
 	}
