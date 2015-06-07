@@ -96,8 +96,9 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public boolean suggestTimeSlot(TimeSlot timeSlot)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		JDialog suggestionOfTimeSlot = new SuggestionOfTimeSlot();
+		suggestionOfTimeSlot.setVisible(true);
+		return ((SuggestionOfTimeSlotDialog)suggestionOfTimeSlot.getSuggestionInput;
 	}
 
 	@Override
