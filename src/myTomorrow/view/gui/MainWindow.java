@@ -144,8 +144,9 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public DateTime inputDateOfEvent()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		JDialog dateOfEvent = new DateOfEventDialog();
+		dateOfEvent.setVisible(true);
+		return ((DateOfEventDialog) dateOfEvent).getDate();
 	}
 
 	@Override
