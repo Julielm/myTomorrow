@@ -51,7 +51,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		
 		JSplitPane split = new JSplitPane();
 		split.setDividerLocation(200);
-		this.navigation = new Navigation(this);
+		this.navigation = new Navigation();
 		split.setTopComponent(this.navigation);
 		split.setDividerSize(0);
 		split.setEnabled(false);

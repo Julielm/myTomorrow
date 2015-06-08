@@ -3,18 +3,13 @@ package myTomorrow.view.gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
-
-import org.joda.time.DateTime;
-
 import myTomorrow.model.ScheduleManager;
-import myTomorrow.model.TimeSlot;
 
 public class Navigation extends JSplitPane implements ActionListener
 {
@@ -30,11 +25,9 @@ public class Navigation extends JSplitPane implements ActionListener
 	private JButton person;
 	private JButton delete;
 	
-	private MainWindow mainWindow;
 	private ScheduleManager application;
 	
-	public Navigation(MainWindow mainWindow){
-		this.mainWindow = mainWindow;
+	public Navigation(){
 		this.setOrientation(VERTICAL_SPLIT);
 		this.buttons = new JPanel();
 		this.legend = new JPanel();

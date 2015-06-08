@@ -1,13 +1,8 @@
 package myTomorrow.view;
 
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.JPanel;
-
 import org.joda.time.DateTime;
-
-import myTomorrow.model.Appointment;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;

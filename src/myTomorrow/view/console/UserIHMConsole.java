@@ -2,12 +2,8 @@ package myTomorrow.view.console;
 
 import java.util.List;
 import java.util.Scanner;
-
 import javax.swing.JPanel;
-
 import org.joda.time.DateTime;
-
-import myTomorrow.Controller;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;

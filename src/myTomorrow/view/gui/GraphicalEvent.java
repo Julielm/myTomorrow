@@ -1,6 +1,5 @@
 package myTomorrow.view.gui;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import org.joda.time.DateTime;
@@ -10,6 +9,11 @@ import myTomorrow.model.ScheduledEvent;
 
 public class GraphicalEvent extends JButton
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final int EVENT_WIDTH=132;
 	
 	private ScheduledEvent associatedEvent;

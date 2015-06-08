@@ -2,14 +2,9 @@ package myTomorrow;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.SwingUtilities;
-
-import org.joda.time.DateTime;
-
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.view.UserIHM;
-import myTomorrow.view.console.UserIHMConsole;
 import myTomorrow.view.gui.MainWindow;
 
 public class Controller
