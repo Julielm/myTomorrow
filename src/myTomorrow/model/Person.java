@@ -1,7 +1,7 @@
 package myTomorrow.model;
 
 /**
- * Person of a lesson or a appointment.
+ * Person we add in a lesson or a appointment.
  * 
  * @author myTomorrowProject
  * @version 1.0.0
@@ -42,10 +42,19 @@ public class Person
 		return this.firstName;
 	}
 	
+	/**
+	 * 
+	 * Check if two persons are the same.
+	 * @return boolean
+	 */
 	public boolean equals(Person person){
 		return this.name.equals(person.name) && this.firstName.equals(person.firstName);
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode() {
 		int hashcode = 0;
 		for (int currentCharacter=0; currentCharacter<this.name.length(); currentCharacter++)
@@ -55,6 +64,10 @@ public class Person
 		return hashcode;
 	}
 	
+	
+	/**
+	 * Return a name and firstname in a stringstring.
+	 */
 	public String toString() {
 		StringBuilder string = new StringBuilder();
 		string.append(this.firstName);

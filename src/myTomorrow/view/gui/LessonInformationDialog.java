@@ -12,17 +12,38 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
-
+/**
+ * Is the dialog window which ask for lesson information.
+ * @author myTomorrowProject
+ *
+ */
 
 public class LessonInformationDialog extends JDialog implements ActionListener
 {
-
+	/**
+	 * SerialVersionUID.
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Title of the dialog window.
+	 */
 	private JTextField title;
+	/**
+	 * Lesson title.
+	 */
 	private String lessonTitle;
+	/**
+	 * "OK" button.
+	 */
 	private JButton okButton;
+	/**
+	 * "Cancel" button.
+	 */
 	private JButton cancelButton;
 	
+	/**
+	 * Build a dialog window.
+	 */
 	public LessonInformationDialog(){
 		this.setModal(true);
 		this.setTitle("Saisie");
@@ -72,6 +93,10 @@ public class LessonInformationDialog extends JDialog implements ActionListener
 		
 	}
 	
+	/**
+	 * Get the lesson title.
+	 * @return string
+	 */
 	public String getTitleInput()
 	{
 		return this.lessonTitle;

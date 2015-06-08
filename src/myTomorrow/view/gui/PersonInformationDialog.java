@@ -14,7 +14,11 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
 import myTomorrow.model.Person;
-
+/**
+ * Is the dialog window which ask for person informations.
+ * @author myTomorrowProject
+ *
+ */
 public class PersonInformationDialog extends JDialog implements ActionListener
 {
 	private JTextField name, firstName;
@@ -22,10 +26,13 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 	private Person personInput;
 
 	/**
-	 * 
+	 * SerialVersionUID. 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Build a dialog window about person information.
+	 */
 	public PersonInformationDialog(){
 		this.setModal(true);
 		this.setTitle("Saisie");
@@ -79,6 +86,10 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 		
 	}
 	
+	/**
+	 * Get the person we add.
+	 * @return Person
+	 */
 	public Person getPersonInput(){
 		return this.personInput;
 	}

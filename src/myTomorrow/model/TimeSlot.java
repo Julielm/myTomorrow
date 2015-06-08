@@ -3,7 +3,7 @@ package myTomorrow.model;
 import org.joda.time.DateTime;
 
 /**
- * Time slot of an appointment or a lesson.
+ * Appointment or a lesson's Time slot.
  * 
  * @author myTomorrowProject
  * @version 1.0.0
@@ -65,7 +65,9 @@ public class TimeSlot
 	}
 
 
+	
 	/**
+	 * Set the start time with the time in parameter.
 	 * @param startTime the startTime to set
 	 */
 	public void setStartTime(DateTime startTime)
@@ -75,6 +77,7 @@ public class TimeSlot
 
 
 	/**
+	 *  Set the end time with the time in parameter.
 	 * @param endTime the endTime to set
 	 */
 	public void setEndTime(DateTime endTime)
@@ -83,7 +86,7 @@ public class TimeSlot
 	}
 	
 	/**
-	 * Display a TimeSlot
+	 * Display a TimeSlot.
 	 * @return a string
 	 */
 	public String toString() {
@@ -100,10 +103,20 @@ public class TimeSlot
 		return str.toString();
 	}
 	
+	/**
+	 * Check if a timeslot is before an other.
+	 * @param timeslot
+	 * @return
+	 */
 	public boolean isBefore(TimeSlot timeslot) {
 		return this.startTime.isBefore(timeslot.startTime);
 	}
 	
+	/**
+	 * Display a time.
+	 * @param time
+	 * @return a string
+	 */
 	public String toString(DateTime time){
 		StringBuilder str = new StringBuilder();
 		str.append(time.getHourOfDay());
