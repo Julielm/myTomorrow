@@ -11,22 +11,56 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import myTomorrow.model.ScheduleManager;
 
+/**
+ * Create the navigation bar.
+ * @author myTomorrow
+ *
+ */
 public class Navigation extends JSplitPane implements ActionListener
 {
 	/**
-	 * 
+	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Panel for the button.
+	 */
 	private JPanel buttons;
+	
+	/**
+	 * Panel for the legend.
+	 */
 	private JPanel legend;
 	
+	/**
+	 * Appointment button.
+	 */
 	private JButton appointment;
+	
+	/**
+	 * Lesson button.
+	 */
 	private JButton lesson;
+	
+	/**
+	 * Person button.
+	 */
 	private JButton person;
+	
+	/**
+	 * Delete button.
+	 */
 	private JButton delete;
 	
+	/**
+	 * Application associated with the navigation bar.
+	 */
 	private ScheduleManager application;
 	
+	/**
+	 * Create the navigation bar.
+	 */
 	public Navigation(){
 		this.setOrientation(VERTICAL_SPLIT);
 		this.buttons = new JPanel();
@@ -78,7 +112,11 @@ public class Navigation extends JSplitPane implements ActionListener
 			this.application.removeAppointmentOrPersonInLesson();
 		}
 	}
-
+	
+	/**
+	 * Initation of the application.
+	 * @param application
+	 */
 	public void initNavigation(ScheduleManager application)
 	{
 		this.application=application;

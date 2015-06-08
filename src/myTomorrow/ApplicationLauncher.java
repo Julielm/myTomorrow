@@ -29,7 +29,7 @@ public class ApplicationLauncher
 //			System.out.println("évenement : ");
 //			System.out.println("Date début : ");
 //			System.out.println(events.getTimeSlot().getStartTime());
-//			System.out.println("Date fin : ");
+//			System.out.println("Date fin : "); 
 //			System.out.println(events.getTimeSlot().getEndTime());
 //			if (events instanceof Lesson) {
 //				System.out.println("Titre");
