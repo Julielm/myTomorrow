@@ -176,7 +176,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		DateTime startWeek = new DateTime();
 		DateTime endWeek = new DateTime();
 		for (int day=0; day<7; day++){
-			DayLabel label = new DayLabel(this.days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
+			DayLabel label = new DayLabel(this.days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear()+"/"+today.getYear(), dayOfWeek); 
 			
 			if ((dayOfWeek+1)>7) {
 				endWeek=new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 18,0);
@@ -262,7 +262,9 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public void displayFinishedAddition(ScheduledEvent event)
 	{
-		this.weekNb=event.getTimeSlot().getStartTime().getWeekOfWeekyear()-DateTime.now().getWeekOfWeekyear();
+		DateTime date = event.getTimeSlot().getStartTime();
+		DateTime today = DateTime.now();
+		this.weekNb=date.getWeekOfWeekyear()-today.getWeekOfWeekyear()+52*(date.getYear()-today.getYear());
 		this.updateCalendar();
 		
 	}
