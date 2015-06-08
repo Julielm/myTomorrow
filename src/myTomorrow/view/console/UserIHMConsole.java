@@ -2,8 +2,12 @@ package myTomorrow.view.console;
 
 import java.util.List;
 import java.util.Scanner;
+
 import javax.swing.JPanel;
+
 import org.joda.time.DateTime;
+
+import myTomorrow.model.Answer;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;
@@ -84,7 +88,7 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public boolean suggestTimeSlot(TimeSlot timeSlot)
+	public Answer suggestTimeSlot(TimeSlot timeSlot)
 	{
 		System.out.println(timeSlot.toString());
 		System.out.println("Ce créneau vous convient-il ?");
@@ -92,9 +96,9 @@ public class UserIHMConsole implements UserIHM
 		System.out.println("2: Non");
 		String answer = scanner.nextLine();
 		if (answer.equals("1")){
-			return true;
+			return Answer.YES;
 		}
-		return  false;
+		return  Answer.NO;
 	}
 
 	@Override

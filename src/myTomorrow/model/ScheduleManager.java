@@ -67,9 +67,6 @@ public class ScheduleManager
 							addEventInASortList(appointment);
 							this.myIHM.displayFinishedAddition(appointment);
 						}
-						else {
-							this.myIHM.userDontWantTheseFreeTimeSlots();
-						}
 					}		
 				}
 			}
@@ -244,27 +241,26 @@ public class ScheduleManager
 							addEventInASortList(lesson);
 							this.myIHM.displayFinishedAddition(lesson);
 						}
-						else {
-							this.myIHM.userDontWantTheseFreeTimeSlots();
-						}
 					}
 				}	
 			}
-				
 		}
 		
 	}
 	
 	private TimeSlot askAnswer(List<TimeSlot> timeSlots)
 	{
-		boolean answer = false;
+		Answer answer = Answer.NO;
 		int index = 0;
-		while (answer==false && index < timeSlots.size()) {
+		while (answer != Answer.CANCEL && answer== Answer.NO && index < timeSlots.size()) {
 			answer=this.myIHM.suggestTimeSlot(timeSlots.get(index));
 			index++;
 		}
-		if (answer){
+		if (answer==Answer.YES){
 			return timeSlots.get(index-1);
+		}
+		if (answer==Answer.NO){
+			this.myIHM.userDontWantTheseFreeTimeSlots();
 		}
 		return null;
 	}
@@ -295,9 +291,6 @@ public class ScheduleManager
 						TimeSlot answer = this.askAnswer(lessonsInThePeriod);
 						if (answer != null){
 							this.addPerson(answer, person);
-						}
-						else {
-							this.myIHM.userDontWantTheseFreeTimeSlots();
 						}
 					}	
 				}	

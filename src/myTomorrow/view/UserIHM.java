@@ -1,8 +1,12 @@
 package myTomorrow.view;
 
 import java.util.List;
+
 import javax.swing.JPanel;
+
 import org.joda.time.DateTime;
+
+import myTomorrow.model.Answer;
 import myTomorrow.model.Day;
 import myTomorrow.model.Person;
 import myTomorrow.model.ScheduleManager;
@@ -36,7 +40,7 @@ public interface UserIHM
 	 * @param timeSlot
 	 * @return the answer of the user
 	 */
-	public boolean suggestTimeSlot(TimeSlot timeSlot);
+	public Answer suggestTimeSlot(TimeSlot timeSlot);
 	
 	public void freeTimeSlotIsEmpty();
 	

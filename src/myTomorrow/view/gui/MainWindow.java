@@ -17,6 +17,7 @@ import javax.swing.JSplitPane;
 
 import org.joda.time.DateTime;
 
+import myTomorrow.model.Answer;
 import myTomorrow.model.Appointment;
 import myTomorrow.model.Day;
 import myTomorrow.model.Lesson;
@@ -95,10 +96,11 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 
 
 	@Override
-	public boolean suggestTimeSlot(TimeSlot timeSlot)
+	public Answer suggestTimeSlot(TimeSlot timeSlot)
 	{
 		JDialog suggestionOfTimeSlot = new SuggestionOfTimeSlotDialog(timeSlot);
 		suggestionOfTimeSlot.setVisible(true);
+		
 		return ((SuggestionOfTimeSlotDialog) suggestionOfTimeSlot).getSuggestionInput();
 	}
 

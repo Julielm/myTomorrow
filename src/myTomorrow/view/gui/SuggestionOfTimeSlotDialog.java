@@ -4,12 +4,15 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+
+import myTomorrow.model.Answer;
 import myTomorrow.model.TimeSlot;
 
 public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListener
@@ -21,7 +24,7 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListene
 	private JButton yesButton;
 	private JButton noButton;
 	private JButton cancelButton;
-	private boolean answer;
+	private Answer answer;
 
 	
 	public SuggestionOfTimeSlotDialog(TimeSlot timeSlot)
@@ -75,20 +78,21 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListene
 	public void actionPerformed(ActionEvent e)
 	{
 		if (e.getSource()==this.yesButton) {
-			this.answer=true;
+			this.answer=Answer.YES;
 			this.dispose();
 		}
 		if (e.getSource()==this.noButton) {
-			this.answer=false;
+			this.answer=Answer.NO;
 			this.dispose();
 		}
 		if (e.getSource()==this.cancelButton) {
+			this.answer=Answer.CANCEL;
 			this.dispose();
 		}
 		
 	}
 	
-	public boolean getSuggestionInput(){
+	public Answer getSuggestionInput(){
 		return this.answer;
 	}
 	
