@@ -124,14 +124,16 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 		if (selectedValue!=null && selectedValue2!=null) {
 			this.selectedDate=new DateTime(selectedValue.getTime());
 			this.selectedDate2=new DateTime(selectedValue2.getTime());
-			
+			if (e.getSource()==this.okButton && !selectedValue.before(DateTime.now().minusDays(1).toDate()) && 
+					!selectedValue2.before(DateTime.now().minusDays(1).toDate()) && (selectedValue.before(selectedValue2)
+							|| selectedValue.equals(selectedValue2))) {
+				DateTime startDay = new DateTime(this.selectedDate.getYear(), this.selectedDate.getMonthOfYear(), this.selectedDate.getDayOfMonth(),8,0);
+				DateTime endDay = new DateTime(this.selectedDate2.getYear(), this.selectedDate2.getMonthOfYear(), this.selectedDate2.getDayOfMonth(),18,0);
+				this.availablePeriod = new TimeSlot(startDay, endDay);
+				this.dispose();
+			}
 		}
-		if (e.getSource()==this.okButton && (selectedValue.before(selectedValue2)|| selectedValue.equals(selectedValue2))) {
-			DateTime startDay = new DateTime(this.selectedDate.getYear(), this.selectedDate.getMonthOfYear(), this.selectedDate.getDayOfMonth(),8,0);
-			DateTime endDay = new DateTime(this.selectedDate2.getYear(), this.selectedDate2.getMonthOfYear(), this.selectedDate2.getDayOfMonth(),18,0);
-			this.availablePeriod = new TimeSlot(startDay, endDay);
-			this.dispose();
-		}
+		
 		if (e.getSource()==this.cancelButton) {
 			this.dispose();
 		}

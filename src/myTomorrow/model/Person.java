@@ -48,7 +48,7 @@ public class Person
 	 * @return boolean
 	 */
 	public boolean equals(Person person){
-		return this.name.equals(person.name) && this.firstName.equals(person.firstName);
+		return this.name.equalsIgnoreCase(person.name) && this.firstName.equalsIgnoreCase(person.firstName);
 	}
 	
 	

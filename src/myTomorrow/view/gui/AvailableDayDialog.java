@@ -65,7 +65,7 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
 		JPanel pan = new JPanel();
-		pan.setBorder(BorderFactory.createTitledBorder("Informations RDV"));
+		pan.setBorder(BorderFactory.createTitledBorder("Informations évènement"));
 
 		JLabel label = new JLabel("Saisir le jour disponible :");
 		pan.add(label);
