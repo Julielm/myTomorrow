@@ -45,8 +45,7 @@ public class FileManagerOfEvents
 						else {
 							fw.write(String.format("%s,%s,%s,%s/", event.getTimeSlot().getStartTime(), event.getTimeSlot().getEndTime(),
 									((Lesson) event).getTitle(), "vide"));
-						}
-						
+						}	
 				}
 				
 			}
@@ -81,7 +80,7 @@ public class FileManagerOfEvents
 							if (!string[3].equals("vide")){
 								String[] persons = string[3].split(";");
 								List<Person> personsInTheLesson = new LinkedList<Person>();
-								for (int position = 0; position < persons.length; index++) {
+								for (int position = 0; position < persons.length; position++) {
 									String[] person = persons[position].split("%");
 									String name = person[0];
 									String firstName = person[1];
