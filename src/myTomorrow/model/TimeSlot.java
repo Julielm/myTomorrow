@@ -108,7 +108,12 @@ public class TimeSlot
 		StringBuilder str = new StringBuilder();
 		str.append(time.getHourOfDay());
 		str.append("h");
-		str.append(time.getMinuteOfHour());
+		int minutes=time.getMinuteOfHour();
+		if (minutes==0) {
+			str.append("00");
+		}
+		else 
+			str.append(time.getMinuteOfHour());
 		return str.toString();
 	}
 }

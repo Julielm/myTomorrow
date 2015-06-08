@@ -163,60 +163,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		((Navigation) this.navigation).initNavigation(this.application);
 		this.events=events;
 		this.days = days;
-		DateTime today = DateTime.now().plusWeeks(this.weekNb);
-		int dayOfWeek = today.getDayOfWeek();
-		DateTime startWeek = new DateTime();
-		DateTime endWeek = new DateTime();
-		for (int day=0; day<7; day++){
-			DayLabel label = new DayLabel(this.days.get(dayOfWeek-1)+" "+today.getDayOfMonth()+"/"+today.getMonthOfYear(), dayOfWeek); 
-			
-			if ((dayOfWeek+1)>7) {
-				endWeek=today;
-				today=today.minusDays(6);
-				dayOfWeek=1;
-			}
-			else {
-				if (dayOfWeek==1) {
-					startWeek=today;
-				}
-				today=today.plusDays(1);
-				dayOfWeek+=1;
-			}
-			this.calendar.add(label);
-		}
-	
-		for (ScheduledEvent event : this.events) {
-			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
-				JButton buttonOfEvent = new GraphicalEvent(event);
-				if (event instanceof Appointment) {
-					buttonOfEvent.setBackground(new Color(0, 168, 255));
-					buttonOfEvent.setText(((Appointment) event).getPerson().toString());
-				}
-				if (event instanceof Lesson) {
-					buttonOfEvent.setBackground(new Color(39, 207, 0));
-					buttonOfEvent.setText(((Lesson) event).getTitle());
-				}
-				this.calendar.add(buttonOfEvent);
-			}
-		}
-		this.calendar.setLayout(null);
-		this.previousWeek = new JButton();
-		Icon previous = new ImageIcon("PreviousWeek.png");
-		this.previousWeek.setIcon(previous);
-		this.previousWeek.setBounds(1,8,28,30);
-		this.previousWeek.setBorder(BorderFactory.createEmptyBorder());
-		this.previousWeek.setBackground(Color.WHITE);
-		this.calendar.add(this.previousWeek);
-		this.previousWeek.addActionListener(this);
-		
-		this.nextWeek = new JButton();
-		Icon next = new ImageIcon("NextWeek.png");
-		this.nextWeek.setIcon(next);
-		this.nextWeek.setBounds(28,8,28,30);
-		this.nextWeek.setBorder(BorderFactory.createEmptyBorder());
-		this.nextWeek.setBackground(Color.WHITE);
-		this.calendar.add(this.nextWeek);
-		this.nextWeek.addActionListener(this);
+		this.updateCalendar();
 	}
 	
 	@Override
@@ -249,6 +196,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
+				buttonOfEvent.addActionListener(new EventListener(event));
 				if (event instanceof Appointment) {
 					buttonOfEvent.setText(((Appointment) event).getPerson().toString());
 					buttonOfEvent.setBackground(new Color(0, 168, 255));		

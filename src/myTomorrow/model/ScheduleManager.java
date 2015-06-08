@@ -347,19 +347,22 @@ public class ScheduleManager
 	 * Remove an appointment or a person in a lesson.
 	 */
 	public void removeAppointmentOrPersonInLesson() {
-		int index = this.searchEvent(this.myIHM.inputDateOfEvent());
-		if (index>=0) {
-			if (this.events.get(index) instanceof Appointment) {
-				ScheduledEvent event = this.events.get(index);
-				this.removeAppointment(index);
-				this.myIHM.eventDeleted();
-				this.myIHM.displayFinishedAddition(event);
+		DateTime date = this.myIHM.inputDateOfEvent();
+		if (date != null) {
+			int index = this.searchEvent(date);
+			if (index>=0) {
+				if (this.events.get(index) instanceof Appointment) {
+					ScheduledEvent event = this.events.get(index);
+					this.removeAppointment(index);
+					this.myIHM.eventDeleted();
+					this.myIHM.displayFinishedAddition(event);
+				}
+				else 
+					this.removePersonInLesson(index);
 			}
 			else 
-				this.removePersonInLesson(index);
+				this.myIHM.noEventAtThisDate();
 		}
-		else 
-			this.myIHM.noEventAtThisDate();
 	}
 
 	private void removePersonInLesson(int index)

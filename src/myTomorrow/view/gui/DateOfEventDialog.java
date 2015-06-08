@@ -106,7 +106,6 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 				}
 			}
 		}
-		
 		if (e.getSource()==this.cancelButton) {
 			this.dispose();
 		}

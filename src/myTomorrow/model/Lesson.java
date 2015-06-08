@@ -116,4 +116,14 @@ public class Lesson extends ScheduledEvent
 		this.persNb--;
 		
 	}
+	
+	public String displayPersons() {
+		StringBuilder str = new StringBuilder();
+		str.append("<html> <body>");
+		for (Person person : this.personsList) {
+			str.append(person+ "<br>");
+		}
+		str.append("</body></html>");
+		return str.toString();
+	}
 }
