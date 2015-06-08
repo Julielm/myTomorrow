@@ -55,5 +55,8 @@ public interface UserIHM
 	public int getWeekNB();
 	public void updateCalendar();
 	public void displayFinishedAddition(ScheduledEvent event);
+	public void noEventAtThisDate();
+	public void eventDeleted();
+	public void personDeleted();
 
 }

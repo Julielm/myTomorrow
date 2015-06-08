@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.SwingConstants;
 
 import org.joda.time.DateTime;
 
+import myTomorrow.model.Day;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -28,6 +30,8 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 	private JTextField minutes;
 	private JButton okButton;
 	private JButton cancelButton;
+	private DateTime selectedDate;
+	private DateTime dateOfEvent;
 
 	public DateOfEventDialog() {
 		this.setModal(true);
@@ -88,15 +92,39 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0)
+	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
+		Date selectedValue =  (Date) this.datePicker.getModel().getValue();
+		if (e.getSource()==this.okButton && selectedValue!=null && this.hours.getText()!=null && this.minutes.getText()!=null) {
+			if(this.isNumeric(this.hours.getText()) && this.isNumeric(this.minutes.getText())) {
+				int hoursInput = Integer.parseInt(this.hours.getText());
+				int minutesInput = Integer.parseInt(this.minutes.getText());
+				if (!selectedValue.before(DateTime.now().minusDays(1).toDate()) && hoursInput<=18 && hoursInput>=8 && minutesInput>=0 && minutesInput<=59) {
+					this.selectedDate=new DateTime(selectedValue.getTime());
+					this.dateOfEvent = new DateTime( this.selectedDate.getYear(), this.selectedDate.getMonthOfYear(), this.selectedDate.getDayOfMonth(),hoursInput,minutesInput);
+					this.dispose();
+				}
+			}
+		}
+		
+		if (e.getSource()==this.cancelButton) {
+			this.dispose();
+		}
 		
 	}
 
 	public DateTime getDate()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.dateOfEvent;
+	}
+	
+	public boolean isNumeric(String string){
+		try {
+			int value = Integer.parseInt(string);
+			
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 }

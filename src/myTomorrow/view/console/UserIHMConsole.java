@@ -264,4 +264,25 @@ public class UserIHMConsole implements UserIHM
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void noEventAtThisDate()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventDeleted()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void personDeleted()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

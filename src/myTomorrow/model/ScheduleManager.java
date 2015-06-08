@@ -350,11 +350,16 @@ public class ScheduleManager
 		int index = this.searchEvent(this.myIHM.inputDateOfEvent());
 		if (index>=0) {
 			if (this.events.get(index) instanceof Appointment) {
+				ScheduledEvent event = this.events.get(index);
 				this.removeAppointment(index);
+				this.myIHM.eventDeleted();
+				this.myIHM.displayFinishedAddition(event);
 			}
 			else 
 				this.removePersonInLesson(index);
-		}	
+		}
+		else 
+			this.myIHM.noEventAtThisDate();
 	}
 
 	private void removePersonInLesson(int index)
@@ -364,11 +369,16 @@ public class ScheduleManager
 		int personIndex = lesson.personIndex(personToRemove);
 		if (personIndex >=0) {
 			lesson.remove(personIndex);
+			ScheduledEvent event = this.events.get(index);
 			if (lesson.getPersNb()==0) {
 				this.events.remove(index);
+				this.myIHM.eventDeleted();
 			}
-			else 
+			else  {
 				this.events.set(index, lesson);
+				this.myIHM.personDeleted();
+			}
+			this.myIHM.displayFinishedAddition(event);
 		}
 		else 
 			this.myIHM.thePersonInputIsNTInLesson();
@@ -381,15 +391,14 @@ public class ScheduleManager
 	}
 
 	private int searchEvent(DateTime dateOfEvent)
-	{
-		
+	{	
 		int index = 0;
 		DateTime currentEvent = events.get(index).getTimeSlot().getStartTime();
 		while(currentEvent!=dateOfEvent && index+1 < events.size()) {
 			index++;
 			currentEvent = events.get(index).getTimeSlot().getStartTime();
 		}
-		if (currentEvent==dateOfEvent) {
+		if (currentEvent.isEqual(dateOfEvent)) {
 			return index;
 		}
 		return -1;

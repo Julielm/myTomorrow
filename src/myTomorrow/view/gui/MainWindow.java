@@ -319,4 +319,25 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		
 	}
 
+	@Override
+	public void noEventAtThisDate()
+	{
+		JOptionPane.showMessageDialog(this, "Il n'y a pas d'évènements à cette date"," Attention ",JOptionPane.WARNING_MESSAGE);
+		
+	}
+
+	@Override
+	public void eventDeleted()
+	{
+		JOptionPane.showMessageDialog(this, "L'évènement a été supprimé"," Information ",JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+	@Override
+	public void personDeleted()
+	{
+		JOptionPane.showMessageDialog(this, "La personne a été supprimée du cours"," Information ",JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
 }
