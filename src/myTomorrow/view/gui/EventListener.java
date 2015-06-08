@@ -9,10 +9,19 @@ import myTomorrow.model.Appointment;
 import myTomorrow.model.Lesson;
 import myTomorrow.model.ScheduledEvent;
 
+/**
+ * Listener for events' buttons.
+ * @author myTomorrowProject
+ *
+ */
 public class EventListener implements ActionListener
 {
 	private ScheduledEvent event;
 
+	/**
+	 * Constructor of EventListener.
+	 * @param event
+	 */
 	public EventListener(ScheduledEvent event)
 	{
 		this.event=event;
