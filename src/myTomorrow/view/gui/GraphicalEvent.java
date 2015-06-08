@@ -7,17 +7,32 @@ import org.joda.time.Duration;
 
 import myTomorrow.model.ScheduledEvent;
 
+/**
+ * Create a graphical event associated with an event.
+ * @author myTomorrow
+ *
+ */
 public class GraphicalEvent extends JButton
 {
 	/**
-	 * 
+	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Width of the graphical object.
+	 */
 	public static final int EVENT_WIDTH=132;
 	
+	/**
+	 * Event associated with the graphical object.
+	 */
 	private ScheduledEvent associatedEvent;
 	
+	/**
+	 * Create the graphical object associated with the event.
+	 * @param event
+	 */
 	public GraphicalEvent(ScheduledEvent event){
 		this.associatedEvent=event;
 		
