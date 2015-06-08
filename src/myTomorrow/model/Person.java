@@ -64,6 +64,13 @@ public class Person
 		return hashcode;
 	}
 	
+	public String personInFile(){
+		StringBuilder str = new StringBuilder();
+		str.append(this.name);
+		str.append("%");
+		str.append(this.firstName);
+		return str.toString();
+	}
 	
 	/**
 	 * Return a name and firstname in a stringstring.

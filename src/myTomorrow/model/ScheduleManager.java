@@ -1,5 +1,7 @@
 package myTomorrow.model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,29 +29,29 @@ public class ScheduleManager
 	/**
 	 * List of the used time slots.
 	 */
-	private final List<ScheduledEvent> events;
+	private List<ScheduledEvent> events;
 	
 	/** 
 	 * User's IHM.
 	 */
 	private final UserIHM myIHM;
+	private FileManagerOfEvents fileManagerOfEvents;
 	
 	/**
 	 * Constructor of an application.
 	 * @param ihm 
 	 * 		chosen ihm, console or GUI
 	 */
-	public ScheduleManager(UserIHM ihm){
-		this.events = new LinkedList<ScheduledEvent>();
-		this.events.add(new Appointment(new Person("Bourdon", "Laetitia"), new TimeSlot(new DateTime(2015,6,4,8,00), new DateTime(2015,6,4,9,15))));
-		this.events.add(new Lesson("Cours de natation", new TimeSlot(new DateTime(2015,6,4,9,15), new DateTime(2015,6,4,11,15))));
-		this.events.add(new Appointment(new Person("Montcarmel", "Elodie"), new TimeSlot(new DateTime(2015,6,4,16,15), new DateTime(2015,6,4,18,00))));
-		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,6,6,9,15), new DateTime(2015,6,6,10,15))));
-		this.events.add(new Appointment(new Person("Leprunier", "Hugo"), new TimeSlot(new DateTime(2015,6,6,10,15), new DateTime(2015,6,6,11,15))));
+	public ScheduleManager(UserIHM ihm, File eventFile){
+		this.fileManagerOfEvents = new FileManagerOfEvents(eventFile);
+		try
+		{
+			this.events = this.fileManagerOfEvents.readEvents();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		
-		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,6,6,11,15), new DateTime(2015,6,6,12,00))));
-		this.events.add(new Lesson("Cours de Yoga", new TimeSlot(new DateTime(2015,6,6,14,15), new DateTime(2015,6,6,16,15))));
-		this.events.add(new Appointment(new Person("Lacondemine", "Virgil"), new TimeSlot(new DateTime(2015,05,27,11,0), new DateTime(2015,05,27,11,15))));
 		this.myIHM = ihm;
 	}
 	
@@ -73,6 +75,13 @@ public class ScheduleManager
 							appointment.setTimeSlot(answer);
 							addEventInASortList(appointment);
 							this.myIHM.displayFinishedAddition(appointment);
+							try
+							{
+								this.fileManagerOfEvents.writeEvents(this.events);
+							} catch (IOException e)
+							{
+								e.printStackTrace();
+							}
 						}
 					}		
 				}
@@ -262,6 +271,13 @@ public class ScheduleManager
 							lesson.setTimeSlot(answer);
 							addEventInASortList(lesson);
 							this.myIHM.displayFinishedAddition(lesson);
+							try
+							{
+								this.fileManagerOfEvents.writeEvents(this.events);
+							} catch (IOException e)
+							{
+								e.printStackTrace();
+							}
 						}
 					}
 				}	
@@ -313,6 +329,13 @@ public class ScheduleManager
 						TimeSlot answer = this.askAnswer(lessonsInThePeriod);
 						if (answer != null){
 							this.addPerson(answer, person);
+							try
+							{
+								this.fileManagerOfEvents.writeEvents(this.events);
+							} catch (IOException e)
+							{
+								e.printStackTrace();
+							}
 						}
 					}	
 				}	
@@ -384,6 +407,13 @@ public class ScheduleManager
 				}
 				else 
 					this.removePersonInLesson(index);
+				try
+				{
+					this.fileManagerOfEvents.writeEvents(this.events);
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 			}
 			else 
 				this.myIHM.noEventAtThisDate();

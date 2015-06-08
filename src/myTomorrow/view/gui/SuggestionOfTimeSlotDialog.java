@@ -49,7 +49,7 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListene
 		pan.setBorder(BorderFactory.createTitledBorder("Validation"));
 		pan.setLayout(new GridLayout(3,2));
 		pan.add(new JLabel("Ce créneau vous convient-il ? "));
-		pan.add(new JLabel());
+		pan.add(new JLabel(timeSlot.toString()));
 		pan.add(new JLabel("Heure de début :"));
 		pan.add(new JLabel(timeSlot.toString(timeSlot.getStartTime())));
 		pan.add(new JLabel("Heure de fin : "));

@@ -1,8 +1,11 @@
 package myTomorrow;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
+
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.view.UserIHM;
 import myTomorrow.view.gui.MainWindow;
@@ -21,7 +24,8 @@ public class Controller
 	 */
 	public Controller() {
 		UserIHM gui = new MainWindow();
-		ScheduleManager application = new ScheduleManager(gui);	
+		File eventFile = new File("listeDesEvenements.txt");
+		ScheduleManager application = new ScheduleManager(gui, eventFile);	
 		List<String> days =new LinkedList<String>();
 		days.add("Lundi");
 		days.add("Mardi");

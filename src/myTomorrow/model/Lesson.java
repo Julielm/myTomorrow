@@ -37,6 +37,14 @@ public class Lesson extends ScheduledEvent
 		this.persNb=DEFAULT_PERS_NB;
 		this.personsList=new LinkedList<Person>();
 	}
+	
+	public Lesson(String title, TimeSlot timeSlot, List<Person> persons) {
+		super(timeSlot);
+		this.title=title;
+		this.maxPersNb=DEFAULT_MAX_PERS_NB;
+		this.persNb=DEFAULT_PERS_NB;
+		this.personsList=persons;
+	}
 
 	/**
 	 * Getter for the title.
@@ -145,6 +153,14 @@ public class Lesson extends ScheduledEvent
 		
 	}
 	
+	public String persons(){
+		StringBuilder str = new StringBuilder();
+		for (Person person : this.personsList) {
+			str.append(person.personInFile());
+			str.append(";");
+		}
+		return str.toString();
+	}
 	
 	/**
 	 * Do a string with present persons in the lesson.

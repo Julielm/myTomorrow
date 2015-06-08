@@ -91,15 +91,12 @@ public class TimeSlot
 	 */
 	public String toString() {
 		StringBuilder str = new StringBuilder();
-		String newLine = System.getProperty("line.separator");
-		str.append("Créneau : ");
-		str.append(newLine);
-		str.append("Date début : ");
-		str.append(this.getStartTime());
-		str.append(newLine);
-		str.append("Date fin : ");
-		str.append(this.getEndTime());
-		str.append(newLine);
+		str.append("Le ");
+		str.append(this.getStartTime().getDayOfMonth());
+		str.append("/");
+		str.append(this.getStartTime().getMonthOfYear());
+		str.append("/");
+		str.append(this.getStartTime().getYear());
 		return str.toString();
 	}
 	

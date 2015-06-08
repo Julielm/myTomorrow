@@ -192,7 +192,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 			}
 			this.calendar.add(label);
 		}
-	
+		
 		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
