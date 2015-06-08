@@ -15,18 +15,28 @@ import javax.swing.JSplitPane;
 import myTomorrow.model.Answer;
 import myTomorrow.model.TimeSlot;
 
+/**
+ * 
+ * @author myTomorrowProject
+ *
+ */
 public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListener
 {
-	/**
-	 * 
-	 */
+	/**Serial version UID.*/
 	private static final long serialVersionUID = 1L;
+	/** Button yes. */
 	private JButton yesButton;
+	/** Button no. */
 	private JButton noButton;
+	/** Button cancel. */
 	private JButton cancelButton;
+	/** Answer of the suggestion. */
 	private Answer answer;
 
-	
+	/**
+	 * Constructor of SuggestionOfTimeSlotDialog.
+	 * @param timeSlot
+	 */
 	public SuggestionOfTimeSlotDialog(TimeSlot timeSlot)
 	{
 		this.setModal(true);
@@ -92,6 +102,10 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements ActionListene
 		
 	}
 	
+	/**
+	 * Getter for the answer. 
+	 * @return
+	 */
 	public Answer getSuggestionInput(){
 		return this.answer;
 	}

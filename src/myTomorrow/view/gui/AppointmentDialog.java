@@ -20,14 +20,26 @@ import org.joda.time.format.DateTimeFormatter;
 import myTomorrow.model.Appointment;
 import myTomorrow.model.ScheduledEvent;
 
+
+/**
+ * JDialog for appointement's informations.
+ * @author myTomorrowProject
+ * @version 1.0.0
+ */
 public class AppointmentDialog extends JDialog implements ActionListener
 {
 	/**
-	 * 
+	 * Serial version ID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/** Button ok. */
 	private JButton okButton;
 
+	/**
+	 * Constructor of apointementDialog
+	 * @param event
+	 */
 	public AppointmentDialog(ScheduledEvent event){
 		this.setModal(true);
 		this.setTitle("Information");

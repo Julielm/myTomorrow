@@ -17,14 +17,23 @@ import myTomorrow.model.ScheduledEvent;
 
 import org.joda.time.DateTime;
 
+
+/**
+ * Lesson's window
+ * @author myTomorrowProject
+ *
+ */
 public class LessonDialog extends JDialog implements ActionListener
 {
-	/**
-	 * 
-	 */
+	/** Serial version UID. */
 	private static final long serialVersionUID = 1L;
+	/** Button ok. */
 	private JButton okButton;
 
+	/**
+	 * Constructor of LessonDialog.
+	 * @param event
+	 */
 	public LessonDialog(ScheduledEvent event){
 		this.setModal(true);
 		this.setTitle("Information");

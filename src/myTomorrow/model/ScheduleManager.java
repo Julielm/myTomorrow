@@ -15,7 +15,14 @@ import org.joda.time.DateTime;
  */
 public class ScheduleManager
 {
+	
+	/**
+	 * Constant for the morning.
+	 */
 	public static final boolean MORNING=true;
+	/**
+	 * Constant for the afternoon.
+	 */
 	public static final boolean AFTERNOON=false;
 	/**
 	 * List of the used time slots.
@@ -85,6 +92,7 @@ public class ScheduleManager
 		}
 		this.events.add(index, event);
 	}
+	
 	/**
 	 * Create a new appointment with no defined time slot.
 	 * @return an appointment
@@ -102,7 +110,7 @@ public class ScheduleManager
 	 * Research of a free time slot.
 	 * @param day
 	 * @param duration
-	 * @return a TimeSlot
+	 * @return a List of TimeSlot
 	 */
 	private List<TimeSlot> searchTimeSlot(Day day, int duration) {
 		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
@@ -112,6 +120,13 @@ public class ScheduleManager
 	}
 	
 	
+	/**
+	 * Research possible events in the half day put in parameter.
+	 * @param day
+	 * @param duration
+	 * @param isMorning
+	 * @return a list of TimeSlot
+	 */
 	private List<TimeSlot> possibleEvents(Day day, int duration, boolean isMorning)
 	{
 		List<ScheduledEvent> eventsOnSameDay = this.getAllEventsThatAreOnSameDay(day, isMorning);
@@ -125,6 +140,13 @@ public class ScheduleManager
 	}
 
 	
+	/**
+	 * 
+	 * @param day
+	 * @param duration
+	 * @param isMorning
+	 * @return a list of TimeSlot
+	 */
 	private List<TimeSlot> GetAllTimeSlotsInTheDay(Day day, int duration, boolean isMorning)
 	{
 		List<TimeSlot> list =new LinkedList<TimeSlot>();

@@ -27,7 +27,6 @@ public class Lesson extends ScheduledEvent
 	/**
 	 * Constructor of a Lesson.
 	 * @param title
-	 * @param duration 
 	 * @param timeSlot 
 	 */
 	public Lesson(String title, TimeSlot timeSlot)
@@ -77,6 +76,12 @@ public class Lesson extends ScheduledEvent
 		return (LinkedList<Person>)this.personsList;
 	}
 
+	
+	/**
+	 * Test if title of lesson is the same than the string in parameter.
+	 * @param title
+	 * @return a boolean
+	 */
 	public boolean hasTheSameTitle(String title)
 	{
 		if (this.title.equalsIgnoreCase(title))
@@ -84,6 +89,11 @@ public class Lesson extends ScheduledEvent
 		return false;
 	}
 
+	
+	/**
+	 * Test if lesson has free place.
+	 * @return a boolean
+	 */
 	public boolean hasFreePlace()
 	{
 		if (this.persNb<DEFAULT_MAX_PERS_NB) {
@@ -92,12 +102,23 @@ public class Lesson extends ScheduledEvent
 		return false;
 	}
 
+	
+	/**
+	 * Add person in a lesson.
+	 * @param person
+	 */
 	public void setPersonList(Person person)
 	{
 		this.personsList.add(person);
 		this.persNb++;
 	}
 	
+	
+	/**
+	 * Search a person in a the list of the person.
+	 * @param person
+	 * @return index
+	 */
 	public int personIndex(Person person) {
 		int index = 0;
 		Person currentPerson = this.personsList.get(index);
@@ -110,6 +131,11 @@ public class Lesson extends ScheduledEvent
 		return -1;
 	}
 
+	
+	/**
+	 * Delete person in the lesson at the index put in parameter.
+	 * @param personIndex
+	 */
 	public void remove(int personIndex)
 	{
 		this.personsList.remove(personIndex);
@@ -117,6 +143,11 @@ public class Lesson extends ScheduledEvent
 		
 	}
 	
+	
+	/**
+	 * Do a string with present persons in the lesson.
+	 * @return a string
+	 */
 	public String displayPersons() {
 		StringBuilder str = new StringBuilder();
 		str.append("<html> <body>");
