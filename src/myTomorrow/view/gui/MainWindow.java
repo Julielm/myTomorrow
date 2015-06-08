@@ -137,7 +137,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public void lessonsInThePeriodIsEmpty()
 	{
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Il n'y a pas de cours avec cet intitulé dans la période.\n Ajouter d'abord un cours"," Attention ",JOptionPane.WARNING_MESSAGE);
 		
 	}
 
@@ -151,7 +151,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public void thePersonInputIsNTInLesson()
 	{
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "La personne a bien été ajoutée au cours"," Information ",JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 	
