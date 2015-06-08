@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import myTomorrow.model.Lesson;
+import myTomorrow.model.ScheduleManager;
 import myTomorrow.model.ScheduledEvent;
 
 import org.joda.time.DateTime;
@@ -29,12 +30,18 @@ public class LessonDialog extends JDialog implements ActionListener
 	private static final long serialVersionUID = 1L;
 	/** Button ok. */
 	private JButton okButton;
+	private ScheduleManager application;
+	private ScheduledEvent event;
+	private JButton deleteButton;
 
 	/**
 	 * Constructor of LessonDialog.
 	 * @param event
+	 * @param application 
 	 */
-	public LessonDialog(ScheduledEvent event){
+	public LessonDialog(ScheduledEvent event, ScheduleManager application){
+		this.application=application;
+		this.event=event;
 		this.setModal(true);
 		this.setTitle("Information");
 		this.setSize(500,310);
@@ -63,6 +70,11 @@ public class LessonDialog extends JDialog implements ActionListener
 		this.okButton.setPreferredSize(new Dimension(90, 30));
 		control.add(this.okButton);
 		this.okButton.addActionListener(this);
+		
+		this.deleteButton = new JButton("Supprimer");
+		this.deleteButton.setPreferredSize(new Dimension(110, 30));
+		control.add(this.deleteButton);
+		this.deleteButton.addActionListener(this);
 
 		JSplitPane split = new JSplitPane();
 		split.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -77,7 +89,14 @@ public class LessonDialog extends JDialog implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		this.dispose();
+		if (e.getSource()==this.okButton) {
+			this.dispose();
+		}
+		if (e.getSource()==this.deleteButton) {
+			this.application.remove(event);
+			this.dispose();
+			
+		}
 		
 	}
 }

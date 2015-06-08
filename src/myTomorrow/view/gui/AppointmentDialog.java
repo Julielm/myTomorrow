@@ -1,6 +1,5 @@
 package myTomorrow.view.gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,10 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import myTomorrow.model.Appointment;
+import myTomorrow.model.ScheduleManager;
 import myTomorrow.model.ScheduledEvent;
 
 
@@ -34,13 +31,19 @@ public class AppointmentDialog extends JDialog implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	/** Button ok. */
+	private ScheduleManager application;
+	private ScheduledEvent event; 
 	private JButton okButton;
+	private JButton deleteButton;
 
 	/**
 	 * Constructor of apointementDialog
 	 * @param event
 	 */
-	public AppointmentDialog(ScheduledEvent event){
+	public AppointmentDialog(ScheduledEvent event, ScheduleManager application){
+		this.application=application;
+		this.event=event;
+		
 		this.setModal(true);
 		this.setTitle("Information");
 		this.setSize(500,180);
@@ -66,9 +69,14 @@ public class AppointmentDialog extends JDialog implements ActionListener
 		
 		JPanel control = new JPanel();
 		this.okButton = new JButton("Ok");
-		this.okButton.setPreferredSize(new Dimension(90, 30));
+		this.okButton.setPreferredSize(new Dimension(110, 30));
 		control.add(this.okButton);
 		this.okButton.addActionListener(this);
+		
+		this.deleteButton = new JButton("Supprimer");
+		this.deleteButton.setPreferredSize(new Dimension(110, 30));
+		control.add(this.deleteButton);
+		this.deleteButton.addActionListener(this);
 
 		JSplitPane split = new JSplitPane();
 		split.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -83,7 +91,14 @@ public class AppointmentDialog extends JDialog implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		this.dispose();
+		if (e.getSource()==this.okButton) {
+			this.dispose();
+		}
+		if (e.getSource()==this.deleteButton) {
+			this.application.remove(event);
+			this.dispose();
+			
+		}
 		
 	}
 }

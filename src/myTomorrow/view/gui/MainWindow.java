@@ -196,7 +196,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
-				buttonOfEvent.addActionListener(new EventListener(event));
+				buttonOfEvent.addActionListener(new EventListener(event,this.application));
 				if (event instanceof Appointment) {
 					buttonOfEvent.setText(((Appointment) event).getPerson().toString());
 					buttonOfEvent.setBackground(new Color(0, 168, 255));		

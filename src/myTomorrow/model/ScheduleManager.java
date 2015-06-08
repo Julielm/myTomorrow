@@ -389,24 +389,32 @@ public class ScheduleManager
 
 	private void removePersonInLesson(int index)
 	{
-		Person personToRemove = this.myIHM.askPersonInformations();
 		Lesson lesson = (Lesson)this.events.get(index);
-		int personIndex = lesson.personIndex(personToRemove);
-		if (personIndex >=0) {
-			lesson.remove(personIndex);
-			ScheduledEvent event = this.events.get(index);
-			if (lesson.getPersNb()==0) {
-				this.events.remove(index);
-				this.myIHM.eventDeleted();
+		ScheduledEvent event = this.events.get(index);
+		if (lesson.getPersNb()!=0) {
+			Person personToRemove = this.myIHM.askPersonInformations();
+			int personIndex = lesson.personIndex(personToRemove);
+			if (personIndex >=0) {
+				lesson.remove(personIndex);
+				
+				if (lesson.getPersNb()==0) {
+					this.events.remove(index);
+					this.myIHM.eventDeleted();
+				}
+				else  {
+					this.events.set(index, lesson);
+					this.myIHM.personDeleted();
+				}
+				this.myIHM.displayFinishedAddition(event);
 			}
-			else  {
-				this.events.set(index, lesson);
-				this.myIHM.personDeleted();
-			}
+			else 
+				this.myIHM.thePersonInputIsNTInLesson();
+		}
+		else {
+			this.events.remove(index);
+			this.myIHM.eventDeleted();
 			this.myIHM.displayFinishedAddition(event);
 		}
-		else 
-			this.myIHM.thePersonInputIsNTInLesson();
 		
 	}
 
@@ -445,6 +453,13 @@ public class ScheduleManager
 	public UserIHM getMyIHM()
 	{
 		return this.myIHM;
+	}
+
+	public void remove(ScheduledEvent event)
+	{
+		this.events.remove(event);
+		this.myIHM.updateCalendar();
+		
 	}
 	
 }
