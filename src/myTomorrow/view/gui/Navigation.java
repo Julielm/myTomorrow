@@ -44,6 +44,7 @@ public class Navigation extends JSplitPane implements ActionListener
 		this.lesson.addActionListener(this);
 		this.buttons.add(this.lesson);
 		this.person= new JButton("<html><head> <style> p{ text-align : center}</style></head><body><p>Ajouter une personne <br>à un cours</p></body></html>");
+		this.person.addActionListener(this);
 		this.buttons.add(this.person);
 		this.delete= new JButton("Supprimer");
 		this.buttons.add(this.delete);
@@ -69,7 +70,9 @@ public class Navigation extends JSplitPane implements ActionListener
 		if (e.getSource() == this.lesson) {
 			this.application.addLesson();
 		}
-		
+		if (e.getSource() ==this.person) {
+			this.application.addPersonToLesson();
+		}
 	}
 
 	public void initNavigation(ScheduleManager application)

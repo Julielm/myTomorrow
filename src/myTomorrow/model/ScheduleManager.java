@@ -282,21 +282,28 @@ public class ScheduleManager
 	 */
 	public void addPersonToLesson() {
 		Person person = this.myIHM.askPersonInformations();
-		TimeSlot period = this.myIHM.askAvailablePeriod();
-		String title = this.myIHM.askTitleOfTheLesson();
-		List<TimeSlot> lessonsInThePeriod = this.LessonInAList(this.EventsInAPeriod(period), title);
-		if (lessonsInThePeriod.isEmpty()) {
-			this.myIHM.lessonsInThePeriodIsEmpty();
+		if (person != null) {
+			TimeSlot period = this.myIHM.askAvailablePeriod();
+			if (period!=null) {
+				String title = this.myIHM.askTitleOfTheLesson();
+				if (title!=null) {
+					List<TimeSlot> lessonsInThePeriod = this.LessonInAList(this.EventsInAPeriod(period), title);
+					if (lessonsInThePeriod.isEmpty()) {
+						this.myIHM.lessonsInThePeriodIsEmpty();
+					}
+					else {
+						TimeSlot answer = this.askAnswer(lessonsInThePeriod);
+						if (answer != null){
+							this.addPerson(answer, person);
+						}
+						else {
+							this.myIHM.userDontWantTheseFreeTimeSlots();
+						}
+					}	
+				}	
+			}
+			
 		}
-		else {
-			TimeSlot answer = this.askAnswer(lessonsInThePeriod);
-			if (answer != null){
-				this.addPerson(answer, person);
-			}
-			else {
-				this.myIHM.userDontWantTheseFreeTimeSlots();
-			}
-		}	
 	}
 	
 	private void addPerson(TimeSlot answer, Person person)

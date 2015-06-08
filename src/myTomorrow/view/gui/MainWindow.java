@@ -127,8 +127,9 @@ public class MainWindow extends JFrame implements Runnable, UserIHM, ActionListe
 	@Override
 	public TimeSlot askAvailablePeriod()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		JDialog availablePeriod = new AvailablePeriodDialog();
+		availablePeriod.setVisible(true);
+		return ((AvailablePeriodDialog) availablePeriod).getPeriod();
 	}
 
 	@Override

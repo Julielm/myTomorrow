@@ -1,6 +1,7 @@
 package myTomorrow.view.gui;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -13,37 +14,39 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import org.joda.time.DateTime;
-
-import myTomorrow.model.Day;
+import myTomorrow.model.TimeSlot;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-public class AvailableDayDialog extends JDialog implements ActionListener
+public class AvailablePeriodDialog extends JDialog implements ActionListener
 {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JDatePickerImpl datePicker;
+	private JDatePickerImpl datePicker2;
 	private JButton okButton;
 	private JButton cancelButton;
 	private DateTime selectedDate;
-	private Day availableDay;
-	private JDatePickerImpl datePicker;
+	private DateTime selectedDate2;
+	private TimeSlot availablePeriod;
 	
-	public AvailableDayDialog()
-	{
+	public AvailablePeriodDialog(){
 		this.setModal(true);
 		this.setTitle("Saisie");
-		this.setSize(350,180);
+		this.setSize(450,180);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
+		
 		JPanel pan = new JPanel();
-		pan.setBorder(BorderFactory.createTitledBorder("Informations RDV"));
-
-		JLabel label = new JLabel("Saisir le jour disponible :");
+		pan.setBorder(BorderFactory.createTitledBorder("Periode disponible"));
+		pan.setLayout(new GridLayout(2,2));
+		JLabel label = new JLabel("Saisir le jour de début :");
 		pan.add(label);
 		
 		UtilDateModel model = new UtilDateModel();
@@ -51,6 +54,15 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		this.datePicker = new JDatePickerImpl(datePanel);
 		
 		pan.add(this.datePicker);
+		
+		JLabel label2 = new JLabel("Saisir le jour de fin :");
+		pan.add(label2);
+		
+		UtilDateModel model2 = new UtilDateModel();
+		JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
+		this.datePicker2 = new JDatePickerImpl(datePanel2);
+		
+		pan.add(this.datePicker2);
 		
 		JPanel control = new JPanel();
 		this.okButton = new JButton("Valider");
@@ -73,14 +85,22 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		split.setEnabled(false);
 		this.add(split);
 	}
-
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		Date selectedValue =  (Date) this.datePicker.getModel().getValue();
-		if (e.getSource()==this.okButton && selectedValue!=null  && !selectedValue.before(DateTime.now().minusDays(1).toDate())) {
+		Date selectedValue2 =  (Date) this.datePicker2.getModel().getValue();
+		if (selectedValue!=null && selectedValue2!=null) {
 			this.selectedDate=new DateTime(selectedValue.getTime());
-			this.availableDay = new Day(this.selectedDate.getDayOfMonth(), this.selectedDate.getMonthOfYear(), this.selectedDate.getYear());
+			this.selectedDate2=new DateTime(selectedValue2.getTime());
+			
+		}
+		if (e.getSource()==this.okButton && (selectedValue.before(selectedValue2)|| selectedValue.equals(selectedValue2))) {
+			DateTime startDay = new DateTime(this.selectedDate.getYear(), this.selectedDate.getMonthOfYear(), this.selectedDate.getDayOfMonth(),8,0);
+			DateTime endDay = new DateTime(this.selectedDate2.getYear(), this.selectedDate2.getMonthOfYear(), this.selectedDate2.getDayOfMonth(),18,0);
+			this.availablePeriod = new TimeSlot(startDay, endDay);
 			this.dispose();
 		}
 		if (e.getSource()==this.cancelButton) {
@@ -88,9 +108,10 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		}
 		
 	}
-	
-	public Day getAvailableDay(){
-		return this.availableDay;
+
+	public TimeSlot getPeriod()
+	{
+		return this.availablePeriod;
 	}
-	
+
 }
