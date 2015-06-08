@@ -19,18 +19,42 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+
+/**
+ * Windows which propose you an available day.
+ * @author myTomorrowProject
+ *
+ */
 public class AvailableDayDialog extends JDialog implements ActionListener
 {
 	/**
-	 * 
+	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Ok button.
+	 */
 	private JButton okButton;
-	private JButton cancelButton;
-	private DateTime selectedDate;
-	private Day availableDay;
-	private JDatePickerImpl datePicker;
 	
+	/**
+	 * Cancel button.
+	 */
+	private JButton cancelButton;
+	/**
+	 * Selected Date.
+	 */
+	private DateTime selectedDate;
+	/**
+	 * Available day.
+	 */
+	private Day availableDay;
+	/**
+	 * Date picker.
+	 */
+	private JDatePickerImpl datePicker;
+	/**
+	 * Available day window.
+	 */
 	public AvailableDayDialog()
 	{
 		this.setModal(true);
@@ -89,6 +113,10 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 		
 	}
 	
+	/**
+	 * Getter for the available day.
+	 * @return the available day
+	 */
 	public Day getAvailableDay(){
 		return this.availableDay;
 	}

@@ -19,21 +19,50 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+/**
+ * Windows which propose you an available period.
+ * @author myTomorrowProject
+ *
+ */
 public class AvailablePeriodDialog extends JDialog implements ActionListener
 {
 
 	/**
-	 * 
+	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * DatePicker.
+	 */
 	private JDatePickerImpl datePicker;
+	/**
+	 * DatePicker2.
+	 */
 	private JDatePickerImpl datePicker2;
+	/**
+	 * OkButton.
+	 */
 	private JButton okButton;
+	/**
+	 * CancelButton.
+	 */
 	private JButton cancelButton;
+	/**
+	 * SelectedDate.
+	 */
 	private DateTime selectedDate;
+	/**
+	 * SelectedDate2.
+	 */
 	private DateTime selectedDate2;
+	/**
+	 * AvailablePeriod.
+	 */
 	private TimeSlot availablePeriod;
 	
+	/**
+	 * Available day window.
+	 */
 	public AvailablePeriodDialog(){
 		this.setModal(true);
 		this.setTitle("Saisie");
@@ -109,6 +138,10 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 		
 	}
 
+	/**
+	 * Getter for the available period.
+	 * @return the available period
+	 */
 	public TimeSlot getPeriod()
 	{
 		return this.availablePeriod;
