@@ -305,7 +305,7 @@ public class ScheduleManager
 			if (period!=null) {
 				String title = this.myIHM.askTitleOfTheLesson();
 				if (title!=null) {
-					List<TimeSlot> lessonsInThePeriod = this.LessonInAList(this.EventsInAPeriod(period), title);
+					List<TimeSlot> lessonsInThePeriod = this.LessonInAList(this.EventsInAPeriod(period), title, person);
 					if (lessonsInThePeriod.isEmpty()) {
 						this.myIHM.lessonsInThePeriodIsEmpty();
 					}
@@ -332,7 +332,7 @@ public class ScheduleManager
 		this.events.set(index, lesson);
 	}
 
-	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList, String title)
+	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList, String title, Person person)
 	{
 		List<TimeSlot> lessons = new LinkedList<TimeSlot>();
 		for (ScheduledEvent event : eventsInAList) {
@@ -340,7 +340,10 @@ public class ScheduleManager
 				Lesson lesson = (Lesson) event;
 				if (lesson.hasTheSameTitle(title)) {
 					if (lesson.hasFreePlace()) {
-						lessons.add(lesson.getTimeSlot());
+						if (lesson.personIndex(person)<0) {
+							lessons.add(lesson.getTimeSlot());
+						}
+						
 					}
 				}
 			}
