@@ -258,7 +258,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 				}
 				if (event instanceof Lesson)
 				{
-					buttonOfEvent.setBackground(new Color(39, 207, 0));
+					buttonOfEvent.setBackground(new Color(124, 237, 105));
 					buttonOfEvent.setText(((Lesson) event).getTitle());
 				}
 				this.calendar.add(buttonOfEvent);
