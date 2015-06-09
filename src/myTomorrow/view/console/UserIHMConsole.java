@@ -285,7 +285,7 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void displayFinishedAddition(ScheduledEvent event)
+	public void displayFinishedHandling(ScheduledEvent event)
 	{
 		System.out.println("L'évènement a bien été ajouté.");
 

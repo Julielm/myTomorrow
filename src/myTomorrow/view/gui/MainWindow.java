@@ -300,7 +300,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void displayFinishedAddition(ScheduledEvent event)
+	public void displayFinishedHandling(ScheduledEvent event)
 	{
 		DateTime date = event.getTimeSlot().getStartTime();
 		DateTime today = DateTime.now();

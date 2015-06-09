@@ -111,7 +111,7 @@ public interface UserIHM
 	 * 
 	 * @param event
 	 */
-	public void displayFinishedAddition(ScheduledEvent event);
+	public void displayFinishedHandling(ScheduledEvent event);
 
 	/**
 	 * Inform the user : No event is available at the date.

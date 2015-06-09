@@ -84,7 +84,7 @@ public class ScheduleManager
 						{
 							appointment.setTimeSlot(answer);
 							addEventInASortList(appointment);
-							this.myIHM.displayFinishedAddition(appointment);
+							this.myIHM.displayFinishedHandling(appointment);
 							try
 							{
 								this.fileManagerOfEvents
@@ -358,7 +358,7 @@ public class ScheduleManager
 						{
 							lesson.setTimeSlot(answer);
 							addEventInASortList(lesson);
-							this.myIHM.displayFinishedAddition(lesson);
+							this.myIHM.displayFinishedHandling(lesson);
 							try
 							{
 								this.fileManagerOfEvents
@@ -527,14 +527,15 @@ public class ScheduleManager
 		if (date != null)
 		{
 			int index = this.searchEvent(date);
+			System.out.println(index);
 			if (index >= 0)
 			{
-				if (this.events.get(index) instanceof Appointment)
+				ScheduledEvent event = this.events.get(index); 
+				if (event instanceof Appointment)
 				{
-					ScheduledEvent event = this.events.get(index);
 					this.removeAppointment(index);
 					this.myIHM.eventDeleted();
-					this.myIHM.displayFinishedAddition(event);
+					this.myIHM.displayFinishedHandling(event);
 				} else
 					this.removePersonInLesson(index);
 				try
@@ -569,10 +570,13 @@ public class ScheduleManager
 				{
 					this.events.remove(index);
 					this.myIHM.eventDeleted();
+					this.myIHM.displayFinishedHandling(lesson);
+					
 				} else
 				{
 					this.events.set(index, lesson);
 					this.myIHM.personDeleted();
+					this.myIHM.displayFinishedHandling(lesson);
 				}
 			} else
 				this.myIHM.thePersonInputIsNTInLesson();
@@ -580,6 +584,7 @@ public class ScheduleManager
 		{
 			this.events.remove(index);
 			this.myIHM.eventDeleted();
+			this.myIHM.displayFinishedHandling(lesson);
 		}
 
 	}
@@ -605,7 +610,7 @@ public class ScheduleManager
 		int index = 0;
 		if (!this.events.isEmpty()) {
 			DateTime currentEvent = this.events.get(index).getTimeSlot().getStartTime();
-			while (currentEvent != dateOfEvent && index + 1 < this.events.size())
+			while (!currentEvent.isEqual(dateOfEvent) && index + 1 < this.events.size())
 			{
 				index++;
 				currentEvent = this.events.get(index).getTimeSlot().getStartTime();
