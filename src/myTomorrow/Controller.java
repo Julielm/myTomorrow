@@ -18,15 +18,16 @@ import myTomorrow.view.gui.MainWindow;
  */
 public class Controller
 {
-	
+
 	/**
 	 * Constructor of the controller.
 	 */
-	public Controller() {
+	public Controller()
+	{
 		UserIHM gui = new MainWindow();
 		File eventFile = new File("listeDesEvenements.txt");
-		ScheduleManager application = new ScheduleManager(gui, eventFile);	
-		List<String> days =new LinkedList<String>();
+		ScheduleManager application = new ScheduleManager(gui, eventFile);
+		List<String> days = new LinkedList<String>();
 		days.add("Lundi");
 		days.add("Mardi");
 		days.add("Mercredi");
@@ -34,9 +35,10 @@ public class Controller
 		days.add("Vendredi");
 		days.add("Samedi");
 		days.add("Dimanche");
-		gui.initCalendar(application.getEvents(), days, application, gui.getWeekNB());
+		gui.initCalendar(application.getEvents(), days, application,
+				gui.getWeekNB());
 		SwingUtilities.invokeLater((Runnable) gui);
-		
+
 	}
-	
+
 }

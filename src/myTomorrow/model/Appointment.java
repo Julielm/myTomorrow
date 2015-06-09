@@ -1,6 +1,5 @@
 package myTomorrow.model;
 
-
 /**
  * Appointment at person's home.
  * 
@@ -9,23 +8,24 @@ package myTomorrow.model;
  */
 public class Appointment extends ScheduledEvent
 {
-	/** Person who takes the appointment.*/
+	/** Person who takes the appointment. */
 	private final Person person;
-	
 
 	/**
 	 * Constructor of an appointment.
+	 * 
 	 * @param person
 	 * @param timeSlot
 	 */
 	public Appointment(Person person, TimeSlot timeSlot)
 	{
 		super(timeSlot);
-		this.person=person;
+		this.person = person;
 	}
 
 	/**
 	 * Getter for the person.
+	 * 
 	 * @return the person
 	 */
 	public Person getPerson()
