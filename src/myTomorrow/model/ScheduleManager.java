@@ -603,16 +603,18 @@ public class ScheduleManager
 	private int searchEvent(DateTime dateOfEvent)
 	{
 		int index = 0;
-		DateTime currentEvent = events.get(index).getTimeSlot().getStartTime();
-		while (currentEvent != dateOfEvent && index + 1 < events.size())
-		{
-			index++;
-			currentEvent = events.get(index).getTimeSlot().getStartTime();
-		}
-		if (currentEvent.isEqual(dateOfEvent))
-		{
-			return index;
-		}
+		if (!this.events.isEmpty()) {
+			DateTime currentEvent = this.events.get(index).getTimeSlot().getStartTime();
+			while (currentEvent != dateOfEvent && index + 1 < this.events.size())
+			{
+				index++;
+				currentEvent = this.events.get(index).getTimeSlot().getStartTime();
+			}
+			if (currentEvent.isEqual(dateOfEvent))
+			{
+				return index;
+			}
+		}		
 		return -1;
 	}
 
@@ -630,7 +632,6 @@ public class ScheduleManager
 			this.fileManagerOfEvents.writeEvents(this.events);
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
