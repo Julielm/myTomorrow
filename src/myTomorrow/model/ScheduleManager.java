@@ -625,6 +625,14 @@ public class ScheduleManager
 	{
 		this.events.remove(event);
 		this.myIHM.updateCalendar();
+		try
+		{
+			this.fileManagerOfEvents.writeEvents(this.events);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
