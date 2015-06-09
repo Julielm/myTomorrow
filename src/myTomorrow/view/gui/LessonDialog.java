@@ -28,10 +28,16 @@ public class LessonDialog extends JDialog implements ActionListener
 {
 	/** Serial version UID. */
 	private static final long serialVersionUID = 1L;
-	/** Button ok. */
+	/** Ok button. */
 	private JButton okButton;
+	
+	/** Application. */
 	private ScheduleManager application;
+	
+	/** Current event. */
 	private ScheduledEvent event;
+	
+	/** Delete button. */
 	private JButton deleteButton;
 
 	/**
