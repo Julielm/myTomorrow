@@ -11,8 +11,9 @@ import javax.swing.JPanel;
 
 /**
  * Display calendar in a JPanel.
+ * 
  * @author myTomorrow
- *
+ * @version 1.0.0
  */
 public class Calendar extends JPanel
 {
@@ -20,12 +21,12 @@ public class Calendar extends JPanel
 	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Image of the calendar.
 	 */
 	private Image img;
-	
+
 	/**
 	 * Put the calendar image in JPanel.
 	 */
@@ -33,16 +34,14 @@ public class Calendar extends JPanel
 	{
 		super.paintComponent(g);
 
-		try 
+		try
 		{
-		      this.img = ImageIO.read(new File("Calendar.png"));
-		      g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		} 
-		catch (IOException e) 
+			this.img = ImageIO.read(new File("Calendar.png"));
+			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e)
 		{
-		      e.printStackTrace();
-		}  
+			e.printStackTrace();
+		}
 	}
 
-	
 }

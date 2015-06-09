@@ -12,8 +12,9 @@ import myTomorrow.model.ScheduledEvent;
 
 /**
  * Listener for events' buttons.
+ * 
  * @author myTomorrowProject
- *
+ * @version 1.0.0
  */
 public class EventListener implements ActionListener
 {
@@ -22,23 +23,28 @@ public class EventListener implements ActionListener
 
 	/**
 	 * Constructor of EventListener.
+	 * 
 	 * @param event
 	 */
 	public EventListener(ScheduledEvent event, ScheduleManager manager)
 	{
-		this.event=event;
-		this.application=manager;
+		this.event = event;
+		this.application = manager;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(event instanceof Appointment) {
-			JDialog informations = new AppointmentDialog(this.event, this.application);
+		if (event instanceof Appointment)
+		{
+			JDialog informations = new AppointmentDialog(this.event,
+					this.application);
 			informations.setVisible(true);
 		}
-		if(event instanceof Lesson) {
-			JDialog informations = new LessonDialog(this.event, this.application);
+		if (event instanceof Lesson)
+		{
+			JDialog informations = new LessonDialog(this.event,
+					this.application);
 			informations.setVisible(true);
 		}
 

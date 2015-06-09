@@ -557,7 +557,6 @@ public class ScheduleManager
 	private void removePersonInLesson(int index)
 	{
 		Lesson lesson = (Lesson) this.events.get(index);
-		ScheduledEvent event = this.events.get(index);
 		if (lesson.getPersNb() != 0)
 		{
 			Person personToRemove = this.myIHM.askPersonInformations();
@@ -575,14 +574,12 @@ public class ScheduleManager
 					this.events.set(index, lesson);
 					this.myIHM.personDeleted();
 				}
-				this.myIHM.displayFinishedAddition(event);
 			} else
 				this.myIHM.thePersonInputIsNTInLesson();
 		} else
 		{
 			this.events.remove(index);
 			this.myIHM.eventDeleted();
-			this.myIHM.displayFinishedAddition(event);
 		}
 
 	}

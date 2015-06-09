@@ -12,17 +12,25 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
-public class DurationOfEventDialog extends JDialog implements ActionListener {
+/**
+ * Dialog for the duration of event.
+ * 
+ * @author myTomorrow
+ * @version 1.0.0
+ */
+public class DurationOfEventDialog extends JDialog implements ActionListener
+{
 	private JTextField duration;
 	private JButton okButton, cancelButton;
 	private int durationInput;
 
 	/**
-		 * 
-		 */
+	 * SerialVersionUID.
+	 */
 	private static final long serialVersionUID = 1L;
 
-	public DurationOfEventDialog() {
+	public DurationOfEventDialog()
+	{
 		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(350, 140);
@@ -59,31 +67,50 @@ public class DurationOfEventDialog extends JDialog implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e)
+	{
 		if (e.getSource() == this.okButton
-				& this.duration.getText().length() != 0) {
-			if (this.isNumeric(this.duration.getText())) {
+				& this.duration.getText().length() != 0)
+		{
+			if (this.isNumeric(this.duration.getText()))
+			{
 				this.durationInput = Integer.parseInt(this.duration.getText());
 				this.dispose();
 			}
-			
+
 		}
-		if (e.getSource() == this.cancelButton) {
-			this.durationInput=0;
+		if (e.getSource() == this.cancelButton)
+		{
+			this.durationInput = 0;
 			this.dispose();
 		}
 
 	}
 
-	public int getDurationInput() {
+	/**
+	 * Getter for the duration input.
+	 * 
+	 * @return a integer
+	 */
+	public int getDurationInput()
+	{
 		return this.durationInput;
 	}
-	
-	public boolean isNumeric(String string){
-		try {
+
+	/**
+	 * Test if the string is numeric.
+	 * 
+	 * @param string
+	 * @return a boolean
+	 */
+	public boolean isNumeric(String string)
+	{
+		try
+		{
 			int value = Integer.parseInt(string);
-			
-		} catch (Exception e) {
+
+		} catch (Exception e)
+		{
 			return false;
 		}
 		return true;

@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.view.UserIHM;
+import myTomorrow.view.console.UserIHMConsole;
 import myTomorrow.view.gui.MainWindow;
 
 /**
@@ -35,8 +36,7 @@ public class Controller
 		days.add("Vendredi");
 		days.add("Samedi");
 		days.add("Dimanche");
-		gui.initCalendar(application.getEvents(), days, application,
-				gui.getWeekNB());
+		gui.initCalendar(application.getEvents(), days, application);
 		SwingUtilities.invokeLater((Runnable) gui);
 
 	}
