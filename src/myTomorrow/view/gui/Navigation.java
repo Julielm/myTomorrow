@@ -17,8 +17,7 @@ import myTomorrow.model.ScheduleManager;
  * @author myTomorrow
  * @version 1.0.0
  */
-public class Navigation extends JSplitPane implements ActionListener
-{
+public class Navigation extends JSplitPane implements ActionListener {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -62,8 +61,7 @@ public class Navigation extends JSplitPane implements ActionListener
 	/**
 	 * Create the navigation bar.
 	 */
-	public Navigation()
-	{
+	public Navigation() {
 		this.setOrientation(VERTICAL_SPLIT);
 		this.buttons = new JPanel();
 		this.legend = new JPanel();
@@ -100,22 +98,17 @@ public class Navigation extends JSplitPane implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == this.appointment)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.appointment) {
 			this.application.addAppointment();
 		}
-		if (e.getSource() == this.lesson)
-		{
+		if (e.getSource() == this.lesson) {
 			this.application.addLesson();
 		}
-		if (e.getSource() == this.person)
-		{
+		if (e.getSource() == this.person) {
 			this.application.addPersonToLesson();
 		}
-		if (e.getSource() == this.delete)
-		{
+		if (e.getSource() == this.delete) {
 			this.application.removeAppointmentOrPersonInLesson();
 		}
 	}
@@ -125,8 +118,7 @@ public class Navigation extends JSplitPane implements ActionListener
 	 * 
 	 * @param application
 	 */
-	public void initNavigation(ScheduleManager application)
-	{
+	public void initNavigation(ScheduleManager application) {
 		this.application = application;
 
 	}

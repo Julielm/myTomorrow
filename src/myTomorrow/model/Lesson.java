@@ -9,8 +9,7 @@ import java.util.List;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Lesson extends ScheduledEvent
-{
+public class Lesson extends ScheduledEvent {
 	/** Maximum number of persons in the lesson by default. */
 	public static final int DEFAULT_MAX_PERS_NB = 3;
 	/** Number of persons in the lesson by default. */
@@ -30,8 +29,7 @@ public class Lesson extends ScheduledEvent
 	 * @param title
 	 * @param timeSlot
 	 */
-	public Lesson(String title, TimeSlot timeSlot)
-	{
+	public Lesson(String title, TimeSlot timeSlot) {
 		super(timeSlot);
 		this.title = title;
 		this.maxPersNb = DEFAULT_MAX_PERS_NB;
@@ -48,8 +46,7 @@ public class Lesson extends ScheduledEvent
 	 * @param persNb
 	 */
 	public Lesson(String title, TimeSlot timeSlot, List<Person> persons,
-			int persNb)
-	{
+			int persNb) {
 		super(timeSlot);
 		this.title = title;
 		this.maxPersNb = DEFAULT_MAX_PERS_NB;
@@ -62,8 +59,7 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return the title
 	 */
-	public String getTitle()
-	{
+	public String getTitle() {
 		return this.title;
 	}
 
@@ -72,8 +68,7 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return the maxPersNb
 	 */
-	public int getMaxPersNb()
-	{
+	public int getMaxPersNb() {
 		return this.maxPersNb;
 	}
 
@@ -82,8 +77,7 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return the persNb
 	 */
-	public int getPersNb()
-	{
+	public int getPersNb() {
 		return this.persNb;
 	}
 
@@ -92,8 +86,7 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return the personList
 	 */
-	public LinkedList<Person> getPersonList()
-	{
+	public LinkedList<Person> getPersonList() {
 		return (LinkedList<Person>) this.personsList;
 	}
 
@@ -103,8 +96,7 @@ public class Lesson extends ScheduledEvent
 	 * @param title
 	 * @return a boolean
 	 */
-	public boolean hasTheSameTitle(String title)
-	{
+	public boolean hasTheSameTitle(String title) {
 		return this.title.equalsIgnoreCase(title);
 	}
 
@@ -113,10 +105,8 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return a boolean
 	 */
-	public boolean hasFreePlace()
-	{
-		if (this.persNb < DEFAULT_MAX_PERS_NB)
-		{
+	public boolean hasFreePlace() {
+		if (this.persNb < DEFAULT_MAX_PERS_NB) {
 			return true;
 		}
 		return false;
@@ -127,8 +117,7 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @param person
 	 */
-	public void setPersonList(Person person)
-	{
+	public void setPersonList(Person person) {
 		this.personsList.add(person);
 		this.persNb++;
 	}
@@ -139,15 +128,12 @@ public class Lesson extends ScheduledEvent
 	 * @param person
 	 * @return index (-1 if not found)
 	 */
-	public int personIndex(Person person)
-	{
-		if (!this.personsList.isEmpty())
-		{
+	public int personIndex(Person person) {
+		if (!this.personsList.isEmpty()) {
 			int index = 0;
 			Person currentPerson = this.personsList.get(index);
 			while (index + 1 < this.personsList.size()
-					&& !currentPerson.equals(person))
-			{
+					&& !currentPerson.equals(person)) {
 				index++;
 				currentPerson = this.personsList.get(index);
 			}
@@ -162,8 +148,7 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @param personIndex
 	 */
-	public void remove(int personIndex)
-	{
+	public void remove(int personIndex) {
 		this.personsList.remove(personIndex);
 		this.persNb--;
 
@@ -174,11 +159,9 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return a string
 	 */
-	public String persons()
-	{
+	public String persons() {
 		StringBuilder str = new StringBuilder();
-		for (Person person : this.personsList)
-		{
+		for (Person person : this.personsList) {
 			str.append(person.personInFile());
 			str.append(";");
 		}
@@ -190,12 +173,10 @@ public class Lesson extends ScheduledEvent
 	 * 
 	 * @return a string
 	 */
-	public String displayPersons()
-	{
+	public String displayPersons() {
 		StringBuilder str = new StringBuilder();
 		str.append("<html> <body>");
-		for (Person person : this.personsList)
-		{
+		for (Person person : this.personsList) {
 			str.append(person + "<br>");
 		}
 		str.append("</body></html>");

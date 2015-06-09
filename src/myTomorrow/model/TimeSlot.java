@@ -8,8 +8,7 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class TimeSlot
-{
+public class TimeSlot {
 	/** Start time of the task. */
 	private DateTime startTime;
 	/** End time of the task. */
@@ -18,8 +17,7 @@ public class TimeSlot
 	/**
 	 * Constructor of a time slot to initialize a time slot to null.
 	 */
-	public TimeSlot()
-	{
+	public TimeSlot() {
 		this.startTime = null;
 		this.endTime = null;
 	}
@@ -30,8 +28,7 @@ public class TimeSlot
 	 * @param startTime
 	 * @param endTime
 	 */
-	public TimeSlot(DateTime startTime, DateTime endTime)
-	{
+	public TimeSlot(DateTime startTime, DateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 
@@ -43,8 +40,7 @@ public class TimeSlot
 	 * @param timeToSet
 	 * @param time
 	 */
-	public void setTime(DateTime timeToSet, DateTime time)
-	{
+	public void setTime(DateTime timeToSet, DateTime time) {
 		timeToSet = time;
 	}
 
@@ -53,8 +49,7 @@ public class TimeSlot
 	 * 
 	 * @return the startTime
 	 */
-	public DateTime getStartTime()
-	{
+	public DateTime getStartTime() {
 		return this.startTime;
 	}
 
@@ -63,8 +58,7 @@ public class TimeSlot
 	 * 
 	 * @return the endTime
 	 */
-	public DateTime getEndTime()
-	{
+	public DateTime getEndTime() {
 		return this.endTime;
 	}
 
@@ -74,8 +68,7 @@ public class TimeSlot
 	 * @param startTime
 	 *            the startTime to set
 	 */
-	public void setStartTime(DateTime startTime)
-	{
+	public void setStartTime(DateTime startTime) {
 		this.startTime = startTime;
 	}
 
@@ -85,18 +78,12 @@ public class TimeSlot
 	 * @param endTime
 	 *            the endTime to set
 	 */
-	public void setEndTime(DateTime endTime)
-	{
+	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime;
 	}
 
-	/**
-	 * Display a TimeSlot.
-	 * 
-	 * @return a string
-	 */
-	public String toString()
-	{
+	@Override
+	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("Le ");
 		str.append(this.getStartTime().getDayOfMonth());
@@ -111,10 +98,9 @@ public class TimeSlot
 	 * Check if a timeslot is before an other.
 	 * 
 	 * @param timeslot
-	 * @return
+	 * @return a boolean
 	 */
-	public boolean isBefore(TimeSlot timeslot)
-	{
+	public boolean isBefore(TimeSlot timeslot) {
 		return this.startTime.isBefore(timeslot.startTime);
 	}
 
@@ -124,15 +110,13 @@ public class TimeSlot
 	 * @param time
 	 * @return a string
 	 */
-	public String toString(DateTime time)
-	{
+	public String toString(DateTime time) {
 		StringBuilder str = new StringBuilder();
 		str.append(time.getHourOfDay());
 		str.append("h");
 		int minutes = time.getMinuteOfHour();
-		if (minutes == 0)
-		{
-			str.append("00");
+		if (minutes < 10) {
+			str.append("0" + minutes);
 		} else
 			str.append(time.getMinuteOfHour());
 		return str.toString();

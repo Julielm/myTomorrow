@@ -17,20 +17,15 @@ import myTomorrow.view.UserIHM;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class UserIHMConsole implements UserIHM
-{
+public class UserIHMConsole implements UserIHM {
 	Scanner scanner = new Scanner(System.in);
 	private ScheduleManager application;
 	private List<ScheduledEvent> events;
 	private List<String> days;
 
-	/**
-	 * Person's informations for the event.
-	 * 
-	 * @return a Person
-	 */
-	public Person askPersonInformations()
-	{
+
+	@Override
+	public Person askPersonInformations() {
 
 		System.out.println("Entrez le nom de la personne");
 		String name = scanner.nextLine();
@@ -39,70 +34,53 @@ public class UserIHMConsole implements UserIHM
 		return new Person(name, firstName);
 	}
 
-	/**
-	 * Ask available day for the event.
-	 * 
-	 * @return a day
-	 */
-	public Day askAvailableDay()
-	{
+	@Override
+	public Day askAvailableDay() {
 
 		System.out.println("Entrez le jour disponible de la personne");
 		System.out.println("Entrez la date : jour -->");
 		String string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int date = Integer.parseInt(string);
 
 		System.out.println("mois -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int month = Integer.parseInt(string);
 
 		System.out.println("année -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int year = Integer.parseInt(string);
 
-		try
-		{
+		try {
 			return new Day(date, month, year);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.err.println("Vous avez rentré une date invalide");
 			this.askAvailableDay();
 			return null;
 		}
 	}
 
-	/**
-	 * Ask duration of the event.
-	 * 
-	 * @return a duration
-	 */
-	public int askDurationOfEvent()
-	{
+	@Override
+	public int askDurationOfEvent() {
 		System.out.println("Entrez la duree du rendez-vous en minutes");
 		String string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int duration = Integer.parseInt(string);
-		if (duration >0) 
+		if (duration > 0)
 			return duration;
 		return askDurationOfEvent();
 	}
 
 	@Override
-	public Answer suggestTimeSlot(TimeSlot timeSlot)
-	{
+	public Answer suggestTimeSlot(TimeSlot timeSlot) {
 
 		System.out.println(timeSlot.toString());
 		System.out.println("Heure de début : "
@@ -113,8 +91,7 @@ public class UserIHMConsole implements UserIHM
 		System.out.println("1: Oui");
 		System.out.println("2: Non");
 		String answer = scanner.nextLine();
-		if (answer.equals("1"))
-		{
+		if (answer.equals("1")) {
 			return Answer.YES;
 		}
 		if (answer.equals("2"))
@@ -123,22 +100,19 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void freeTimeSlotIsEmpty()
-	{
+	public void freeTimeSlotIsEmpty() {
 		System.out.println("Il n'y a pas de créneaux libres ce jour.");
 
 	}
 
 	@Override
-	public void userDontWantTheseFreeTimeSlots()
-	{
+	public void userDontWantTheseFreeTimeSlots() {
 		System.out.println("Il n'y a plus de créneaux.");
 
 	}
 
 	@Override
-	public String askTitleOfTheLesson()
-	{
+	public String askTitleOfTheLesson() {
 		System.out.println("Entrez l'intitulé du cours -->");
 		return scanner.nextLine();
 	}
@@ -149,67 +123,56 @@ public class UserIHMConsole implements UserIHM
 	 * @param string
 	 * @return a boolean
 	 */
-	public boolean isNumeric(String string)
-	{
-		try
-		{
+	public boolean isNumeric(String string) {
+		try {
 			int value = Integer.parseInt(string);
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public TimeSlot askAvailablePeriod()
-	{
+	public TimeSlot askAvailablePeriod() {
 		System.out.println("Période disponible de la personne : ");
 		System.out.println("Entrez la date de début de période : jour -->");
 		String string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int date = Integer.parseInt(string);
 
 		System.out.println("mois -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int month = Integer.parseInt(string);
 
 		System.out.println("année -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int year = Integer.parseInt(string);
 
 		System.out.println("Entrez la date de fin de période : jour -->");
 		string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int date2 = Integer.parseInt(string);
 
 		System.out.println("mois -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int month2 = Integer.parseInt(string);
 
-		try
-		{
+		try {
 			return new TimeSlot(new DateTime(year, month, date,
 					Day.START_HOUR_BY_DEFAULT, 0), new DateTime(year, month2,
 					date2, Day.END_HOUR_BY_DEFAULT, 0));
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.err.println("Vous avez rentré une période invalide");
 			this.askAvailablePeriod();
 			return null;
@@ -217,8 +180,7 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void lessonsInThePeriodIsEmpty()
-	{
+	public void lessonsInThePeriodIsEmpty() {
 		System.out
 				.println("Il n'y a pas de cours avec cet intitlé ayant une place libre dans cette période");
 		System.out.println("Veuillez d'abord ajouter un cours");
@@ -226,41 +188,35 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public DateTime inputDateOfEvent()
-	{
+	public DateTime inputDateOfEvent() {
 		System.out.println("Entrez la date de l'évènement : jour -->");
 		String string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int date = Integer.parseInt(string);
 
 		System.out.println("mois -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int month = Integer.parseInt(string);
 
 		System.out.println("année -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int year = Integer.parseInt(string);
 
 		System.out.println("Entrez l'heure de l'évènement : heure -->");
 		string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int hours = Integer.parseInt(string);
 
 		System.out.println("minutes -->");
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int minutes = Integer.parseInt(string);
@@ -270,74 +226,62 @@ public class UserIHMConsole implements UserIHM
 	}
 
 	@Override
-	public void thePersonInputIsNTInLesson()
-	{
+	public void thePersonInputIsNTInLesson() {
 		System.out
 				.println("La personne que vous avez saisie n'est pas dans la leçon");
 
 	}
 
 	@Override
-	public void updateCalendar()
-	{
+	public void updateCalendar() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void displayFinishedHandling(ScheduledEvent event)
-	{
+	public void displayFinishedHandling(ScheduledEvent event) {
 		System.out.println("L'évènement a bien été ajouté.");
 
 	}
 
 	@Override
-	public void noEventAtThisDate()
-	{
+	public void noEventAtThisDate() {
 		System.out.println("Il n'y a pas d'évènement à cette date.");
 
 	}
 
 	@Override
-	public void eventDeleted()
-	{
+	public void eventDeleted() {
 		System.out.println("L'évènement a bien été supprimé");
 
 	}
 
 	@Override
-	public void personDeleted()
-	{
+	public void personDeleted() {
 		System.out.println("La personne a bien été supprimée");
 
 	}
 
 	@Override
 	public void initCalendar(List<ScheduledEvent> events, List<String> days,
-			ScheduleManager application)
-	{
+			ScheduleManager application) {
 		this.application = application;
 		this.events = events;
 		this.days = days;
 		int choice = 0;
-		while (choice != 5)
-		{
+		while (choice != 5) {
 			choice = this.showMenu();
 
-			if (choice == 1)
-			{
+			if (choice == 1) {
 				this.application.addAppointment();
 			}
-			if (choice == 2)
-			{
+			if (choice == 2) {
 				this.application.addLesson();
 			}
-			if (choice == 3)
-			{
+			if (choice == 3) {
 				this.application.addPersonToLesson();
 			}
-			if (choice == 4)
-			{
+			if (choice == 4) {
 				this.application.removeAppointmentOrPersonInLesson();
 			}
 		}
@@ -350,8 +294,7 @@ public class UserIHMConsole implements UserIHM
 	 * 
 	 * @return the choice of the user
 	 */
-	private int showMenu()
-	{
+	private int showMenu() {
 		System.out.println("Que voulez-vous faire ? ");
 		System.out.println("1- Ajouter un RDV");
 		System.out.println("2- Ajouter un cours");
@@ -359,14 +302,19 @@ public class UserIHMConsole implements UserIHM
 		System.out.println("4- Supprimer");
 		System.out.println("5- Quitter");
 		String string = "";
-		do
-		{
+		do {
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int choice = Integer.parseInt(string);
 		if (choice < 6 && choice > 0)
 			return choice;
 		return this.showMenu();
+
+	}
+
+	@Override
+	public void personAdded() {
+		System.out.println("La personne a été ajoutée au cours");
 
 	}
 }

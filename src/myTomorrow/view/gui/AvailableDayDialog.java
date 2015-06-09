@@ -25,8 +25,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class AvailableDayDialog extends JDialog implements ActionListener
-{
+public class AvailableDayDialog extends JDialog implements ActionListener {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -56,8 +55,7 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 	/**
 	 * Available day window.
 	 */
-	public AvailableDayDialog()
-	{
+	public AvailableDayDialog() {
 		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(350, 180);
@@ -101,20 +99,17 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		Date selectedValue = (Date) this.datePicker.getModel().getValue();
 		if (e.getSource() == this.okButton && selectedValue != null
-				&& !selectedValue.before(DateTime.now().minusDays(1).toDate()))
-		{
+				&& !selectedValue.before(DateTime.now().minusDays(1).toDate())) {
 			this.selectedDate = new DateTime(selectedValue.getTime());
 			this.availableDay = new Day(this.selectedDate.getDayOfMonth(),
 					this.selectedDate.getMonthOfYear(),
 					this.selectedDate.getYear());
 			this.dispose();
 		}
-		if (e.getSource() == this.cancelButton)
-		{
+		if (e.getSource() == this.cancelButton) {
 			this.dispose();
 		}
 
@@ -125,8 +120,7 @@ public class AvailableDayDialog extends JDialog implements ActionListener
 	 * 
 	 * @return the available day
 	 */
-	public Day getAvailableDay()
-	{
+	public Day getAvailableDay() {
 		return this.availableDay;
 	}
 

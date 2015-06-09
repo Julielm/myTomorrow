@@ -8,8 +8,7 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Day extends TimeSlot
-{
+public class Day extends TimeSlot {
 	/**
 	 * Start hour of the day.
 	 */
@@ -26,8 +25,7 @@ public class Day extends TimeSlot
 	 * @param month
 	 * @param year
 	 */
-	public Day(int day, int month, int year)
-	{
+	public Day(int day, int month, int year) {
 		super(new DateTime(year, month, day, START_HOUR_BY_DEFAULT, 0),
 				new DateTime(year, month, day, END_HOUR_BY_DEFAULT, 0));
 	}

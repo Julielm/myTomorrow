@@ -8,7 +8,6 @@ import javax.swing.SwingUtilities;
 
 import myTomorrow.model.ScheduleManager;
 import myTomorrow.view.UserIHM;
-import myTomorrow.view.console.UserIHMConsole;
 import myTomorrow.view.gui.MainWindow;
 
 /**
@@ -17,14 +16,12 @@ import myTomorrow.view.gui.MainWindow;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Controller
-{
+public class Controller {
 
 	/**
 	 * Constructor of the controller.
 	 */
-	public Controller()
-	{
+	public Controller() {
 		UserIHM gui = new MainWindow();
 		File eventFile = new File("listeDesEvenements.txt");
 		ScheduleManager application = new ScheduleManager(gui, eventFile);

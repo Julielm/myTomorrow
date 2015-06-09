@@ -6,8 +6,7 @@ package myTomorrow.model;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Person
-{
+public class Person {
 	/** Person's name. */
 	private final String name;
 	/** Person's first name. */
@@ -19,8 +18,7 @@ public class Person
 	 * @param name
 	 * @param firstName
 	 */
-	public Person(String name, String firstName)
-	{
+	public Person(String name, String firstName) {
 		this.name = name;
 		this.firstName = firstName;
 	}
@@ -30,8 +28,7 @@ public class Person
 	 * 
 	 * @return name
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return this.name;
 	}
 
@@ -40,8 +37,7 @@ public class Person
 	 * 
 	 * @return firstName
 	 */
-	public String getFirstName()
-	{
+	public String getFirstName() {
 		return this.firstName;
 	}
 
@@ -49,21 +45,17 @@ public class Person
 	 * 
 	 * Check if two persons are the same.
 	 * 
+	 * @param person
+	 * 
 	 * @return boolean
 	 */
-	public boolean equals(Person person)
-	{
+	public boolean equals(Person person) {
 		return this.name.equalsIgnoreCase(person.name)
 				&& this.firstName.equalsIgnoreCase(person.firstName);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	public int hashCode()
-	{
+	@Override
+	public int hashCode() {
 		int hashcode = 0;
 		for (int currentCharacter = 0; currentCharacter < this.name.length(); currentCharacter++)
 			hashcode += (int) this.name.charAt(currentCharacter);
@@ -78,8 +70,7 @@ public class Person
 	 * 
 	 * @return a string
 	 */
-	public String personInFile()
-	{
+	public String personInFile() {
 		StringBuilder str = new StringBuilder();
 		str.append(this.name);
 		str.append("%");
@@ -87,13 +78,8 @@ public class Person
 		return str.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString()
-	{
+	@Override
+	public String toString() {
 		StringBuilder string = new StringBuilder();
 		string.append(this.firstName);
 		string.append(" ");

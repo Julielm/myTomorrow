@@ -1,12 +1,23 @@
 package myTomorrow.model;
 
 /**
- * Enum of possible choices of button
+ * Enum of possible choices of buttons.
  * 
- * @author myTomorrow
- *
+ * @author myTomorrowProject
+ * @version 1.0.0
  */
-public enum Answer
-{
-	YES, NO, CANCEL;
+public enum Answer {
+	
+	/**
+	 * Yes answer.
+	 */
+	YES, 
+	/**
+	 * No answer.
+	 */
+	NO, 
+	/**
+	 * cancel answer.
+	 */
+	CANCEL;
 }

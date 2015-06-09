@@ -34,8 +34,7 @@ import myTomorrow.view.UserIHM;
  * @version 1.0.0
  */
 public class MainWindow extends JFrame implements Runnable, UserIHM,
-		ActionListener
-{
+		ActionListener {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -73,8 +72,10 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	 */
 	private ScheduleManager application;
 
-	public MainWindow()
-	{
+	/**
+	 * Constructor for the mainWindow.
+	 */
+	public MainWindow() {
 
 		this.setTitle("My Tomorrow");
 		this.setSize(1200, 700);
@@ -97,39 +98,34 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		this.setVisible(true);
 
 	}
 
 	@Override
-	public Person askPersonInformations()
-	{
+	public Person askPersonInformations() {
 		JDialog personInformation = new PersonInformationDialog();
 		personInformation.setVisible(true);
 		return ((PersonInformationDialog) personInformation).getPersonInput();
 	}
 
 	@Override
-	public Day askAvailableDay()
-	{
+	public Day askAvailableDay() {
 		JDialog availableDay = new AvailableDayDialog();
 		availableDay.setVisible(true);
 		return ((AvailableDayDialog) availableDay).getAvailableDay();
 	}
 
 	@Override
-	public int askDurationOfEvent()
-	{
+	public int askDurationOfEvent() {
 		JDialog durationOfEvent = new DurationOfEventDialog();
 		durationOfEvent.setVisible(true);
 		return ((DurationOfEventDialog) durationOfEvent).getDurationInput();
 	}
 
 	@Override
-	public Answer suggestTimeSlot(TimeSlot timeSlot)
-	{
+	public Answer suggestTimeSlot(TimeSlot timeSlot) {
 		JDialog suggestionOfTimeSlot = new SuggestionOfTimeSlotDialog(timeSlot);
 		suggestionOfTimeSlot.setVisible(true);
 
@@ -138,40 +134,35 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void freeTimeSlotIsEmpty()
-	{
+	public void freeTimeSlotIsEmpty() {
 		JOptionPane.showMessageDialog(this, "Il n'y a pas de créneaux libres",
 				" Attention ", JOptionPane.WARNING_MESSAGE);
 
 	}
 
 	@Override
-	public void userDontWantTheseFreeTimeSlots()
-	{
+	public void userDontWantTheseFreeTimeSlots() {
 		JOptionPane.showMessageDialog(this, "Il n'y a plus de créneaux libres",
 				" Attention ", JOptionPane.WARNING_MESSAGE);
 
 	}
 
 	@Override
-	public String askTitleOfTheLesson()
-	{
+	public String askTitleOfTheLesson() {
 		JDialog lessonInformation = new LessonInformationDialog();
 		lessonInformation.setVisible(true);
 		return ((LessonInformationDialog) lessonInformation).getTitleInput();
 	}
 
 	@Override
-	public TimeSlot askAvailablePeriod()
-	{
+	public TimeSlot askAvailablePeriod() {
 		JDialog availablePeriod = new AvailablePeriodDialog();
 		availablePeriod.setVisible(true);
 		return ((AvailablePeriodDialog) availablePeriod).getPeriod();
 	}
 
 	@Override
-	public void lessonsInThePeriodIsEmpty()
-	{
+	public void lessonsInThePeriodIsEmpty() {
 		JOptionPane
 				.showMessageDialog(
 						this,
@@ -181,26 +172,23 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public DateTime inputDateOfEvent()
-	{
+	public DateTime inputDateOfEvent() {
 		JDialog dateOfEvent = new DateOfEventDialog();
 		dateOfEvent.setVisible(true);
 		return ((DateOfEventDialog) dateOfEvent).getDate();
 	}
 
 	@Override
-	public void thePersonInputIsNTInLesson()
-	{
+	public void thePersonInputIsNTInLesson() {
 		JOptionPane.showMessageDialog(this,
-				"La personne a bien été ajoutée au cours", " Information ",
-				JOptionPane.INFORMATION_MESSAGE);
+				"La personne saisie n'appartient pas au cours",
+				" Information ", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
 	@Override
 	public void initCalendar(List<ScheduledEvent> events, List<String> days,
-			ScheduleManager application)
-	{
+			ScheduleManager application) {
 		this.application = application;
 		((Navigation) this.navigation).initNavigation(this.application);
 		this.events = events;
@@ -209,30 +197,25 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void updateCalendar()
-	{
+	public void updateCalendar() {
 		this.calendar.removeAll();
 		this.calendar.repaint();
 		DateTime today = DateTime.now().plusWeeks(this.weekNb);
 		int dayOfWeek = today.getDayOfWeek();
 		DateTime startWeek = new DateTime();
 		DateTime endWeek = new DateTime();
-		for (int day = 0; day < 7; day++)
-		{
+		for (int day = 0; day < 7; day++) {
 			DayLabel label = new DayLabel(this.days.get(dayOfWeek - 1) + " "
 					+ today.getDayOfMonth() + "/" + today.getMonthOfYear()
 					+ "/" + today.getYear(), dayOfWeek);
 
-			if ((dayOfWeek + 1) > 7)
-			{
+			if ((dayOfWeek + 1) > 7) {
 				endWeek = new DateTime(today.getYear(), today.getMonthOfYear(),
 						today.getDayOfMonth(), 18, 0);
 				today = today.minusDays(6);
 				dayOfWeek = 1;
-			} else
-			{
-				if (dayOfWeek == 1)
-				{
+			} else {
+				if (dayOfWeek == 1) {
 					startWeek = new DateTime(today.getYear(),
 							today.getMonthOfYear(), today.getDayOfMonth(), 8, 0);
 				}
@@ -242,22 +225,18 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 			this.calendar.add(label);
 		}
 
-		for (ScheduledEvent event : this.events)
-		{
+		for (ScheduledEvent event : this.events) {
 			if (!(event.getTimeSlot().getStartTime().isBefore(startWeek))
-					&& !(event.getTimeSlot().getStartTime().isAfter(endWeek)))
-			{
+					&& !(event.getTimeSlot().getStartTime().isAfter(endWeek))) {
 				JButton buttonOfEvent = new GraphicalEvent(event);
 				buttonOfEvent.addActionListener(new EventListener(event,
 						this.application));
-				if (event instanceof Appointment)
-				{
+				if (event instanceof Appointment) {
 					buttonOfEvent.setText(((Appointment) event).getPerson()
 							.toString());
 					buttonOfEvent.setBackground(new Color(0, 168, 255));
 				}
-				if (event instanceof Lesson)
-				{
+				if (event instanceof Lesson) {
 					buttonOfEvent.setBackground(new Color(124, 237, 105));
 					buttonOfEvent.setText(((Lesson) event).getTitle());
 				}
@@ -285,14 +264,11 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource().equals(previousWeek))
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource().equals(previousWeek)) {
 			this.weekNb--;
 		}
-		if (e.getSource().equals(nextWeek))
-		{
+		if (e.getSource().equals(nextWeek)) {
 			this.weekNb++;
 		}
 		this.updateCalendar();
@@ -300,8 +276,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void displayFinishedHandling(ScheduledEvent event)
-	{
+	public void displayFinishedHandling(ScheduledEvent event) {
 		DateTime date = event.getTimeSlot().getStartTime();
 		DateTime today = DateTime.now();
 		this.weekNb = date.getWeekOfWeekyear() - today.getWeekOfWeekyear() + 52
@@ -311,8 +286,7 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void noEventAtThisDate()
-	{
+	public void noEventAtThisDate() {
 		JOptionPane.showMessageDialog(this,
 				"Il n'y a pas d'évènements à cette date", " Attention ",
 				JOptionPane.WARNING_MESSAGE);
@@ -320,18 +294,24 @@ public class MainWindow extends JFrame implements Runnable, UserIHM,
 	}
 
 	@Override
-	public void eventDeleted()
-	{
+	public void eventDeleted() {
 		JOptionPane.showMessageDialog(this, "L'évènement a été supprimé",
 				" Information ", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
 	@Override
-	public void personDeleted()
-	{
+	public void personDeleted() {
 		JOptionPane.showMessageDialog(this,
 				"La personne a été supprimée du cours", " Information ",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
+
+	@Override
+	public void personAdded() {
+		JOptionPane.showMessageDialog(this,
+				"La personne a été ajoutée au cours", " Information ",
 				JOptionPane.INFORMATION_MESSAGE);
 
 	}

@@ -27,8 +27,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class DateOfEventDialog extends JDialog implements ActionListener
-{
+public class DateOfEventDialog extends JDialog implements ActionListener {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -65,8 +64,7 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 	/**
 	 * Constructor of the date of event dialog.
 	 */
-	public DateOfEventDialog()
-	{
+	public DateOfEventDialog() {
 		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(350, 160);
@@ -124,22 +122,18 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		Date selectedValue = (Date) this.datePicker.getModel().getValue();
 		if (e.getSource() == this.okButton && selectedValue != null
 				&& this.hours.getText() != null
-				&& this.minutes.getText() != null)
-		{
+				&& this.minutes.getText() != null) {
 			if (this.isNumeric(this.hours.getText())
-					&& this.isNumeric(this.minutes.getText()))
-			{
+					&& this.isNumeric(this.minutes.getText())) {
 				int hoursInput = Integer.parseInt(this.hours.getText());
 				int minutesInput = Integer.parseInt(this.minutes.getText());
 				if (!selectedValue.before(DateTime.now().minusDays(1).toDate())
 						&& hoursInput <= 18 && hoursInput >= 8
-						&& minutesInput >= 0 && minutesInput <= 59)
-				{
+						&& minutesInput >= 0 && minutesInput <= 59) {
 					this.selectedDate = new DateTime(selectedValue.getTime());
 					this.dateOfEvent = new DateTime(
 							this.selectedDate.getYear(),
@@ -150,8 +144,7 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 				}
 			}
 		}
-		if (e.getSource() == this.cancelButton)
-		{
+		if (e.getSource() == this.cancelButton) {
 			this.dispose();
 		}
 
@@ -162,8 +155,7 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 	 * 
 	 * @return a dateTime
 	 */
-	public DateTime getDate()
-	{
+	public DateTime getDate() {
 		return this.dateOfEvent;
 	}
 
@@ -173,14 +165,11 @@ public class DateOfEventDialog extends JDialog implements ActionListener
 	 * @param string
 	 * @return a boolean
 	 */
-	public boolean isNumeric(String string)
-	{
-		try
-		{
+	public boolean isNumeric(String string) {
+		try {
 			int value = Integer.parseInt(string);
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 		return true;

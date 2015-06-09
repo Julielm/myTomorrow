@@ -21,8 +21,7 @@ import myTomorrow.model.Person;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class PersonInformationDialog extends JDialog implements ActionListener
-{
+public class PersonInformationDialog extends JDialog implements ActionListener {
 	private JTextField name, firstName;
 	private JButton okButton, cancelButton;
 	private Person personInput;
@@ -35,8 +34,7 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 	/**
 	 * Build a dialog window about person information.
 	 */
-	public PersonInformationDialog()
-	{
+	public PersonInformationDialog() {
 		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(350, 140);
@@ -78,17 +76,14 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.okButton & this.name.getText().length() != 0
-				& this.firstName.getText().length() != 0)
-		{
+				& this.firstName.getText().length() != 0) {
 			this.personInput = new Person(this.name.getText(),
 					this.firstName.getText());
 			this.dispose();
 		}
-		if (e.getSource() == this.cancelButton)
-		{
+		if (e.getSource() == this.cancelButton) {
 			this.dispose();
 		}
 
@@ -99,8 +94,7 @@ public class PersonInformationDialog extends JDialog implements ActionListener
 	 * 
 	 * @return Person
 	 */
-	public Person getPersonInput()
-	{
+	public Person getPersonInput() {
 		return this.personInput;
 	}
 

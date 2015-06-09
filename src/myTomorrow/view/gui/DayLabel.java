@@ -8,8 +8,7 @@ import javax.swing.JLabel;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class DayLabel extends JLabel
-{
+public class DayLabel extends JLabel {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -21,8 +20,7 @@ public class DayLabel extends JLabel
 	 * @param label
 	 * @param dayOfWeek
 	 */
-	public DayLabel(String label, int dayOfWeek)
-	{
+	public DayLabel(String label, int dayOfWeek) {
 		this.setText(label);
 		this.setBounds(58 + ((dayOfWeek - 1) * 133), 15,
 				GraphicalEvent.EVENT_WIDTH, 30);

@@ -23,8 +23,7 @@ import myTomorrow.model.ScheduledEvent;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class AppointmentDialog extends JDialog implements ActionListener
-{
+public class AppointmentDialog extends JDialog implements ActionListener {
 	/**
 	 * Serial version ID.
 	 */
@@ -40,9 +39,9 @@ public class AppointmentDialog extends JDialog implements ActionListener
 	 * Constructor of apointementDialog.
 	 * 
 	 * @param event
+	 * @param application 
 	 */
-	public AppointmentDialog(ScheduledEvent event, ScheduleManager application)
-	{
+	public AppointmentDialog(ScheduledEvent event, ScheduleManager application) {
 		this.application = application;
 		this.event = event;
 
@@ -92,14 +91,11 @@ public class AppointmentDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == this.okButton)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.okButton) {
 			this.dispose();
 		}
-		if (e.getSource() == this.deleteButton)
-		{
+		if (e.getSource() == this.deleteButton) {
 			this.application.remove(event);
 			this.dispose();
 

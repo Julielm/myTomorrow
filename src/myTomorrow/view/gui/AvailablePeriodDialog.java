@@ -25,8 +25,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class AvailablePeriodDialog extends JDialog implements ActionListener
-{
+public class AvailablePeriodDialog extends JDialog implements ActionListener {
 
 	/**
 	 * SerialVersionUID.
@@ -64,8 +63,7 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 	/**
 	 * Available day window.
 	 */
-	public AvailablePeriodDialog()
-	{
+	public AvailablePeriodDialog() {
 		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(450, 180);
@@ -117,12 +115,10 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		Date selectedValue = (Date) this.datePicker.getModel().getValue();
 		Date selectedValue2 = (Date) this.datePicker2.getModel().getValue();
-		if (selectedValue != null && selectedValue2 != null)
-		{
+		if (selectedValue != null && selectedValue2 != null) {
 			this.selectedDate = new DateTime(selectedValue.getTime());
 			this.selectedDate2 = new DateTime(selectedValue2.getTime());
 			if (e.getSource() == this.okButton
@@ -131,8 +127,7 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 					&& !selectedValue2.before(DateTime.now().minusDays(1)
 							.toDate())
 					&& (selectedValue.before(selectedValue2) || selectedValue
-							.equals(selectedValue2)))
-			{
+							.equals(selectedValue2))) {
 				DateTime startDay = new DateTime(this.selectedDate.getYear(),
 						this.selectedDate.getMonthOfYear(),
 						this.selectedDate.getDayOfMonth(), 8, 0);
@@ -144,8 +139,7 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 			}
 		}
 
-		if (e.getSource() == this.cancelButton)
-		{
+		if (e.getSource() == this.cancelButton) {
 			this.dispose();
 		}
 
@@ -156,8 +150,7 @@ public class AvailablePeriodDialog extends JDialog implements ActionListener
 	 * 
 	 * @return the available period
 	 */
-	public TimeSlot getPeriod()
-	{
+	public TimeSlot getPeriod() {
 		return this.availablePeriod;
 	}
 

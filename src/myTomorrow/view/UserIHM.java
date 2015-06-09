@@ -1,9 +1,6 @@
 package myTomorrow.view;
 
 import java.util.List;
-
-import javax.swing.JPanel;
-
 import org.joda.time.DateTime;
 import myTomorrow.model.Answer;
 import myTomorrow.model.Day;
@@ -18,8 +15,7 @@ import myTomorrow.model.TimeSlot;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public interface UserIHM
-{
+public interface UserIHM {
 	/**
 	 * Ask informations of a person.
 	 * 
@@ -127,5 +123,10 @@ public interface UserIHM
 	 * Inform user the person is deleted.
 	 */
 	public void personDeleted();
+
+	/**
+	 * Inform user the person is added.
+	 */
+	public void personAdded();
 
 }

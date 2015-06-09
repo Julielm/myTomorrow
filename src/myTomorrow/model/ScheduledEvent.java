@@ -6,8 +6,7 @@ package myTomorrow.model;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class ScheduledEvent
-{
+public class ScheduledEvent {
 	/**
 	 * Time slot of the scheduled event.
 	 */
@@ -18,8 +17,7 @@ public class ScheduledEvent
 	 * 
 	 * @param timeSlot
 	 */
-	public ScheduledEvent(TimeSlot timeSlot)
-	{
+	public ScheduledEvent(TimeSlot timeSlot) {
 		this.timeSlot = timeSlot;
 	}
 
@@ -28,8 +26,7 @@ public class ScheduledEvent
 	 * 
 	 * @return the time slot
 	 */
-	public TimeSlot getTimeSlot()
-	{
+	public TimeSlot getTimeSlot() {
 		return this.timeSlot;
 	}
 
@@ -38,8 +35,7 @@ public class ScheduledEvent
 	 * 
 	 * @param time
 	 */
-	public void setTimeSlot(TimeSlot time)
-	{
+	public void setTimeSlot(TimeSlot time) {
 		this.getTimeSlot().setStartTime(time.getStartTime());
 		this.getTimeSlot().setEndTime((time.getEndTime()));
 	}
@@ -50,8 +46,7 @@ public class ScheduledEvent
 	 * @param event
 	 * @return a boolean
 	 */
-	public boolean isBefore(ScheduledEvent event)
-	{
+	public boolean isBefore(ScheduledEvent event) {
 		return this.timeSlot.isBefore(event.timeSlot);
 	}
 

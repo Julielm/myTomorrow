@@ -13,8 +13,7 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class ScheduleManager
-{
+public class ScheduleManager {
 
 	/**
 	 * Constant for the morning.
@@ -43,15 +42,13 @@ public class ScheduleManager
 	 * 
 	 * @param ihm
 	 *            chosen ihm, console or GUI
+	 * @param eventFile 
 	 */
-	public ScheduleManager(UserIHM ihm, File eventFile)
-	{
+	public ScheduleManager(UserIHM ihm, File eventFile) {
 		this.fileManagerOfEvents = new FileManagerOfEvents(eventFile);
-		try
-		{
+		try {
 			this.events = this.fileManagerOfEvents.readEvents();
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -61,36 +58,27 @@ public class ScheduleManager
 	/**
 	 * Add an appointment.
 	 */
-	public void addAppointment()
-	{
+	public void addAppointment() {
 		Appointment appointment = this.inputAppointment();
-		if (appointment != null)
-		{
+		if (appointment != null) {
 			Day availableDay = this.myIHM.askAvailableDay();
-			if (availableDay != null)
-			{
+			if (availableDay != null) {
 				int duration = this.myIHM.askDurationOfEvent();
-				if (duration != 0)
-				{
+				if (duration != 0) {
 					List<TimeSlot> freeTimeSlot = this.searchTimeSlot(
 							availableDay, duration);
-					if (freeTimeSlot.isEmpty())
-					{
+					if (freeTimeSlot.isEmpty()) {
 						this.myIHM.freeTimeSlotIsEmpty();
-					} else
-					{
+					} else {
 						TimeSlot answer = this.askAnswer(freeTimeSlot);
-						if (answer != null)
-						{
+						if (answer != null) {
 							appointment.setTimeSlot(answer);
 							addEventInASortList(appointment);
 							this.myIHM.displayFinishedHandling(appointment);
-							try
-							{
+							try {
 								this.fileManagerOfEvents
 										.writeEvents(this.events);
-							} catch (IOException e)
-							{
+							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
@@ -105,12 +93,10 @@ public class ScheduleManager
 	 * 
 	 * @param event
 	 */
-	private void addEventInASortList(ScheduledEvent event)
-	{
+	private void addEventInASortList(ScheduledEvent event) {
 		int index = 0;
 		while (index < this.events.size()
-				&& this.events.get(index).isBefore(event))
-		{
+				&& this.events.get(index).isBefore(event)) {
 			index++;
 		}
 		this.events.add(index, event);
@@ -121,11 +107,9 @@ public class ScheduleManager
 	 * 
 	 * @return an appointment
 	 */
-	private Appointment inputAppointment()
-	{
+	private Appointment inputAppointment() {
 		Person person = this.myIHM.askPersonInformations();
-		if (person != null)
-		{
+		if (person != null) {
 			return new Appointment(person, new TimeSlot());
 		}
 		return null;
@@ -139,8 +123,7 @@ public class ScheduleManager
 	 * @param duration
 	 * @return a List of TimeSlot
 	 */
-	private List<TimeSlot> searchTimeSlot(Day day, int duration)
-	{
+	private List<TimeSlot> searchTimeSlot(Day day, int duration) {
 		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
 		freeTimeSlots.addAll(this.possibleEvents(day, duration, MORNING));
 		freeTimeSlots.addAll(this.possibleEvents(day, duration, AFTERNOON));
@@ -156,13 +139,11 @@ public class ScheduleManager
 	 * @return a list of TimeSlot
 	 */
 	private List<TimeSlot> possibleEvents(Day day, int duration,
-			boolean isMorning)
-	{
+			boolean isMorning) {
 		List<ScheduledEvent> eventsOnSameDay = this
 				.getAllEventsThatAreOnSameDay(day, isMorning);
 		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
-		if (eventsOnSameDay.isEmpty())
-		{
+		if (eventsOnSameDay.isEmpty()) {
 			// Case where all the morning is free.
 			return this.GetAllTimeSlotsInTheDay(day, duration, isMorning);
 		}
@@ -181,28 +162,24 @@ public class ScheduleManager
 	 * @return a list of TimeSlot
 	 */
 	private List<TimeSlot> GetAllTimeSlotsInTheDay(Day day, int duration,
-			boolean isMorning)
-	{
+			boolean isMorning) {
 		List<TimeSlot> list = new LinkedList<TimeSlot>();
 		int hour = 14;
 		DateTime startTime = new DateTime(day.getStartTime().getYear(), day
 				.getStartTime().getMonthOfYear(), day.getStartTime()
 				.getDayOfMonth(), hour, 0);
-		if (isMorning)
-		{
+		if (isMorning) {
 			hour = 12;
 			startTime = day.getStartTime();
 		}
 		DateTime endTime = startTime.plusMinutes(duration);
 		DateTime endOfHalfDay = day.getEndTime();
-		if (isMorning)
-		{
+		if (isMorning) {
 			endOfHalfDay = new DateTime(day.getStartTime().getYear(), day
 					.getStartTime().getMonthOfYear(), day.getStartTime()
 					.getDayOfMonth(), hour, 0);
 		}
-		while (endTime.isBefore(endOfHalfDay) || endTime.isEqual(endOfHalfDay))
-		{
+		while (endTime.isBefore(endOfHalfDay) || endTime.isEqual(endOfHalfDay)) {
 			list.add(new TimeSlot(startTime, endTime));
 			startTime = endTime;
 			endTime = startTime.plusMinutes(duration);
@@ -220,8 +197,7 @@ public class ScheduleManager
 	 */
 	private List<TimeSlot> getAllFreeTimeSlotsInTheDay(
 			List<ScheduledEvent> eventsOnSameDay, int duration, Day day,
-			boolean isMorning)
-	{
+			boolean isMorning) {
 		List<TimeSlot> freeTimeSlots = new LinkedList<TimeSlot>();
 		// Case of the first event in the list.
 		DateTime dateOfTheEvent = eventsOnSameDay.get(0).getTimeSlot()
@@ -232,22 +208,19 @@ public class ScheduleManager
 		DateTime date = new DateTime(day.getStartTime().getYear(), day
 				.getStartTime().getMonthOfYear(), day.getStartTime()
 				.getDayOfMonth(), 14, 0);
-		if (isMorning)
-		{
+		if (isMorning) {
 			date = day.getStartTime();
 		}
 
 		if (dateOfTheEventMinusDuration.isAfter(date)
-				|| dateOfTheEventMinusDuration.isEqual(date))
-		{
+				|| dateOfTheEventMinusDuration.isEqual(date)) {
 			freeTimeSlots.add(new TimeSlot(dateOfTheEventMinusDuration,
 					dateOfTheEvent));
 		}
 
 		// Case of the others.
 		DateTime dateOfThePreviousEvent = new DateTime();
-		for (int index = 1; index < eventsOnSameDay.size(); index++)
-		{
+		for (int index = 1; index < eventsOnSameDay.size(); index++) {
 			dateOfThePreviousEvent = eventsOnSameDay.get(index - 1)
 					.getTimeSlot().getEndTime();
 			dateOfTheEvent = eventsOnSameDay.get(index).getTimeSlot()
@@ -256,8 +229,7 @@ public class ScheduleManager
 
 			if (dateOfTheEventMinusDuration.isAfter(dateOfThePreviousEvent)
 					|| dateOfTheEventMinusDuration
-							.isEqual(dateOfThePreviousEvent))
-			{
+							.isEqual(dateOfThePreviousEvent)) {
 				freeTimeSlots.add(new TimeSlot(dateOfTheEventMinusDuration,
 						dateOfTheEvent));
 			}
@@ -269,15 +241,13 @@ public class ScheduleManager
 		DateTime dateOfTheEventPlusDuration = dateOfThePreviousEvent
 				.plusMinutes(duration);
 		date = day.getEndTime();
-		if (isMorning)
-		{
+		if (isMorning) {
 			date = new DateTime(day.getStartTime().getYear(), day
 					.getStartTime().getMonthOfYear(), day.getStartTime()
 					.getDayOfMonth(), 12, 0);
 		}
 		if (dateOfTheEventPlusDuration.isBefore(date)
-				|| dateOfTheEventPlusDuration.isEqual(date))
-		{
+				|| dateOfTheEventPlusDuration.isEqual(date)) {
 			freeTimeSlots.add(new TimeSlot(dateOfThePreviousEvent,
 					dateOfTheEventPlusDuration));
 		}
@@ -293,37 +263,31 @@ public class ScheduleManager
 	 * @return a list of scheduled events
 	 */
 	private List<ScheduledEvent> getAllEventsThatAreOnSameDay(Day day,
-			boolean isMorning)
-	{
+			boolean isMorning) {
 		List<ScheduledEvent> eventsOnSameDay = new LinkedList<ScheduledEvent>();
 		DateTime dateOfTheEvent = new DateTime();
 		DateTime dateOfTheDay = new DateTime();
-		for (ScheduledEvent event : this.events)
-		{
+		for (ScheduledEvent event : this.events) {
 			dateOfTheEvent = event.getTimeSlot().getStartTime();
 			dateOfTheDay = day.getStartTime();
-			if (isMorning)
-			{
+			if (isMorning) {
 				if ((dateOfTheEvent.dayOfMonth().get() == dateOfTheDay
 						.dayOfMonth().get())
 						&& (dateOfTheEvent.monthOfYear().get() == dateOfTheDay
 								.monthOfYear().get())
 						&& (dateOfTheEvent.year().get() == dateOfTheDay.year()
 								.get())
-						&& (dateOfTheEvent.hourOfDay().get() < 12))
-				{
+						&& (dateOfTheEvent.hourOfDay().get() < 12)) {
 					eventsOnSameDay.add(event);
 				}
-			} else
-			{
+			} else {
 				if ((dateOfTheEvent.dayOfMonth().get() == dateOfTheDay
 						.dayOfMonth().get())
 						&& (dateOfTheEvent.monthOfYear().get() == dateOfTheDay
 								.monthOfYear().get())
 						&& (dateOfTheEvent.year().get() == dateOfTheDay.year()
 								.get())
-						&& (dateOfTheEvent.hourOfDay().get() >= 14))
-				{
+						&& (dateOfTheEvent.hourOfDay().get() >= 14)) {
 					eventsOnSameDay.add(event);
 				}
 			}
@@ -335,36 +299,27 @@ public class ScheduleManager
 	/**
 	 * Add a lesson in the list of events.
 	 */
-	public void addLesson()
-	{
+	public void addLesson() {
 		Lesson lesson = this.inputLesson();
-		if (lesson != null)
-		{
+		if (lesson != null) {
 			Day availableDay = this.myIHM.askAvailableDay();
-			if (availableDay != null)
-			{
+			if (availableDay != null) {
 				int duration = this.myIHM.askDurationOfEvent();
-				if (duration != 0)
-				{
+				if (duration != 0) {
 					List<TimeSlot> freeTimeSlot = this.searchTimeSlot(
 							availableDay, duration);
-					if (freeTimeSlot.isEmpty())
-					{
+					if (freeTimeSlot.isEmpty()) {
 						this.myIHM.freeTimeSlotIsEmpty();
-					} else
-					{
+					} else {
 						TimeSlot answer = this.askAnswer(freeTimeSlot);
-						if (answer != null)
-						{
+						if (answer != null) {
 							lesson.setTimeSlot(answer);
 							addEventInASortList(lesson);
 							this.myIHM.displayFinishedHandling(lesson);
-							try
-							{
+							try {
 								this.fileManagerOfEvents
 										.writeEvents(this.events);
-							} catch (IOException e)
-							{
+							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
@@ -381,22 +336,18 @@ public class ScheduleManager
 	 * @param timeSlots
 	 * @return a timeSlot
 	 */
-	private TimeSlot askAnswer(List<TimeSlot> timeSlots)
-	{
+	private TimeSlot askAnswer(List<TimeSlot> timeSlots) {
 		Answer answer = Answer.NO;
 		int index = 0;
 		while (answer != Answer.CANCEL && answer == Answer.NO
-				&& index < timeSlots.size())
-		{
+				&& index < timeSlots.size()) {
 			answer = this.myIHM.suggestTimeSlot(timeSlots.get(index));
 			index++;
 		}
-		if (answer == Answer.YES)
-		{
+		if (answer == Answer.YES) {
 			return timeSlots.get(index - 1);
 		}
-		if (answer == Answer.NO)
-		{
+		if (answer == Answer.NO) {
 			this.myIHM.userDontWantTheseFreeTimeSlots();
 		}
 		return null;
@@ -407,8 +358,7 @@ public class ScheduleManager
 	 * 
 	 * @return a lesson
 	 */
-	private Lesson inputLesson()
-	{
+	private Lesson inputLesson() {
 		String title = this.myIHM.askTitleOfTheLesson();
 		if (title != null)
 			return new Lesson(title, new TimeSlot());
@@ -418,34 +368,26 @@ public class ScheduleManager
 	/**
 	 * Add a person to a lesson.
 	 */
-	public void addPersonToLesson()
-	{
+	public void addPersonToLesson() {
 		Person person = this.myIHM.askPersonInformations();
-		if (person != null)
-		{
+		if (person != null) {
 			TimeSlot period = this.myIHM.askAvailablePeriod();
-			if (period != null)
-			{
+			if (period != null) {
 				String title = this.myIHM.askTitleOfTheLesson();
-				if (title != null)
-				{
+				if (title != null) {
 					List<TimeSlot> lessonsInThePeriod = this.LessonInAList(
 							this.EventsInAPeriod(period), title, person);
-					if (lessonsInThePeriod.isEmpty())
-					{
+					if (lessonsInThePeriod.isEmpty()) {
 						this.myIHM.lessonsInThePeriodIsEmpty();
-					} else
-					{
+					} else {
 						TimeSlot answer = this.askAnswer(lessonsInThePeriod);
-						if (answer != null)
-						{
+						if (answer != null) {
 							this.addPerson(answer, person);
-							try
-							{
+							this.myIHM.personAdded();
+							try {
 								this.fileManagerOfEvents
 										.writeEvents(this.events);
-							} catch (IOException e)
-							{
+							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
@@ -462,11 +404,9 @@ public class ScheduleManager
 	 * @param answer
 	 * @param person
 	 */
-	private void addPerson(TimeSlot answer, Person person)
-	{
+	public void addPerson(TimeSlot answer, Person person) {
 		int index = 0;
-		while (this.events.get(index).getTimeSlot() != answer)
-		{
+		while (this.events.get(index).getTimeSlot() != answer) {
 			index++;
 		}
 		Lesson lesson = (Lesson) this.events.get(index);
@@ -475,20 +415,14 @@ public class ScheduleManager
 	}
 
 	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList,
-			String title, Person person)
-	{
+			String title, Person person) {
 		List<TimeSlot> lessons = new LinkedList<TimeSlot>();
-		for (ScheduledEvent event : eventsInAList)
-		{
-			if (event instanceof Lesson)
-			{
+		for (ScheduledEvent event : eventsInAList) {
+			if (event instanceof Lesson) {
 				Lesson lesson = (Lesson) event;
-				if (lesson.hasTheSameTitle(title))
-				{
-					if (lesson.hasFreePlace())
-					{
-						if (lesson.personIndex(person) < 0)
-						{
+				if (lesson.hasTheSameTitle(title)) {
+					if (lesson.hasFreePlace()) {
+						if (lesson.personIndex(person) < 0) {
 							lessons.add(lesson.getTimeSlot());
 						}
 
@@ -499,18 +433,14 @@ public class ScheduleManager
 		return lessons;
 	}
 
-	private List<ScheduledEvent> EventsInAPeriod(TimeSlot period)
-	{
+	private List<ScheduledEvent> EventsInAPeriod(TimeSlot period) {
 		List<ScheduledEvent> eventsInThePeriod = new LinkedList<ScheduledEvent>();
-		for (ScheduledEvent event : this.events)
-		{
+		for (ScheduledEvent event : this.events) {
 			DateTime dateOfCurrentEvent = event.getTimeSlot().getStartTime();
-			if (dateOfCurrentEvent.isBefore(period.getStartTime()))
-			{
+			if (dateOfCurrentEvent.isBefore(period.getStartTime())) {
 				continue;
 			}
-			if (dateOfCurrentEvent.isAfter(period.getEndTime()))
-			{
+			if (dateOfCurrentEvent.isAfter(period.getEndTime())) {
 				continue;
 			}
 			eventsInThePeriod.add(event);
@@ -521,28 +451,22 @@ public class ScheduleManager
 	/**
 	 * Remove an appointment or a person in a lesson.
 	 */
-	public void removeAppointmentOrPersonInLesson()
-	{
+	public void removeAppointmentOrPersonInLesson() {
 		DateTime date = this.myIHM.inputDateOfEvent();
-		if (date != null)
-		{
+		if (date != null) {
 			int index = this.searchEvent(date);
 			System.out.println(index);
-			if (index >= 0)
-			{
-				ScheduledEvent event = this.events.get(index); 
-				if (event instanceof Appointment)
-				{
+			if (index >= 0) {
+				ScheduledEvent event = this.events.get(index);
+				if (event instanceof Appointment) {
 					this.removeAppointment(index);
 					this.myIHM.eventDeleted();
 					this.myIHM.displayFinishedHandling(event);
 				} else
 					this.removePersonInLesson(index);
-				try
-				{
+				try {
 					this.fileManagerOfEvents.writeEvents(this.events);
-				} catch (IOException e)
-				{
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else
@@ -555,33 +479,27 @@ public class ScheduleManager
 	 * 
 	 * @param index
 	 */
-	private void removePersonInLesson(int index)
-	{
+	private void removePersonInLesson(int index) {
 		Lesson lesson = (Lesson) this.events.get(index);
-		if (lesson.getPersNb() != 0)
-		{
+		if (lesson.getPersNb() != 0) {
 			Person personToRemove = this.myIHM.askPersonInformations();
 			int personIndex = lesson.personIndex(personToRemove);
-			if (personIndex >= 0)
-			{
+			if (personIndex >= 0) {
 				lesson.remove(personIndex);
 
-				if (lesson.getPersNb() == 0)
-				{
+				if (lesson.getPersNb() == 0) {
 					this.events.remove(index);
 					this.myIHM.eventDeleted();
 					this.myIHM.displayFinishedHandling(lesson);
-					
-				} else
-				{
+
+				} else {
 					this.events.set(index, lesson);
 					this.myIHM.personDeleted();
 					this.myIHM.displayFinishedHandling(lesson);
 				}
 			} else
 				this.myIHM.thePersonInputIsNTInLesson();
-		} else
-		{
+		} else {
 			this.events.remove(index);
 			this.myIHM.eventDeleted();
 			this.myIHM.displayFinishedHandling(lesson);
@@ -594,8 +512,7 @@ public class ScheduleManager
 	 * 
 	 * @param index
 	 */
-	private void removeAppointment(int index)
-	{
+	private void removeAppointment(int index) {
 		this.events.remove(index);
 	}
 
@@ -605,21 +522,21 @@ public class ScheduleManager
 	 * @param dateOfEvent
 	 * @return a integer (-1 if not found)
 	 */
-	private int searchEvent(DateTime dateOfEvent)
-	{
+	private int searchEvent(DateTime dateOfEvent) {
 		int index = 0;
 		if (!this.events.isEmpty()) {
-			DateTime currentEvent = this.events.get(index).getTimeSlot().getStartTime();
-			while (!currentEvent.isEqual(dateOfEvent) && index + 1 < this.events.size())
-			{
+			DateTime currentEvent = this.events.get(index).getTimeSlot()
+					.getStartTime();
+			while (!currentEvent.isEqual(dateOfEvent)
+					&& index + 1 < this.events.size()) {
 				index++;
-				currentEvent = this.events.get(index).getTimeSlot().getStartTime();
+				currentEvent = this.events.get(index).getTimeSlot()
+						.getStartTime();
 			}
-			if (currentEvent.isEqual(dateOfEvent))
-			{
+			if (currentEvent.isEqual(dateOfEvent)) {
 				return index;
 			}
-		}		
+		}
 		return -1;
 	}
 
@@ -628,15 +545,12 @@ public class ScheduleManager
 	 * 
 	 * @param event
 	 */
-	public void remove(ScheduledEvent event)
-	{
+	public void remove(ScheduledEvent event) {
 		this.events.remove(event);
 		this.myIHM.updateCalendar();
-		try
-		{
+		try {
 			this.fileManagerOfEvents.writeEvents(this.events);
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -647,8 +561,7 @@ public class ScheduleManager
 	 * 
 	 * @return the events
 	 */
-	public LinkedList<ScheduledEvent> getEvents()
-	{
+	public LinkedList<ScheduledEvent> getEvents() {
 		return (LinkedList<ScheduledEvent>) this.events;
 	}
 
@@ -657,8 +570,7 @@ public class ScheduleManager
 	 * 
 	 * @return the myIHM
 	 */
-	public UserIHM getMyIHM()
-	{
+	public UserIHM getMyIHM() {
 		return this.myIHM;
 	}
 }

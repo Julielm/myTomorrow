@@ -20,8 +20,7 @@ import javax.swing.JTextField;
  * @version 1.0.0
  */
 
-public class LessonInformationDialog extends JDialog implements ActionListener
-{
+public class LessonInformationDialog extends JDialog implements ActionListener {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -46,8 +45,7 @@ public class LessonInformationDialog extends JDialog implements ActionListener
 	/**
 	 * Build a dialog window.
 	 */
-	public LessonInformationDialog()
-	{
+	public LessonInformationDialog() {
 		this.setModal(true);
 		this.setTitle("Saisie");
 		this.setSize(350, 140);
@@ -84,15 +82,12 @@ public class LessonInformationDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == this.okButton & this.title.getText().length() != 0)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.okButton & this.title.getText().length() != 0) {
 			this.lessonTitle = this.title.getText();
 			this.dispose();
 		}
-		if (e.getSource() == this.cancelButton)
-		{
+		if (e.getSource() == this.cancelButton) {
 			this.dispose();
 		}
 
@@ -103,8 +98,7 @@ public class LessonInformationDialog extends JDialog implements ActionListener
 	 * 
 	 * @return string
 	 */
-	public String getTitleInput()
-	{
+	public String getTitleInput() {
 		return this.lessonTitle;
 	}
 

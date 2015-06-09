@@ -6,8 +6,7 @@ package myTomorrow.model;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class Appointment extends ScheduledEvent
-{
+public class Appointment extends ScheduledEvent {
 	/** Person who takes the appointment. */
 	private final Person person;
 
@@ -17,8 +16,7 @@ public class Appointment extends ScheduledEvent
 	 * @param person
 	 * @param timeSlot
 	 */
-	public Appointment(Person person, TimeSlot timeSlot)
-	{
+	public Appointment(Person person, TimeSlot timeSlot) {
 		super(timeSlot);
 		this.person = person;
 	}
@@ -28,8 +26,7 @@ public class Appointment extends ScheduledEvent
 	 * 
 	 * @return the person
 	 */
-	public Person getPerson()
-	{
+	public Person getPerson() {
 		return this.person;
 	}
 

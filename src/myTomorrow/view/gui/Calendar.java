@@ -15,8 +15,7 @@ import javax.swing.JPanel;
  * @author myTomorrow
  * @version 1.0.0
  */
-public class Calendar extends JPanel
-{
+public class Calendar extends JPanel {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -27,19 +26,14 @@ public class Calendar extends JPanel
 	 */
 	private Image img;
 
-	/**
-	 * Put the calendar image in JPanel.
-	 */
-	public void paintComponent(Graphics g)
-	{
+	@Override
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		try
-		{
+		try {
 			this.img = ImageIO.read(new File("Calendar.png"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

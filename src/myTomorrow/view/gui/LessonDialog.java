@@ -24,19 +24,18 @@ import org.joda.time.DateTime;
  * @author myTomorrowProject
  * @version 1.0.0
  */
-public class LessonDialog extends JDialog implements ActionListener
-{
+public class LessonDialog extends JDialog implements ActionListener {
 	/** Serial version UID. */
 	private static final long serialVersionUID = 1L;
 	/** Ok button. */
 	private JButton okButton;
-	
+
 	/** Application. */
 	private ScheduleManager application;
-	
+
 	/** Current event. */
 	private ScheduledEvent event;
-	
+
 	/** Delete button. */
 	private JButton deleteButton;
 
@@ -46,8 +45,7 @@ public class LessonDialog extends JDialog implements ActionListener
 	 * @param event
 	 * @param application
 	 */
-	public LessonDialog(ScheduledEvent event, ScheduleManager application)
-	{
+	public LessonDialog(ScheduledEvent event, ScheduleManager application) {
 		this.application = application;
 		this.event = event;
 		this.setModal(true);
@@ -96,14 +94,11 @@ public class LessonDialog extends JDialog implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == this.okButton)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.okButton) {
 			this.dispose();
 		}
-		if (e.getSource() == this.deleteButton)
-		{
+		if (e.getSource() == this.deleteButton) {
 			this.application.remove(event);
 			this.dispose();
 

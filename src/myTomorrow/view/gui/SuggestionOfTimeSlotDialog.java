@@ -22,8 +22,7 @@ import myTomorrow.model.TimeSlot;
  * @version 1.0.0
  */
 public class SuggestionOfTimeSlotDialog extends JDialog implements
-		ActionListener
-{
+		ActionListener {
 	/** Serial version UID. */
 	private static final long serialVersionUID = 1L;
 	/** Button yes. */
@@ -40,8 +39,7 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements
 	 * 
 	 * @param timeSlot
 	 */
-	public SuggestionOfTimeSlotDialog(TimeSlot timeSlot)
-	{
+	public SuggestionOfTimeSlotDialog(TimeSlot timeSlot) {
 		this.setModal(true);
 		this.setSize(400, 180);
 		this.setResizable(false);
@@ -87,20 +85,16 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == this.yesButton)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.yesButton) {
 			this.answer = Answer.YES;
 			this.dispose();
 		}
-		if (e.getSource() == this.noButton)
-		{
+		if (e.getSource() == this.noButton) {
 			this.answer = Answer.NO;
 			this.dispose();
 		}
-		if (e.getSource() == this.cancelButton)
-		{
+		if (e.getSource() == this.cancelButton) {
 			this.answer = Answer.CANCEL;
 			this.dispose();
 		}
@@ -110,10 +104,9 @@ public class SuggestionOfTimeSlotDialog extends JDialog implements
 	/**
 	 * Getter for the answer.
 	 * 
-	 * @return
+	 * @return an answer
 	 */
-	public Answer getSuggestionInput()
-	{
+	public Answer getSuggestionInput() {
 		return this.answer;
 	}
 

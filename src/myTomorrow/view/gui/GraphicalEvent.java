@@ -13,8 +13,7 @@ import myTomorrow.model.ScheduledEvent;
  * @author myTomorrow
  * @version 1.0.0
  */
-public class GraphicalEvent extends JButton
-{
+public class GraphicalEvent extends JButton {
 	/**
 	 * SerialVersionUID.
 	 */
@@ -35,8 +34,7 @@ public class GraphicalEvent extends JButton
 	 * 
 	 * @param event
 	 */
-	public GraphicalEvent(ScheduledEvent event)
-	{
+	public GraphicalEvent(ScheduledEvent event) {
 		this.associatedEvent = event;
 
 		DateTime startTime = this.associatedEvent.getTimeSlot().getStartTime();
