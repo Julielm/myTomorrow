@@ -75,7 +75,9 @@ public class DurationOfEventDialog extends JDialog implements ActionListener
 			if (this.isNumeric(this.duration.getText()))
 			{
 				this.durationInput = Integer.parseInt(this.duration.getText());
-				this.dispose();
+				if (this.durationInput>0) {
+					this.dispose();
+				}
 			}
 
 		}

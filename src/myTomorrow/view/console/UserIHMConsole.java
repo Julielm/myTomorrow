@@ -95,7 +95,9 @@ public class UserIHMConsole implements UserIHM
 			string = scanner.nextLine();
 		} while (!this.isNumeric(string));
 		int duration = Integer.parseInt(string);
-		return duration;
+		if (duration >0) 
+			return duration;
+		return askDurationOfEvent();
 	}
 
 	@Override
