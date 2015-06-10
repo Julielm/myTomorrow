@@ -118,8 +118,10 @@ public class Lesson extends ScheduledEvent {
 	 * @param person
 	 */
 	public void setPersonList(Person person) {
-		this.personsList.add(person);
-		this.persNb++;
+		if (this.persNb < DEFAULT_MAX_PERS_NB){
+			this.personsList.add(person);
+			this.persNb++;
+		}
 	}
 
 	/**
@@ -151,7 +153,6 @@ public class Lesson extends ScheduledEvent {
 	public void remove(int personIndex) {
 		this.personsList.remove(personIndex);
 		this.persNb--;
-
 	}
 
 	/**

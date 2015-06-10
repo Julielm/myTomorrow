@@ -113,7 +113,6 @@ public class ScheduleManager {
 			return new Appointment(person, new TimeSlot());
 		}
 		return null;
-
 	}
 
 	/**
@@ -414,8 +413,7 @@ public class ScheduleManager {
 		this.events.set(index, lesson);
 	}
 
-	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList,
-			String title, Person person) {
+	private List<TimeSlot> LessonInAList(List<ScheduledEvent> eventsInAList,String title, Person person) {
 		List<TimeSlot> lessons = new LinkedList<TimeSlot>();
 		for (ScheduledEvent event : eventsInAList) {
 			if (event instanceof Lesson) {
@@ -425,7 +423,6 @@ public class ScheduleManager {
 						if (lesson.personIndex(person) < 0) {
 							lessons.add(lesson.getTimeSlot());
 						}
-
 					}
 				}
 			}
