@@ -77,8 +77,8 @@ public class PersonInformationDialog extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.okButton & this.name.getText().length() != 0
-				& this.firstName.getText().length() != 0) {
+		if (e.getSource() == this.okButton && this.name.getText().length() != 0
+				&& this.firstName.getText().length() != 0) {
 			this.personInput = new Person(this.name.getText(),
 					this.firstName.getText());
 			this.dispose();

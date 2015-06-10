@@ -83,7 +83,7 @@ public class LessonInformationDialog extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.okButton & this.title.getText().length() != 0) {
+		if (e.getSource() == this.okButton && this.title.getText().length() != 0) {
 			this.lessonTitle = this.title.getText();
 			this.dispose();
 		}

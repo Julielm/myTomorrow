@@ -70,7 +70,7 @@ public class DurationOfEventDialog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.okButton
-				& this.duration.getText().length() != 0) {
+				&& this.duration.getText().length() != 0) {
 			if (this.isNumeric(this.duration.getText())) {
 				this.durationInput = Integer.parseInt(this.duration.getText());
 				if (this.durationInput > 0) {
